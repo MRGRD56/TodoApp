@@ -3,12 +3,14 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using TodoApp.Infrastructure.Models.RequestModels;
+using TodoApp.Infrastructure.Models.RequestModels.Todo;
 using TodoApp.WebApp.Services.Repositories;
 
 namespace TodoApp.WebApp.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/todo")]
     public class TodoController : ControllerBase
     {
         private readonly TodoItemsRepository _todoItemsRepository;
@@ -26,10 +28,24 @@ namespace TodoApp.WebApp.Controllers
                 return BadRequest("Page index cannot be less than zero");
             }
             
-            var todoItems = await _todoItemsRepository.GetAsync(page);
-            return todoItems.Any()
-                ? Ok(todoItems)
-                : NotFound("The specified page contains no elements");
+            return Ok(await _todoItemsRepository.GetAsync(page));
+        }
+
+        public async Task<IActionResult> Post([FromBody] string text)
+        {
+            return Ok(await _todoItemsRepository.AddAsync(text));
+        }
+
+        public async Task<IActionResult> Put([FromBody] TodoPutModel todoPutModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                
+            }
+            
+            var (id, text, isDone) = todoPutModel;
+
+            return Ok(await _todoItemsRepository.EditAsync(id.Value, text, isDone));
         }
     }
 }

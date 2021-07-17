@@ -11,5 +11,16 @@ namespace TodoApp.Infrastructure.Models
         public string Text { get; set; }
 
         public bool IsDone { get; set; } = false;
+
+        public TodoItem()
+        {
+            
+        }
+
+        public TodoItem(string text, bool isDone = false)
+        {
+            Text = text;
+            IsDone = isDone;
+        }
     }
 }

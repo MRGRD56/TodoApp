@@ -1,4 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
+using TodoApp.Infrastructure;
+using TodoApp.WebApp.Services.Maintenance;
 using TodoApp.WebApp.Services.Repositories;
 
 namespace TodoApp.WebApp.Services
@@ -7,5 +9,8 @@ namespace TodoApp.WebApp.Services
     {
         public static IServiceCollection AddTodoItemsRepository(this IServiceCollection serviceCollection) =>
             serviceCollection.AddScoped<TodoItemsRepository>();
+
+        public static IServiceCollection AddDatabaseMigrator(this IServiceCollection serviceCollection) =>
+            serviceCollection.AddScoped<DatabaseMigrator>();
     }
 }
