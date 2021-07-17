@@ -31,12 +31,14 @@ namespace TodoApp.WebApp.Services.Repositories
                 .Take(pageItems)
                 .ToListAsync(cancellationToken);
 
-            return todoItems.Any()
-                ? todoItems
-                : throw new HttpRequestException(
-                    "The specified page contains no elements", 
-                    null, 
-                    HttpStatusCode.NotFound);
+            // return todoItems.Any()
+            //     ? todoItems
+            //     : throw new HttpRequestException(
+            //         "The specified page contains no elements", 
+            //         null, 
+            //         HttpStatusCode.NotFound);
+
+            return todoItems;
         }
 
         public async Task<TodoItem> AddAsync(string text, CancellationToken cancellationToken = default)

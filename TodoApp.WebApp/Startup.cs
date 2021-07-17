@@ -38,38 +38,16 @@ namespace TodoApp.WebApp
                     options.UseSqlServer(_configuration.GetConnectionString("SqlServer"));
                 }
             });
-            services.AddDatabaseMigrator();
+            //services.AddDatabaseMigrator();
             services.AddTodoItemsRepository();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-            }
+            ConfigureExceptionHandlers(app, env);
 
-            app.UseExceptionHandler(builder =>
-            {
-                builder.Use(async (context, next) =>
-                {
-                    var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
-                    if (exception is HttpRequestException httpRequestException)
-                    {
-                        context.Response.StatusCode = (int) (httpRequestException.StatusCode ?? HttpStatusCode.InternalServerError);
-                        await context.Response.WriteAsync(exception.Message);
-                    }
-                    else if (next != null)
-                    {
-                        await next();
-                    }
-                });
-            });
-
+            EnsureDatabaseCreated(app, env);
+            
             if (!env.IsDevelopment())
             {
                 // The default HSTS value is 30 days.
@@ -106,6 +84,42 @@ namespace TodoApp.WebApp
                     spa.UseAngularCliServer("start");
                 }
             });
+        }
+
+        private static void ConfigureExceptionHandlers(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+            }
+
+            app.UseExceptionHandler(builder =>
+            {
+                builder.Use(async (context, next) =>
+                {
+                    var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+                    if (exception is HttpRequestException httpRequestException)
+                    {
+                        context.Response.StatusCode = (int) (httpRequestException.StatusCode ?? HttpStatusCode.InternalServerError);
+                        await context.Response.WriteAsync(exception.Message);
+                    }
+                    else if (next != null)
+                    {
+                        await next();
+                    }
+                });
+            });
+        }
+
+        private static void EnsureDatabaseCreated(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            using var scope = app.ApplicationServices.CreateScope();
+            using var appDbContext = scope.ServiceProvider.GetService<AppDbContext>(); 
+            appDbContext?.Database.EnsureCreated();
         }
     }
 }
