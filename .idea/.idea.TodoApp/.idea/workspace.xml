@@ -4,12 +4,9 @@
     <projectFile>TodoApp.WebApp/TodoApp.WebApp.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9935e9b2-bdff-482b-a47b-68fdbed19947" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="9935e9b2-bdff-482b-a47b-68fdbed19947" name="Default Changelist" comment="Add cancellation tokens">
       <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Controllers/TodoController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Controllers/TodoController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Properties/launchSettings.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/TodoItemsRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/TodoItemsRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,8 +59,8 @@
       <option value="$APPLICATION_CONFIG_DIR$/consoles/db/eb6c5a7d-799d-4d43-a7f9-992ce12ee52f/console_1.sql" />
       <option value="$APPLICATION_CONFIG_DIR$/consoles/db/eb6c5a7d-799d-4d43-a7f9-992ce12ee52f/console.sql" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/TodoItemsRepository.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Controllers/TodoController.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/TodoItemsRepository.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1vOIFd6Oyf4hMO9Tkg2k5cjNcJo" />
@@ -134,7 +131,7 @@
       <updated>1626426612299</updated>
       <workItem from="1626426620555" duration="3100000" />
       <workItem from="1626508176123" duration="16826000" />
-      <workItem from="1626541291367" duration="2871000" />
+      <workItem from="1626541291367" duration="3238000" />
     </task>
     <task id="LOCAL-00001" summary="Add repository and controller for TODO-items.">
       <created>1626512032586</created>
@@ -150,7 +147,21 @@
       <option name="project" value="LOCAL" />
       <updated>1626538061064</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Update TodoItemsRepository and TodoController">
+      <created>1626544738033</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1626544738033</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Add cancellation tokens">
+      <created>1626544991812</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1626544991812</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,7 +185,9 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Add repository and controller for TODO-items." />
     <MESSAGE value="A lot of changes !Not connecting to SQL Server (Linux)" />
-    <option name="LAST_COMMIT_MESSAGE" value="A lot of changes !Not connecting to SQL Server (Linux)" />
+    <MESSAGE value="Update TodoItemsRepository and TodoController" />
+    <MESSAGE value="Add cancellation tokens" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add cancellation tokens" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

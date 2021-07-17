@@ -59,7 +59,7 @@ namespace TodoApp.WebApp.Services.Repositories
             var todoItem = await _db.TodoItems.FindAsync(new object[] { todoItemId }, cancellationToken);
             if (todoItem == null)
             {
-                throw new HttpRequestException("TODO-item not found", null, HttpStatusCode.NotFound);  
+                throw new HttpRequestException("TODO-item not found", null, HttpStatusCode.BadRequest);  
             }
 
             if (newText != null)
