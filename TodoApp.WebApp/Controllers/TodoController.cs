@@ -33,18 +33,18 @@ namespace TodoApp.WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] string text)
+        public async Task<IActionResult> Post([FromBody] string text, CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             
-            return Ok(await _todoItemsRepository.AddAsync(text));
+            return Ok(await _todoItemsRepository.AddAsync(text, cancellationToken));
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] TodoPutModel todoPutModel)
+        public async Task<IActionResult> Put([FromBody] TodoPutModel todoPutModel, CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
             {
@@ -53,7 +53,7 @@ namespace TodoApp.WebApp.Controllers
             
             var (id, text, isDone) = todoPutModel;
 
-            return Ok(await _todoItemsRepository.EditAsync(id.Value, text, isDone));
+            return Ok(await _todoItemsRepository.EditAsync(id.Value, text, isDone, cancellationToken));
         }
     }
 }

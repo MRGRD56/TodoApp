@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TodoApp.Infrastructure;
 using TodoApp.Infrastructure.Models;
+using TodoApp.Infrastructure.Models.RequestModels.Todo;
 
 namespace TodoApp.WebApp.Services.Repositories
 {
