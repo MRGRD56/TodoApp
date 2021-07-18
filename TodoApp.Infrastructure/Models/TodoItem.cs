@@ -1,8 +1,9 @@
 using System;
+using TodoApp.Infrastructure.Models.Abstractions;
 
 namespace TodoApp.Infrastructure.Models
 {
-    public class TodoItem
+    public class TodoItem : IDeletable
     {
         public int Id { get; set; }
 
@@ -10,7 +11,9 @@ namespace TodoApp.Infrastructure.Models
         
         public string Text { get; set; }
 
-        public bool IsDone { get; set; } = false;
+        public bool IsDone { get; set; }
+        
+        public bool IsDeleted { get; set; }
 
         public TodoItem()
         {

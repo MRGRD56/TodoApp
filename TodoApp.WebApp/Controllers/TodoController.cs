@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
@@ -33,27 +34,38 @@ namespace TodoApp.WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] string text, CancellationToken cancellationToken)
+        public async Task<IActionResult> Post([FromBody] TodoPostModel todoPostModel, CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             
-            return Ok(await _todoItemsRepository.AddAsync(text, cancellationToken));
+            return Ok(await _todoItemsRepository.AddAsync(todoPostModel.Text, cancellationToken));
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Put([FromBody] TodoPutModel todoPutModel, CancellationToken cancellationToken)
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Put(
+            [Required(ErrorMessage = "Specify ID")]
+            [Range(1, int.MaxValue, ErrorMessage = "Invalid ID")]
+            [FromRoute] int id, 
+            [FromBody] TodoPutModel todoPutModel, 
+            CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             
-            var (id, text, isDone) = todoPutModel;
+            todoPutModel.Deconstruct(out var text, out var isDone);
 
-            return Ok(await _todoItemsRepository.EditAsync(id.Value, text, isDone, cancellationToken));
+            return Ok(await _todoItemsRepository.EditAsync(id, text, isDone, cancellationToken));
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Delete(int id, [FromQuery] bool restore, CancellationToken cancellationToken)
+        {
+            return Ok(await _todoItemsRepository.SetDeletedAsync(id, !restore, cancellationToken));
         }
     }
 }

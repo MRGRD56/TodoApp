@@ -5,8 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9935e9b2-bdff-482b-a47b-68fdbed19947" name="Default Changelist" comment="Add cancellation tokens">
+      <change afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/Abstractions/IDeletable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/eb6c5a7d-799d-4d43-a7f9-992ce12ee52f.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/eb6c5a7d-799d-4d43-a7f9-992ce12ee52f.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/eb6c5a7d-799d-4d43-a7f9-992ce12ee52f/storage_v2/_src_/database/master.YiqNvw/schema/dbo.sYMBAA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/eb6c5a7d-799d-4d43-a7f9-992ce12ee52f/storage_v2/_src_/database/master.YiqNvw/schema/dbo.sYMBAA.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.Infrastructure/AppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/AppDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/TodoPutModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/TodoPutModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/TodoItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/TodoItem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Controllers/TodoController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Controllers/TodoController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/TodoItemsRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/TodoItemsRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Services/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Services/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/TodoApp.WebApp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/TodoApp.WebApp.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,15 +52,11 @@
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/counter/counter.component.spec.ts" />
       <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Class1.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Controllers/WeatherForecastController.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/TodoItem.cs" />
       <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/TodoPut.cs" />
       <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/TodoPutModel.cs" />
       <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/TodoPostModel.cs" />
       <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/TodoPostModel.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/TodoPutModel.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/AppDbContext.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Services/Maintenance/DatabaseMigrator.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/Services/ServiceCollectionExtensions.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Controllers/ResultCodeController.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/MethodExecutor.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/appsettings.json" />
@@ -58,7 +64,13 @@
       <option value="$APPLICATION_CONFIG_DIR$/consoles/db/9218e6bf-de0e-4f45-bc9f-dc715b50261e/console.sql" />
       <option value="$APPLICATION_CONFIG_DIR$/consoles/db/eb6c5a7d-799d-4d43-a7f9-992ce12ee52f/console_1.sql" />
       <option value="$APPLICATION_CONFIG_DIR$/consoles/db/eb6c5a7d-799d-4d43-a7f9-992ce12ee52f/console.sql" />
+      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/Abstractions/IDeleteable.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/TodoItem.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/Abstractions/IDeletable.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/AppDbContext.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/Services/ServiceCollectionExtensions.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/TodoPutModel.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Controllers/TodoController.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/TodoItemsRepository.cs" />
     </changedPaths>
@@ -132,6 +144,8 @@
       <workItem from="1626426620555" duration="3100000" />
       <workItem from="1626508176123" duration="16826000" />
       <workItem from="1626541291367" duration="3238000" />
+      <workItem from="1626614551495" duration="591000" />
+      <workItem from="1626624992705" duration="4503000" />
     </task>
     <task id="LOCAL-00001" summary="Add repository and controller for TODO-items.">
       <created>1626512032586</created>

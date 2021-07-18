@@ -35,7 +35,8 @@ namespace TodoApp.WebApp
             {
                 if (!options.IsConfigured)
                 {
-                    options.UseSqlServer(_configuration.GetConnectionString("SqlServer"));
+                    options.UseSqlServer(_configuration.GetConnectionString("SqlServer"),
+                        optionsBuilder => optionsBuilder.MigrationsAssembly("TodoApp.WebApp"));
                 }
             });
             //services.AddDatabaseMigrator();
@@ -46,7 +47,7 @@ namespace TodoApp.WebApp
         {
             ConfigureExceptionHandlers(app, env);
 
-            EnsureDatabaseCreated(app, env);
+            ApplyDatabaseMigrations(app, env);
             
             if (!env.IsDevelopment())
             {
@@ -102,24 +103,30 @@ namespace TodoApp.WebApp
                 builder.Use(async (context, next) =>
                 {
                     var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
-                    if (exception is HttpRequestException httpRequestException)
+                    switch (exception)
                     {
-                        context.Response.StatusCode = (int) (httpRequestException.StatusCode ?? HttpStatusCode.InternalServerError);
-                        await context.Response.WriteAsync(exception.Message);
-                    }
-                    else if (next != null)
-                    {
-                        await next();
+                        case HttpRequestException httpRequestException:
+                            context.Response.StatusCode = 
+                                (int) (httpRequestException.StatusCode ?? HttpStatusCode.InternalServerError);
+                            await context.Response.WriteAsync(httpRequestException.Message);
+                            break;
+                        case BadHttpRequestException badHttpRequestException:
+                            context.Response.StatusCode = badHttpRequestException.StatusCode;
+                            await context.Response.WriteAsync(badHttpRequestException.Message);
+                            break;
+                        default:
+                            await next();
+                            break;
                     }
                 });
             });
         }
 
-        private static void EnsureDatabaseCreated(IApplicationBuilder app, IWebHostEnvironment env)
+        private static void ApplyDatabaseMigrations(IApplicationBuilder app, IWebHostEnvironment env)
         {
             using var scope = app.ApplicationServices.CreateScope();
             using var appDbContext = scope.ServiceProvider.GetService<AppDbContext>(); 
-            appDbContext?.Database.EnsureCreated();
+            appDbContext?.Database.Migrate();
         }
     }
 }
