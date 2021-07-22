@@ -9,7 +9,7 @@ import { HubConnectionState } from "@microsoft/signalr";
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
-    styleUrls: [ 'home.component.scss' ]
+    styleUrls: ['home.component.scss']
 })
 export class HomeComponent {
     public isTodosLoading = false;
@@ -19,7 +19,8 @@ export class HomeComponent {
     public newTodoText = "";
 
     public todoItems: Checkable<TodoItem>[] = [];
-    public get checkedTodoItems(): TodoItem[] {
+
+    public get selectedTodoItems(): TodoItem[] {
         return this.todoItems
             .filter(item => item.isChecked)
             .map(item => item.item);
@@ -39,12 +40,18 @@ export class HomeComponent {
             await this.todoHubService.hubConnection.start();
         }
 
-        this.todoHubService.hubConnection.on("Add", newTodoItem => {
+        this.todoHubService.hubConnection.on("Add", (newTodoItem: TodoItem) => {
             this.todoItems.unshift(new Checkable<TodoItem>(newTodoItem));
         });
 
-        this.todoHubService.hubConnection.on("Delete", deletedTodoItemId => {
-
+        this.todoHubService.hubConnection.on("Delete", (deletedTodoItemsId: number[]) => {
+            deletedTodoItemsId.forEach(id => {
+                const itemToDelete = this.todoItems.find(x => x.item.id === id);
+                if (itemToDelete) {
+                    const index = this.todoItems.indexOf(itemToDelete);
+                    this.todoItems.splice(index, 1);
+                }
+            });
         });
 
         this.fetchTodoItems();
@@ -95,7 +102,8 @@ export class HomeComponent {
     }
 
     public onTodoItemClick(todoItem: Checkable<TodoItem>, e: MouseEvent) {
-        if (window.getSelection().toString() && window.getSelection().anchorNode.parentNode.parentNode.parentNode === e.currentTarget) {
+        if (window.getSelection().toString()
+            && window.getSelection().anchorNode.parentNode.parentNode.parentNode === e.currentTarget) {
             return;
         }
 
@@ -109,8 +117,13 @@ export class HomeComponent {
     }
 
     public deleteSelectedItems() {
-        this.http.delete<TodoItem>(this.baseUrl + "api/todo").subscribe(async deletedTodo => {
-
+        const requestBody = {
+            id: this.selectedTodoItems.map(item => item.id)
+        };
+        this.http.request<TodoItem[]>("delete", this.baseUrl + "api/todo", {
+            body: requestBody
+        }).subscribe(async deletedTodos => {
+            await this.todoHubService.hubConnection.invoke("Delete", requestBody.id);
         })
     }
 }

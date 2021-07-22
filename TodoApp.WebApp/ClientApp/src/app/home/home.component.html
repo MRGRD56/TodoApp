@@ -8,12 +8,12 @@
             Submit
         </button>
         <div class="btn-group d-flex align-items-center my-1" role="group" id="options-buttons-wrapper"
-             *ngIf="checkedTodoItems.length > 0">
+             *ngIf="selectedTodoItems.length > 0">
             <button><i class="material-icons">check</i></button>
-            <button [disabled]="checkedTodoItems.length > 1"><i class="material-icons">edit</i></button>
-            <button><i class="material-icons">delete</i></button>
+            <button [disabled]="selectedTodoItems.length > 1"><i class="material-icons">edit</i></button>
+            <button (click)="deleteSelectedItems()"><i class="material-icons">delete</i></button>
             <button (click)="unselectAll()"><i class="material-icons">close</i></button>
-            <div class="ms-1">{{checkedTodoItems.length}} item{{checkedTodoItems.length === 1 ? '' : 's'}}</div>
+            <div class="ms-1">{{selectedTodoItems.length}} item{{selectedTodoItems.length === 1 ? '' : 's'}}</div>
         </div>
     </div>
 </form>
@@ -29,7 +29,7 @@
          [style.backgroundColor]="todoItem.isChecked ? '#fafafa' : 'transparent'"
          *ngFor="let todoItem of todoItems" (click)="onTodoItemClick(todoItem, $event)">
         <div class="card-body">
-            <div>{{todoItem.item.text}}</div>
+            <div style="white-space: pre-line;">{{todoItem.item.text}}</div>
             <div class="text-end text-secondary" style="font-size: 12px; margin-bottom: -11px; margin-top: -3px">
                 {{todoItem.item.creationTime | date:'yyyy-MM-dd HH:mm:ss'}}
             </div>
