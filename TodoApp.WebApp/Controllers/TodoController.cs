@@ -23,7 +23,9 @@ namespace TodoApp.WebApp.Controllers
         }
         
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] int page, CancellationToken cancellationToken)
+        public async Task<IActionResult> Get(
+            [FromQuery] int page, 
+            CancellationToken cancellationToken)
         {
             if (page < 0)
             {
@@ -34,7 +36,9 @@ namespace TodoApp.WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] TodoPostModel todoPostModel, CancellationToken cancellationToken)
+        public async Task<IActionResult> Post(
+            [FromBody] TodoPostModel todoPostModel, 
+            CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
             {
@@ -63,7 +67,10 @@ namespace TodoApp.WebApp.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<IActionResult> Delete(int id, [FromQuery] bool restore, CancellationToken cancellationToken)
+        public async Task<IActionResult> Delete(
+            [FromRoute] int id, 
+            [FromQuery] bool restore, 
+            CancellationToken cancellationToken)
         {
             return Ok(await _todoItemsRepository.SetDeletedAsync(id, !restore, cancellationToken));
         }
