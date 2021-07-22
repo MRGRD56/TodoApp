@@ -4,19 +4,8 @@
     <projectFile>TodoApp.WebApp/TodoApp.WebApp.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9935e9b2-bdff-482b-a47b-68fdbed19947" name="Default Changelist" comment="Add cancellation tokens">
-      <change afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/Abstractions/IDeletable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/eb6c5a7d-799d-4d43-a7f9-992ce12ee52f.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/eb6c5a7d-799d-4d43-a7f9-992ce12ee52f.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/eb6c5a7d-799d-4d43-a7f9-992ce12ee52f/storage_v2/_src_/database/master.YiqNvw/schema/dbo.sYMBAA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/eb6c5a7d-799d-4d43-a7f9-992ce12ee52f/storage_v2/_src_/database/master.YiqNvw/schema/dbo.sYMBAA.meta" afterDir="false" />
+    <list default="true" id="9935e9b2-bdff-482b-a47b-68fdbed19947" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.Infrastructure/AppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/AppDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/TodoPutModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/TodoPutModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/TodoItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/TodoItem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Controllers/TodoController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Controllers/TodoController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/TodoItemsRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/TodoItemsRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Services/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Services/ServiceCollectionExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/TodoApp.WebApp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/TodoApp.WebApp.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +28,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/E56E2CFE-C052-4B4F-8814-4FD3F6D8C4A4/a2/6709044f/HttpStatusCode.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/neon/RiderProjects/TodoApp/TodoApp.Infrastructure/AppDbContext.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2A6F8060-A4CC-40F2-A1AE-721A78A03806/d6/be1b9350/HttpRequestException.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/E65CF972-2277-41F4-BEE2-1CF45757F629/92/IntPtr.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
@@ -145,7 +135,7 @@
       <workItem from="1626508176123" duration="16826000" />
       <workItem from="1626541291367" duration="3238000" />
       <workItem from="1626614551495" duration="591000" />
-      <workItem from="1626624992705" duration="4503000" />
+      <workItem from="1626624992705" duration="5382000" />
     </task>
     <task id="LOCAL-00001" summary="Add repository and controller for TODO-items.">
       <created>1626512032586</created>
@@ -175,7 +165,14 @@
       <option name="project" value="LOCAL" />
       <updated>1626544991812</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Fix database migrations; Add deletion method for TODO items">
+      <created>1626630804985</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1626630804986</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,7 +198,8 @@
     <MESSAGE value="A lot of changes !Not connecting to SQL Server (Linux)" />
     <MESSAGE value="Update TodoItemsRepository and TodoController" />
     <MESSAGE value="Add cancellation tokens" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add cancellation tokens" />
+    <MESSAGE value="Fix database migrations; Add deletion method for TODO items" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix database migrations; Add deletion method for TODO items" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
