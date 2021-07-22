@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using TodoApp.Infrastructure;
+using TodoApp.WebApp.Hubs;
 using TodoApp.WebApp.Services;
 
 namespace TodoApp.WebApp
@@ -32,6 +33,7 @@ namespace TodoApp.WebApp
             {
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
             });
+            services.AddSignalR();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
 
@@ -69,11 +71,14 @@ namespace TodoApp.WebApp
 
             app.UseRouting();
 
+            app.UseWebSockets();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapHub<TodoHub>("/hubs/todo");
             });
 
             app.UseSpa(spa =>

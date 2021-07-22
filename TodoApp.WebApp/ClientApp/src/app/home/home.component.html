@@ -24,4 +24,5 @@
 </div>
 
 <app-horizontal-loading class="d-flex justify-content-center my-2"
-                        [style.opacity]="isTodosLoading ? 1 : 0"></app-horizontal-loading>
+                        [style.opacity]="isTodosLoading ? 1 : 0"
+                        *ngIf="!isAllTodosLoaded"></app-horizontal-loading>

@@ -1,7 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import TodoItem from "../../models/TodoItem";
 import { fromEvent, Observable } from "rxjs";
+import { TodoHubService } from "../todo-hub.service";
+import { HubConnectionState } from "@microsoft/signalr";
 
 @Component({
     selector: 'app-home',
@@ -18,7 +20,19 @@ export class HomeComponent {
 
     private lastLoadedPage: number = -1;
 
-    constructor(private http: HttpClient, @Inject("BASE_URL") private baseUrl: string) {
+    constructor(private http: HttpClient,
+                private todoHubService: TodoHubService,
+                @Inject("BASE_URL") private baseUrl: string) {
+        this.initialize();
+    }
+
+    private async initialize() {
+        await this.todoHubService.connect();
+
+        this.todoHubService.hubConnection.on("Add", newTodoItem => {
+            this.todoItems.unshift(newTodoItem);
+        })
+
         this.fetchTodoItems();
         const scroll$ = fromEvent(window, "scroll")
         scroll$.subscribe(_ => {
@@ -59,9 +73,9 @@ export class HomeComponent {
         }
 
         this.isNewTodoSending = true;
-        this.http.post<TodoItem>(this.baseUrl + "api/todo", postBody).subscribe(addedTodo => {
+        this.http.post<TodoItem>(this.baseUrl + "api/todo", postBody).subscribe(async addedTodo => {
             this.newTodoText = "";
-            this.todoItems.unshift(addedTodo);
+            await this.todoHubService.hubConnection.invoke("Add", addedTodo);
             this.isNewTodoSending = false;
         });
     }
