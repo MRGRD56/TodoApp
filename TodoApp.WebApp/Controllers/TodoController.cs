@@ -61,7 +61,7 @@ namespace TodoApp.WebApp.Controllers
                 return BadRequest(ModelState);
             }
             
-            todoPutModel.Deconstruct(out var text, out var isDone);
+            var (text, isDone) = todoPutModel;
 
             return Ok(await _todoItemsRepository.EditAsync(id, text, isDone, cancellationToken));
         }
@@ -73,6 +73,25 @@ namespace TodoApp.WebApp.Controllers
             CancellationToken cancellationToken)
         {
             return Ok(await _todoItemsRepository.SetDeletedAsync(id, !restore, cancellationToken));
+        }
+        
+        [HttpDelete]
+        public async Task<IActionResult> Delete(
+            [FromBody] TodoDeleteModel todoDeleteModel, 
+            CancellationToken cancellationToken)
+        {
+            var (ids, restore) = todoDeleteModel;
+
+            var todoItemsIds = ids as int[] ?? ids.ToArray();
+            
+            if (!todoItemsIds.Any())
+            {
+                return BadRequest("The array of IDs is empty ('id' field)");
+            }
+            
+            var todoItemsStream =
+                _todoItemsRepository.SetDeletedAsync(todoItemsIds, !restore, cancellationToken);
+            return Ok(await todoItemsStream.ToListAsync(cancellationToken));
         }
     }
 }

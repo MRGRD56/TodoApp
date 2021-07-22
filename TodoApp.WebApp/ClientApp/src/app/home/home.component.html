@@ -1,11 +1,21 @@
-<form class="mb-3">
+<form class="mb-1">
     <textarea class="form-control" placeholder="New task..."
               [(ngModel)]="newTodoText" [disabled]="isNewTodoSending"
               name="newTodo"></textarea>
-    <button class="btn btn-primary mt-2" [disabled]="isNewTodoSending" (click)="addTodoItem()">
-        <span *ngIf="isNewTodoSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Submit
-    </button>
+    <div class="d-flex align-items-center justify-content-start flex-wrap">
+        <button class="btn btn-primary me-2 my-2" [disabled]="isNewTodoSending" (click)="addTodoItem()">
+            <span *ngIf="isNewTodoSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Submit
+        </button>
+        <div class="btn-group d-flex align-items-center my-1" role="group" id="options-buttons-wrapper"
+             *ngIf="checkedTodoItems.length > 0">
+            <button><i class="material-icons">check</i></button>
+            <button [disabled]="checkedTodoItems.length > 1"><i class="material-icons">edit</i></button>
+            <button><i class="material-icons">delete</i></button>
+            <button (click)="unselectAll()"><i class="material-icons">close</i></button>
+            <div class="ms-1">{{checkedTodoItems.length}} item{{checkedTodoItems.length === 1 ? '' : 's'}}</div>
+        </div>
+    </div>
 </form>
 
 <div *ngIf="todoItems.length === 0 && isAllTodosLoaded && !isTodosLoading">
@@ -13,11 +23,15 @@
 </div>
 
 <div>
-    <div class="card mb-2" *ngFor="let item of todoItems">
+    <div class="card mb-2"
+         style="cursor: pointer;"
+         [class.border-primary]="todoItem.isChecked"
+         [style.backgroundColor]="todoItem.isChecked ? '#fafafa' : 'transparent'"
+         *ngFor="let todoItem of todoItems" (click)="onTodoItemClick(todoItem, $event)">
         <div class="card-body">
-            <div>{{item.text}}</div>
+            <div>{{todoItem.item.text}}</div>
             <div class="text-end text-secondary" style="font-size: 12px; margin-bottom: -11px; margin-top: -3px">
-                {{item.creationTime | date:'yyyy-MM-dd HH:mm:ss'}}
+                {{todoItem.item.creationTime | date:'yyyy-MM-dd HH:mm:ss'}}
             </div>
         </div>
     </div>

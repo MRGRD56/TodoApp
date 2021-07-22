@@ -10,5 +10,10 @@ namespace TodoApp.WebApp.Hubs
         {
             await Clients.All.SendAsync(nameof(Add), todoItem);
         }
+
+        public async Task Delete(int todoItemId)
+        {
+            await Clients.All.SendAsync(nameof(Delete), todoItemId);
+        }
     }
 }

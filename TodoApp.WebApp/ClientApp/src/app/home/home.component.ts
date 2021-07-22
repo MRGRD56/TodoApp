@@ -3,11 +3,13 @@ import { HttpClient } from "@angular/common/http";
 import TodoItem from "../../models/TodoItem";
 import { fromEvent, Observable } from "rxjs";
 import { TodoHubService } from "../todo-hub.service";
+import Checkable from "../../models/Checkable";
 import { HubConnectionState } from "@microsoft/signalr";
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
+    styleUrls: [ 'home.component.scss' ]
 })
 export class HomeComponent {
     public isTodosLoading = false;
@@ -16,22 +18,34 @@ export class HomeComponent {
 
     public newTodoText = "";
 
-    public todoItems: TodoItem[] = [];
+    public todoItems: Checkable<TodoItem>[] = [];
+    public get checkedTodoItems(): TodoItem[] {
+        return this.todoItems
+            .filter(item => item.isChecked)
+            .map(item => item.item);
+    }
 
     private lastLoadedPage: number = -1;
 
-    constructor(private http: HttpClient,
-                private todoHubService: TodoHubService,
-                @Inject("BASE_URL") private baseUrl: string) {
+    constructor(private readonly http: HttpClient,
+                private readonly todoHubService: TodoHubService,
+                @Inject("BASE_URL") private readonly baseUrl: string) {
         this.initialize();
     }
 
     private async initialize() {
-        await this.todoHubService.connect();
+        if (this.todoHubService.hubConnection.state === HubConnectionState.Disconnected) {
+            this.isTodosLoading = true;
+            await this.todoHubService.hubConnection.start();
+        }
 
         this.todoHubService.hubConnection.on("Add", newTodoItem => {
-            this.todoItems.unshift(newTodoItem);
-        })
+            this.todoItems.unshift(new Checkable<TodoItem>(newTodoItem));
+        });
+
+        this.todoHubService.hubConnection.on("Delete", deletedTodoItemId => {
+
+        });
 
         this.fetchTodoItems();
         const scroll$ = fromEvent(window, "scroll")
@@ -46,7 +60,7 @@ export class HomeComponent {
         this.isTodosLoading = true;
         this.getTodoItems$(this.lastLoadedPage + 1).subscribe(todoItems => {
             if (todoItems.length > 0) {
-                todoItems.forEach(todoItem => this.todoItems.push(todoItem));
+                todoItems.forEach(todoItem => this.todoItems.push(new Checkable<TodoItem>(todoItem)));
                 this.lastLoadedPage++;
             } else {
                 this.isAllTodosLoaded = true;
@@ -78,5 +92,25 @@ export class HomeComponent {
             await this.todoHubService.hubConnection.invoke("Add", addedTodo);
             this.isNewTodoSending = false;
         });
+    }
+
+    public onTodoItemClick(todoItem: Checkable<TodoItem>, e: MouseEvent) {
+        if (window.getSelection().toString() && window.getSelection().anchorNode.parentNode.parentNode.parentNode === e.currentTarget) {
+            return;
+        }
+
+        todoItem.isChecked = !todoItem.isChecked;
+    }
+
+    public unselectAll() {
+        this.todoItems
+            .filter(item => item.isChecked)
+            .forEach(item => item.isChecked = false);
+    }
+
+    public deleteSelectedItems() {
+        this.http.delete<TodoItem>(this.baseUrl + "api/todo").subscribe(async deletedTodo => {
+
+        })
     }
 }

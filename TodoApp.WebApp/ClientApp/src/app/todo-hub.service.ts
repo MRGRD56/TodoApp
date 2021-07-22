@@ -7,7 +7,7 @@ import { HttpTransportType, HubConnection, HubConnectionBuilder, HubConnectionSt
 export class TodoHubService {
     public hubConnection: HubConnection;
 
-    public async connect() {
+    public async ensureConnected() {
         if (this.hubConnection.state == HubConnectionState.Disconnected) {
             await this.hubConnection.start();
         }

@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -92,19 +94,45 @@ namespace TodoApp.WebApp.Services.Repositories
         public async Task<TodoItem> SetDeletedAsync(int todoItemId, bool isDeleted,
             CancellationToken cancellationToken = default)
         {
-            var todoItem = await FindAsync(todoItemId, cancellationToken);
+            // var todoItem = await FindAsync(todoItemId, cancellationToken);
+            //
+            // if (todoItem.IsDeleted == isDeleted)
+            // {
+            //     throw new BadHttpRequestException(
+            //         todoItem.IsDeleted
+            //             ? "Todo item is already deleted"
+            //             : "Cannot restore not deleted todo");
+            // }
+            //
+            // todoItem.IsDeleted = isDeleted;
+            // await _db.SaveChangesAsync(cancellationToken);
+            // return todoItem;
+            var deletedItemsStream = SetDeletedAsync(new[] {todoItemId}, isDeleted, cancellationToken);
+            var deletedItem = await deletedItemsStream.FirstAsync(cancellationToken);
+            await _db.SaveChangesAsync(cancellationToken);
+            return deletedItem;
+        }
 
-            if (todoItem.IsDeleted == isDeleted)
+        public async IAsyncEnumerable<TodoItem> SetDeletedAsync(IEnumerable<int> todoItemsIds, bool isDeleted,
+            [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        {
+            foreach (var todoItemId in todoItemsIds.ToImmutableArray())
             {
-                throw new BadHttpRequestException(
-                    todoItem.IsDeleted
-                        ? "Todo item is already deleted"
-                        : "Cannot restore not deleted todo");
+                var todoItem = await FindAsync(todoItemId, cancellationToken);
+
+                if (todoItem.IsDeleted == isDeleted)
+                {
+                    throw new BadHttpRequestException(
+                        todoItem.IsDeleted
+                            ? "Todo item is already deleted"
+                            : "Cannot restore not deleted todo");
+                }
+
+                todoItem.IsDeleted = isDeleted;
+                yield return todoItem;
             }
 
-            todoItem.IsDeleted = isDeleted;
             await _db.SaveChangesAsync(cancellationToken);
-            return todoItem;
         }
 
         public async Task<TodoItem> DeleteAsync(int todoItemId, CancellationToken cancellationToken = default)
