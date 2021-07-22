@@ -1,19 +1,27 @@
 <form class="mb-3">
     <textarea class="form-control" placeholder="New task..."
-              [value]="newTodoText" [disabled]="isNewTodoSending"></textarea>
-    <button class="btn btn-primary mt-2" [disabled]="isNewTodoSending">
+              [(ngModel)]="newTodoText" [disabled]="isNewTodoSending"
+              name="newTodo"></textarea>
+    <button class="btn btn-primary mt-2" [disabled]="isNewTodoSending" (click)="addTodoItem()">
         <span *ngIf="isNewTodoSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         Submit
     </button>
 </form>
 
+<div *ngIf="todoItems.length === 0 && isAllTodosLoaded && !isTodosLoading">
+    There is no tasks
+</div>
+
 <div>
     <div class="card mb-2" *ngFor="let item of todoItems">
         <div class="card-body">
-            {{item.text}}
+            <div>{{item.text}}</div>
+            <div class="text-end text-secondary" style="font-size: 12px; margin-bottom: -11px; margin-top: -3px">
+                {{item.creationTime | date:'yyyy-MM-dd HH:mm:ss'}}
+            </div>
         </div>
     </div>
 </div>
 
 <app-horizontal-loading class="d-flex justify-content-center my-2"
-                        *ngIf="isTodosLoading"></app-horizontal-loading>
+                        [style.opacity]="isTodosLoading ? 1 : 0"></app-horizontal-loading>

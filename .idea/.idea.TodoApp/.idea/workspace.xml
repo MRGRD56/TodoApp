@@ -4,25 +4,11 @@
     <projectFile>TodoApp.WebApp/TodoApp.WebApp.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9935e9b2-bdff-482b-a47b-68fdbed19947" name="Default Changelist" comment="Migrations">
-      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/horizontal-loading/horizontal-loading.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/horizontal-loading/horizontal-loading.component.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/horizontal-loading/horizontal-loading.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/horizontal-loading/horizontal-loading.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/models/TodoItem.ts" afterDir="false" />
+    <list default="true" id="9935e9b2-bdff-482b-a47b-68fdbed19947" name="Default Changelist" comment="add data fetching in angular client app">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/angular.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/fetch-data/fetch-data.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/fetch-data/fetch-data.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/nav-menu/nav-menu.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/nav-menu/nav-menu.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/nav-menu/nav-menu.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/nav-menu/nav-menu.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/nav-menu/nav-menu.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/nav-menu/nav-menu.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/styles.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Controllers/TodoController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Controllers/TodoController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,10 +63,8 @@
       <option value="$APPLICATION_CONFIG_DIR$/consoles/db/eb6c5a7d-799d-4d43-a7f9-992ce12ee52f/console_1.sql" />
       <option value="$APPLICATION_CONFIG_DIR$/consoles/db/eb6c5a7d-799d-4d43-a7f9-992ce12ee52f/console.sql" />
       <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/Abstractions/IDeleteable.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/TodoItem.cs" />
       <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/Abstractions/IDeletable.cs" />
       <option value="$PROJECT_DIR$/TodoApp.Infrastructure/AppDbContext.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Services/ServiceCollectionExtensions.cs" />
       <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/TodoPutModel.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/TodoItemsRepository.cs" />
@@ -95,8 +79,10 @@
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/horizontal-loading/horizontal-loading.component.ts" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/horizontal-loading/horizontal-loading.component.html" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/models/TodoItem.ts" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.html" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.ts" />
+      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/TodoItem.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.html" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1vOIFd6Oyf4hMO9Tkg2k5cjNcJo" />
@@ -174,7 +160,7 @@
       <workItem from="1626541291367" duration="3238000" />
       <workItem from="1626614551495" duration="591000" />
       <workItem from="1626624992705" duration="5382000" />
-      <workItem from="1626953810975" duration="7797000" />
+      <workItem from="1626953810975" duration="11539000" />
     </task>
     <task id="LOCAL-00001" summary="Add repository and controller for TODO-items.">
       <created>1626512032586</created>
@@ -218,7 +204,14 @@
       <option name="project" value="LOCAL" />
       <updated>1626954971091</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="add data fetching in angular client app">
+      <created>1626962371309</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1626962371309</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -247,7 +240,8 @@
     <MESSAGE value="Add cancellation tokens" />
     <MESSAGE value="Fix database migrations; Add deletion method for TODO items" />
     <MESSAGE value="Migrations" />
-    <option name="LAST_COMMIT_MESSAGE" value="Migrations" />
+    <MESSAGE value="add data fetching in angular client app" />
+    <option name="LAST_COMMIT_MESSAGE" value="add data fetching in angular client app" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

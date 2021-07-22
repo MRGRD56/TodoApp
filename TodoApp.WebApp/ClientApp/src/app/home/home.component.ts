@@ -21,11 +21,9 @@ export class HomeComponent {
     constructor(private http: HttpClient, @Inject("BASE_URL") private baseUrl: string) {
         this.fetchTodoItems();
         const scroll$ = fromEvent(window, "scroll")
-        scroll$.subscribe(e => {
-            if (this.isScrolledToBottom()) {
-                if (!this.isAllTodosLoaded) {
-                    this.fetchTodoItems();
-                }
+        scroll$.subscribe(_ => {
+            if (HomeComponent.isScrolledToBottom() && !this.isAllTodosLoaded && !this.isTodosLoading) {
+                this.fetchTodoItems();
             }
         });
     }
@@ -47,7 +45,24 @@ export class HomeComponent {
         return this.http.get<TodoItem[]>(this.baseUrl + `api/todo?page=${page}`);
     }
 
-    private isScrolledToBottom() {
+    private static isScrolledToBottom() {
         return (window.innerHeight + window.scrollY) >= document.body.offsetHeight;
+    }
+
+    public addTodoItem() {
+        const postBody = {
+            text: this.newTodoText
+        };
+
+        if (!postBody.text || !postBody.text.trim()) {
+            return;
+        }
+
+        this.isNewTodoSending = true;
+        this.http.post<TodoItem>(this.baseUrl + "api/todo", postBody).subscribe(addedTodo => {
+            this.newTodoText = "";
+            this.todoItems.unshift(addedTodo);
+            this.isNewTodoSending = false;
+        });
     }
 }
