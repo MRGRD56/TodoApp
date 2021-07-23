@@ -85,8 +85,6 @@ export class HomeComponent {
             }
         });
         await this.fetchTodoItems();
-
-        //this.bodyResizeObserver.observe(document.body);
     }
 
     private async initializeTodoHub() {
@@ -175,54 +173,51 @@ export class HomeComponent {
         }
     }
 
-    public addTodoItem(): Promise<void> {
-        return new Promise<void>((resolve, reject) => {
-            const postBody = {
-                text: this.newTodoText
-            };
+    public async addTodoItem(): Promise<void> {
+        const postBody = {
+            text: this.newTodoText
+        };
 
-            if (!postBody.text || !postBody.text.trim()) {
-                return;
-            }
+        if (!postBody.text || !postBody.text.trim()) {
+            return;
+        }
 
-            this.isTodoItemSubmitting = true;
-            this.http.post<TodoItem>(this.baseUrl + "api/todo", postBody).subscribe(async addedTodo => {
-                await this.todoHubService.hubConnection.invoke("Add", addedTodo);
-                this.newTodoText = "";
-                this.isTodoItemSubmitting = false;
-                resolve();
-            }, error => reject(error));
-        });
+        this.isTodoItemSubmitting = true;
+        const addedTodo = await this.http.post<TodoItem>(this.baseUrl + "api/todo", postBody).toPromise()
+        await this.todoHubService.hubConnection.invoke("Add", addedTodo);
+        this.newTodoText = "";
+        this.isTodoItemSubmitting = false;
     }
 
-    public editTodoItem(): Promise<void> {
-        return new Promise<void>(((resolve, reject) => {
-            const putBody = {
-                text: this.newTodoText
-            };
+    public async editTodoItem(): Promise<void> {
+        const putBody = {
+            text: this.newTodoText
+        };
 
-            if (!putBody.text || !putBody.text.trim()) {
-                return;
-            }
+        if (!putBody.text || !putBody.text.trim()) {
+            return;
+        }
 
-            this.isTodoItemSubmitting = true;
-            this.http.put<TodoItem>(this.baseUrl + `api/todo/${this.editingTodoItem.id}`, putBody)
-                .subscribe(async editedTodoItem => {
-                    await this.todoHubService.hubConnection.invoke("Edit", editedTodoItem);
+        this.isTodoItemSubmitting = true;
+
+        try {
+            const editedTodoItem = await this.http
+                .put<TodoItem>(this.baseUrl + `api/todo/${this.editingTodoItem.id}`, putBody)
+                .toPromise();
+
+            await this.todoHubService.hubConnection.invoke("Edit", editedTodoItem);
+            this.editingTodoItem = null;
+            this.isTodoItemSubmitting = false;
+        } catch (error) {
+            if (error instanceof HttpErrorResponse) {
+                const httpErrorResponse = <HttpErrorResponse>error;
+                if (httpErrorResponse.status === 400 &&
+                    httpErrorResponse.error === "Cannot edit deleted todo") {
+                    await this.addTodoItem();
                     this.editingTodoItem = null;
-                    this.isTodoItemSubmitting = false;
-                }, async error => {
-                    if (error instanceof HttpErrorResponse) {
-                        const httpErrorResponse = <HttpErrorResponse>error;
-                        if (httpErrorResponse.status === 400 &&
-                            httpErrorResponse.error === "Cannot edit deleted todo") {
-                            await this.addTodoItem();
-                            this.editingTodoItem = null;
-                            resolve();
-                        }
-                    }
-                });
-        }));
+                }
+            }
+        }
     }
 
     public onTodoItemClick(todoItem: Checkable<TodoItem>, e: MouseEvent) {
