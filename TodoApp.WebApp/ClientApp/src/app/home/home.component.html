@@ -8,7 +8,8 @@
             <span *ngIf="isTodoItemSubmitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             Submit
         </button>
-        <button *ngIf="isEditMode()" class="btn btn-danger" (click)="stopEditMode()">
+        <button *ngIf="isEditMode()" class="btn btn-danger" (click)="stopEditMode()"
+                [disabled]="isTodoItemSubmitting">
             Cancel
         </button>
         <div class="btn-group d-flex align-items-center my-1" role="group" id="options-buttons-wrapper"

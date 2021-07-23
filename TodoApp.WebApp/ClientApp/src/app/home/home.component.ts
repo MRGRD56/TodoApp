@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import TodoItem from "../../models/TodoItem";
 import { fromEvent, Observable } from "rxjs";
 import { TodoHubService } from "../todo-hub.service";
@@ -167,47 +167,62 @@ export class HomeComponent {
         return (window.innerHeight + window.scrollY + 15) >= document.body.offsetHeight;
     }
 
-    public submitTodoItem() {
+    public async submitTodoItem() {
         if (this.isEditMode()) {
-            this.editTodoItem();
+            await this.editTodoItem();
         } else {
-            this.addTodoItem();
+            await this.addTodoItem();
         }
     }
 
-    public addTodoItem() {
-        const postBody = {
-            text: this.newTodoText
-        };
+    public addTodoItem(): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
+            const postBody = {
+                text: this.newTodoText
+            };
 
-        if (!postBody.text || !postBody.text.trim()) {
-            return;
-        }
+            if (!postBody.text || !postBody.text.trim()) {
+                return;
+            }
 
-        this.isTodoItemSubmitting = true;
-        this.http.post<TodoItem>(this.baseUrl + "api/todo", postBody).subscribe(async addedTodo => {
-            await this.todoHubService.hubConnection.invoke("Add", addedTodo);
-            this.newTodoText = "";
-            this.isTodoItemSubmitting = false;
+            this.isTodoItemSubmitting = true;
+            this.http.post<TodoItem>(this.baseUrl + "api/todo", postBody).subscribe(async addedTodo => {
+                await this.todoHubService.hubConnection.invoke("Add", addedTodo);
+                this.newTodoText = "";
+                this.isTodoItemSubmitting = false;
+                resolve();
+            }, error => reject(error));
         });
     }
 
-    public editTodoItem() {
-        const putBody = {
-            text: this.newTodoText
-        };
+    public editTodoItem(): Promise<void> {
+        return new Promise<void>(((resolve, reject) => {
+            const putBody = {
+                text: this.newTodoText
+            };
 
-        if (!putBody.text || !putBody.text.trim()) {
-            return;
-        }
+            if (!putBody.text || !putBody.text.trim()) {
+                return;
+            }
 
-        this.isTodoItemSubmitting = true;
-        this.http.put<TodoItem>(this.baseUrl + `api/todo/${this.editingTodoItem.id}`, putBody)
-            .subscribe(async editedTodoItem => {
-                await this.todoHubService.hubConnection.invoke("Edit", editedTodoItem);
-                this.editingTodoItem = null;
-                this.isTodoItemSubmitting = false;
-            });
+            this.isTodoItemSubmitting = true;
+            this.http.put<TodoItem>(this.baseUrl + `api/todo/${this.editingTodoItem.id}`, putBody)
+                .subscribe(async editedTodoItem => {
+                    await this.todoHubService.hubConnection.invoke("Edit", editedTodoItem);
+                    this.editingTodoItem = null;
+                    this.isTodoItemSubmitting = false;
+                }, async error => {
+                    if (error instanceof HttpErrorResponse) {
+                        const httpErrorResponse = <HttpErrorResponse>error;
+                        if (httpErrorResponse.status === 400 &&
+                            httpErrorResponse.error === "Cannot edit deleted todo") {
+                            await this.addTodoItem();
+                            this.editingTodoItem = null;
+                            resolve();
+                        }
+                    }
+                });
+        }));
     }
 
     public onTodoItemClick(todoItem: Checkable<TodoItem>, e: MouseEvent) {
