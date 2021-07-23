@@ -66,6 +66,20 @@ namespace TodoApp.WebApp.Controllers
             return Ok(await _todoItemsRepository.EditAsync(id, text, isDone, cancellationToken));
         }
 
+        [HttpPut("toggle_done")]
+        public async Task<IActionResult> Put(
+            [FromBody] TodosPutModel todosPutModel,
+            CancellationToken cancellationToken)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var todoItemsStream = _todoItemsRepository.ToggleDoneAsync(todosPutModel.Id, cancellationToken);
+            return Ok(await todoItemsStream.ToListAsync(cancellationToken));
+        }
+
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(
             [FromRoute] int id, 
@@ -77,10 +91,10 @@ namespace TodoApp.WebApp.Controllers
         
         [HttpDelete]
         public async Task<IActionResult> Delete(
-            [FromBody] TodoDeleteModel todoDeleteModel, 
+            [FromBody] TodosDeleteModel todosDeleteModel, 
             CancellationToken cancellationToken)
         {
-            var (ids, restore) = todoDeleteModel;
+            var (ids, restore) = todosDeleteModel;
 
             var todoItemsIds = ids as int[] ?? ids.ToArray();
             

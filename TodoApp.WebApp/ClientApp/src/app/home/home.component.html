@@ -9,9 +9,31 @@
         </button>
         <div class="btn-group d-flex align-items-center my-1" role="group" id="options-buttons-wrapper"
              *ngIf="selectedTodoItems.length > 0">
-            <button><i class="material-icons">check</i></button>
-            <button [disabled]="selectedTodoItems.length > 1"><i class="material-icons">edit</i></button>
-            <button (click)="deleteSelectedItems()"><i class="material-icons">delete</i></button>
+            <button (click)="toggleSelectedItemsIsDone()"
+                    [disabled]="isDoneToggling || isTodosDeleting">
+                <app-icon-loading *ngIf="isDoneToggling"></app-icon-loading>
+                <i class="material-icons position-relative"
+                   [ngStyle]="{
+                       fontSize: isDoneToggling ? '20px' : '24px',
+                       top: isDoneToggling ? '2px' : '0px',
+                       width: '24px',
+                       height: '24px'
+                   }">check</i>
+            </button>
+            <button [disabled]="selectedTodoItems.length > 1 || isDoneToggling || isTodosDeleting">
+                <i class="material-icons">edit</i>
+            </button>
+            <button (click)="deleteSelectedItems()"
+                    [disabled]="isDoneToggling || isTodosDeleting">
+                <app-icon-loading *ngIf="isTodosDeleting"></app-icon-loading>
+                <i class="material-icons position-relative"
+                   [ngStyle]="{
+                       fontSize: isTodosDeleting ? '20px' : '24px',
+                       top: isTodosDeleting ? '2px' : '0px',
+                       width: '24px',
+                       height: '24px'
+                   }">delete</i>
+            </button>
             <button (click)="unselectAll()"><i class="material-icons">close</i></button>
             <div class="ms-1">{{selectedTodoItems.length}} item{{selectedTodoItems.length === 1 ? '' : 's'}}</div>
         </div>
@@ -29,7 +51,11 @@
          [style.backgroundColor]="todoItem.isChecked ? '#fafafa' : 'transparent'"
          *ngFor="let todoItem of todoItems" (click)="onTodoItemClick(todoItem, $event)">
         <div class="card-body">
-            <div style="white-space: pre-line;">{{todoItem.item.text}}</div>
+            <div style="white-space: pre-line;"
+                 [style.textDecoration]="todoItem.item.isDone ? 'line-through' : 'none'"
+                 [class.text-secondary]="todoItem.item.isDone">
+                {{todoItem.item.text}}
+            </div>
             <div class="text-end text-secondary" style="font-size: 12px; margin-bottom: -11px; margin-top: -3px">
                 {{todoItem.item.creationTime | date:'yyyy-MM-dd HH:mm:ss'}}
             </div>
@@ -37,6 +63,11 @@
     </div>
 </div>
 
-<app-horizontal-loading class="d-flex justify-content-center my-2"
-                        [style.opacity]="isTodosLoading ? 1 : 0"
-                        *ngIf="!isAllTodosLoaded"></app-horizontal-loading>
+<div class="d-flex justify-content-center my-2" style="height: 50px;" *ngIf="!isAllTodosLoaded">
+    <app-horizontal-loading *ngIf="isTodosLoading">
+    </app-horizontal-loading>
+    <button class="btn btn-link text-decoration-none" (click)="fetchTodoItems()"
+            *ngIf="!isTodosLoading">
+        Load more
+    </button>
+</div>

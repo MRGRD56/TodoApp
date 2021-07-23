@@ -144,5 +144,24 @@ namespace TodoApp.WebApp.Services.Repositories
         {
             return await SetDeletedAsync(todoItemId, false, cancellationToken);
         }
+
+        public async IAsyncEnumerable<TodoItem> ToggleDoneAsync(IEnumerable<int> todoItemsIds,
+            [EnumeratorCancellation] CancellationToken cancellationToken = default)
+        {
+            foreach (var todoItemId in todoItemsIds.ToImmutableArray())
+            {
+                var todoItem = await FindAsync(todoItemId, cancellationToken);
+
+                if (todoItem.IsDeleted)
+                {
+                    throw new BadHttpRequestException("Cannot edit deleted todo-item");
+                }
+
+                todoItem.IsDone = !todoItem.IsDone;
+                yield return todoItem;
+            }
+
+            await _db.SaveChangesAsync(cancellationToken);
+        }
     }
 }

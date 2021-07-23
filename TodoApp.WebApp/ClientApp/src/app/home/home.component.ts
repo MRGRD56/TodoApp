@@ -5,6 +5,7 @@ import { fromEvent, Observable } from "rxjs";
 import { TodoHubService } from "../todo-hub.service";
 import Checkable from "../../models/Checkable";
 import { HubConnectionState } from "@microsoft/signalr";
+import ResizeObserver from 'resize-observer-polyfill';
 
 @Component({
     selector: 'app-home',
@@ -15,6 +16,8 @@ export class HomeComponent {
     public isTodosLoading = false;
     public isNewTodoSending = false;
     public isAllTodosLoaded = false;
+    public isDoneToggling = false;
+    public isTodosDeleting = false;
 
     public newTodoText = "";
 
@@ -27,6 +30,17 @@ export class HomeComponent {
     }
 
     private lastLoadedPage: number = -1;
+
+    private bodyResizeObserver: ResizeObserver = new ResizeObserver(entries => {
+        const isScrolledToBottom = HomeComponent.isScrolledToBottom();
+        console.log("Body resized, isScrolledToBottom:", isScrolledToBottom);
+        if (isScrolledToBottom && !this.isTodosLoading) {
+            console.log("bodyResizeObserver: fetching");
+            this.fetchTodoItems().then(r => {
+                console.log("bodyResizeObserver: fetching completed");
+            });
+        }
+    });
 
     constructor(private readonly http: HttpClient,
                 private readonly todoHubService: TodoHubService,
@@ -54,25 +68,57 @@ export class HomeComponent {
             });
         });
 
-        this.fetchTodoItems();
-        const scroll$ = fromEvent(window, "scroll")
-        scroll$.subscribe(_ => {
-            if (HomeComponent.isScrolledToBottom() && !this.isAllTodosLoaded && !this.isTodosLoading) {
-                this.fetchTodoItems();
+        this.todoHubService.hubConnection.on("ToggleDone", (editedTodoItems: TodoItem[]) => {
+            editedTodoItems.forEach(editedItem => {
+                const itemToEdit = this.todoItems.find(x => x.item.id == editedItem.id);
+                if (itemToEdit) {
+                    itemToEdit.item.isDone = editedItem.isDone;
+                }
+            })
+        });
+
+        const scroll$ = fromEvent(window, "scroll");
+        scroll$.subscribe(async _ => {
+            const isScrolledToBottom = HomeComponent.isScrolledToBottom();
+            console.log("scroll$: next", isScrolledToBottom, this.isAllTodosLoaded, this.isTodosLoading);
+            if (isScrolledToBottom && !this.isAllTodosLoaded && !this.isTodosLoading) {
+                console.log("scroll$: fetching");
+                await this.fetchTodoItems();
             }
         });
+        await this.fetchTodoItems();
+
+        //this.bodyResizeObserver.observe(document.body);
     }
 
-    private fetchTodoItems(): void {
-        this.isTodosLoading = true;
-        this.getTodoItems$(this.lastLoadedPage + 1).subscribe(todoItems => {
-            if (todoItems.length > 0) {
-                todoItems.forEach(todoItem => this.todoItems.push(new Checkable<TodoItem>(todoItem)));
-                this.lastLoadedPage++;
-            } else {
-                this.isAllTodosLoaded = true;
+    public fetchTodoItems(): Promise<void> {
+        return new Promise<void>(resolve => {
+            if (this.isAllTodosLoaded) {
+                resolve();
+                return;
             }
-            this.isTodosLoading = false;
+
+            this.isTodosLoading = true;
+
+            this.getTodoItems$(this.lastLoadedPage + 1).subscribe(async todoItems => {
+                if (todoItems.length > 0) {
+                    todoItems.forEach(todoItem => this.todoItems.push(new Checkable<TodoItem>(todoItem)));
+                    this.lastLoadedPage++;
+                } else {
+                    this.isAllTodosLoaded = true;
+                }
+                console.log(`FETCHED PAGE ${this.lastLoadedPage}, ${todoItems.length} ITEMS: ${JSON.stringify(todoItems.map(i => i.id))}`);
+                this.isTodosLoading = false;
+                setTimeout(async () => {
+                    if (HomeComponent.isScrolledToBottom()) {
+                        console.log("scrolled to bottom, fetching more items");
+                        await this.fetchTodoItems();
+                    } else {
+                        console.log("FETCHING COMPLETED");
+                        resolve();
+                    }
+                }, 200);
+            });
         });
     }
 
@@ -81,7 +127,7 @@ export class HomeComponent {
     }
 
     private static isScrolledToBottom() {
-        return (window.innerHeight + window.scrollY) >= document.body.offsetHeight;
+        return (window.innerHeight + window.scrollY + 15) >= document.body.offsetHeight;
     }
 
     public addTodoItem() {
@@ -117,6 +163,8 @@ export class HomeComponent {
     }
 
     public deleteSelectedItems() {
+        this.isTodosDeleting = true;
+
         const requestBody = {
             id: this.selectedTodoItems.map(item => item.id)
         };
@@ -124,6 +172,21 @@ export class HomeComponent {
             body: requestBody
         }).subscribe(async deletedTodos => {
             await this.todoHubService.hubConnection.invoke("Delete", requestBody.id);
-        })
+            this.isTodosDeleting = false;
+
+            // if (HomeComponent.isScrolledToBottom()) {
+            //     await this.fetchTodoItems();
+            // }
+        });
+    }
+
+    public toggleSelectedItemsIsDone() {
+        this.isDoneToggling = true;
+        this.http.put<TodoItem[]>(this.baseUrl + "api/todo/toggle_done", {
+            id: this.selectedTodoItems.map(item => item.id)
+        }).subscribe(async editedTodos => {
+            await this.todoHubService.hubConnection.invoke("ToggleDone", editedTodos);
+            this.isDoneToggling = false;
+        });
     }
 }

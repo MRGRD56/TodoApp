@@ -4,14 +4,24 @@
     <projectFile>TodoApp.WebApp/TodoApp.WebApp.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9935e9b2-bdff-482b-a47b-68fdbed19947" name="Default Changelist" comment="updated to Angular 8.2.14">
+    <list default="true" id="9935e9b2-bdff-482b-a47b-68fdbed19947" name="Default Changelist" comment="updated to Angular 9.1">
+      <change afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/TodosPutModel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/icon-loading/icon-loading.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/icon-loading/icon-loading.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/icon-loading/icon-loading.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/icon-loading/icon-loading.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/TodoDeleteModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/TodosDeleteModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/main.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/tsconfig.app.json" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/tsconfig.app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/tsconfig.server.json" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/tsconfig.server.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/styles.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/tsconfig.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Controllers/TodoController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Controllers/TodoController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Hubs/TodoHub.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Hubs/TodoHub.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/TodoItemsRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/TodoItemsRepository.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,9 +59,6 @@
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/.editorconfig" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/fetch-data/fetch-data.component.ts" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/counter/counter.component.ts" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/counter/counter.component.spec.ts" />
       <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Class1.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Controllers/WeatherForecastController.cs" />
@@ -89,16 +96,24 @@
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.scss" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/models/Checkable.ts" />
       <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/TodoDeleteModel.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/Controllers/TodoController.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/TodoItemsRepository.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.ts" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/Hubs/TodoHub.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.html" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/tsconfig.json" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/tslint.json" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/main.ts" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/angular.json" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/TodoItemsRepository.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/ManyTodosPutModel.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/TodosDeleteModel.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/TodosPutModel.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/Controllers/TodoController.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/Hubs/TodoHub.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/icon-loading/icon-loading.component.html" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/styles.scss" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.html" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/tsconfig.json" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.ts" />
     </changedPaths>
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/package.json" />
   </component>
   <component name="ProjectId" id="1vOIFd6Oyf4hMO9Tkg2k5cjNcJo" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -177,7 +192,7 @@
       <workItem from="1626541291367" duration="3238000" />
       <workItem from="1626614551495" duration="591000" />
       <workItem from="1626624992705" duration="5382000" />
-      <workItem from="1626953810975" duration="29752000" />
+      <workItem from="1626953810975" duration="38383000" />
     </task>
     <task id="LOCAL-00001" summary="Add repository and controller for TODO-items.">
       <created>1626512032586</created>
@@ -270,7 +285,14 @@
       <option name="project" value="LOCAL" />
       <updated>1627018636966</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="updated to Angular 9.1">
+      <created>1627020021795</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1627020021795</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -306,7 +328,8 @@
     <MESSAGE value="add: todo items deletion" />
     <MESSAGE value="before updating to Angular 12" />
     <MESSAGE value="updated to Angular 8.2.14" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated to Angular 8.2.14" />
+    <MESSAGE value="updated to Angular 9.1" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated to Angular 9.1" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

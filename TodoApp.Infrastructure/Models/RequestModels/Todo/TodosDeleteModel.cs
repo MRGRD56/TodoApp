@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TodoApp.Infrastructure.Models.RequestModels.Todo
 {
-    public record TodoDeleteModel(
+    public record TodosDeleteModel(
         [Required]
         IEnumerable<int> Id,
         bool Restore);

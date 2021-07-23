@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { HorizontalLoadingComponent } from "./horizontal-loading/horizontal-loading.component";
+import { IconLoadingComponent } from "./icon-loading/icon-loading.component";
 
 @NgModule({
     declarations: [
@@ -18,7 +19,8 @@ import { HorizontalLoadingComponent } from "./horizontal-loading/horizontal-load
         HomeComponent,
         CounterComponent,
         FetchDataComponent,
-        HorizontalLoadingComponent
+        HorizontalLoadingComponent,
+        IconLoadingComponent
     ],
     imports: [
         BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
