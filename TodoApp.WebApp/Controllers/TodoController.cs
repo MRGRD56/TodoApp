@@ -35,6 +35,21 @@ namespace TodoApp.WebApp.Controllers
             return Ok(await _todoItemsRepository.GetAsync(page, cancellationToken: cancellationToken));
         }
 
+        [HttpGet("get_after")]
+        public async Task<IActionResult> GetAfter(
+            [FromQuery] int afterId,
+            CancellationToken cancellationToken)
+        {
+            if (afterId < 0)
+            {
+                return BadRequest("Invalid ID");
+            }
+
+            int? nullableAfterId = afterId == default ? null : afterId;
+
+            return Ok(await _todoItemsRepository.GetAfterAsync(nullableAfterId, cancellationToken: cancellationToken));
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post(
             [FromBody] TodoPostModel todoPostModel, 

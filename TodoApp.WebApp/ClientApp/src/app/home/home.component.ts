@@ -29,7 +29,7 @@ export class HomeComponent {
             .map(item => item.item);
     }
 
-    private lastLoadedPage: number = -1;
+    private lastLoadedItemId: number | null = null;
 
     private bodyResizeObserver: ResizeObserver = new ResizeObserver(entries => {
         const isScrolledToBottom = HomeComponent.isScrolledToBottom();
@@ -91,39 +91,36 @@ export class HomeComponent {
         //this.bodyResizeObserver.observe(document.body);
     }
 
-    public fetchTodoItems(): Promise<void> {
-        return new Promise<void>(resolve => {
-            if (this.isAllTodosLoaded) {
-                resolve();
-                return;
+    public async fetchTodoItems(): Promise<void> {
+        if (this.isAllTodosLoaded) {
+            return;
+        }
+
+        this.isTodosLoading = true;
+
+        this.getTodoItems$(this.lastLoadedItemId).subscribe(async todoItems => {
+            const previousLastLoadedItemId = this.lastLoadedItemId;
+            if (todoItems.length > 0) {
+                todoItems.forEach(todoItem => this.todoItems.push(new Checkable<TodoItem>(todoItem)));
+                this.lastLoadedItemId = todoItems[todoItems.length - 1].id;
+            } else {
+                this.isAllTodosLoaded = true;
             }
-
-            this.isTodosLoading = true;
-
-            this.getTodoItems$(this.lastLoadedPage + 1).subscribe(async todoItems => {
-                if (todoItems.length > 0) {
-                    todoItems.forEach(todoItem => this.todoItems.push(new Checkable<TodoItem>(todoItem)));
-                    this.lastLoadedPage++;
+            console.log("FETCHED AFTER ID", previousLastLoadedItemId, ` ${todoItems.length} ITEMS:`, todoItems.map(i => i.id));
+            this.isTodosLoading = false;
+            setTimeout(async () => {
+                if (HomeComponent.isScrolledToBottom()) {
+                    console.log("scrolled to bottom, fetching more items");
+                    await this.fetchTodoItems();
                 } else {
-                    this.isAllTodosLoaded = true;
+                    console.log("FETCHING COMPLETED");
                 }
-                console.log(`FETCHED PAGE ${this.lastLoadedPage}, ${todoItems.length} ITEMS: ${JSON.stringify(todoItems.map(i => i.id))}`);
-                this.isTodosLoading = false;
-                setTimeout(async () => {
-                    if (HomeComponent.isScrolledToBottom()) {
-                        console.log("scrolled to bottom, fetching more items");
-                        await this.fetchTodoItems();
-                    } else {
-                        console.log("FETCHING COMPLETED");
-                        resolve();
-                    }
-                }, 200);
-            });
+            }, 200);
         });
     }
 
-    private getTodoItems$(page: number): Observable<TodoItem[]> {
-        return this.http.get<TodoItem[]>(this.baseUrl + `api/todo?page=${page}`);
+    private getTodoItems$(afterId: number | null): Observable<TodoItem[]> {
+        return this.http.get<TodoItem[]>(this.baseUrl + `api/todo/get_after?afterId=${afterId ?? 0}`);
     }
 
     private static isScrolledToBottom() {
@@ -174,9 +171,9 @@ export class HomeComponent {
             await this.todoHubService.hubConnection.invoke("Delete", requestBody.id);
             this.isTodosDeleting = false;
 
-            // if (HomeComponent.isScrolledToBottom()) {
-            //     await this.fetchTodoItems();
-            // }
+            if (HomeComponent.isScrolledToBottom()) {
+                await this.fetchTodoItems();
+            }
         });
     }
 

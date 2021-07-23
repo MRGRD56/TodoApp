@@ -11,9 +11,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using TodoApp.Infrastructure;
 using TodoApp.WebApp.Hubs;
+using TodoApp.WebApp.Middleware;
 using TodoApp.WebApp.Services;
 
 namespace TodoApp.WebApp
@@ -51,6 +53,11 @@ namespace TodoApp.WebApp
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            if (env.IsDevelopment())
+            {
+                app.UseMiddleware<HttpLogger>();
+            }
+
             ConfigureExceptionHandlers(app, env);
 
             ApplyDatabaseMigrations(app, env);
