@@ -55,17 +55,6 @@ export class HomeComponent {
 
     private lastLoadedItemId: number | null = null;
 
-    private bodyResizeObserver: ResizeObserver = new ResizeObserver(entries => {
-        const isScrolledToBottom = HomeComponent.isScrolledToBottom();
-        console.log("Body resized, isScrolledToBottom:", isScrolledToBottom);
-        if (isScrolledToBottom && !this.isTodosLoading) {
-            console.log("bodyResizeObserver: fetching");
-            this.fetchTodoItems().then(r => {
-                console.log("bodyResizeObserver: fetching completed");
-            });
-        }
-    });
-
     constructor(private readonly http: HttpClient,
                 private readonly todoHubService: TodoHubService,
                 @Inject("BASE_URL") private readonly baseUrl: string) {
