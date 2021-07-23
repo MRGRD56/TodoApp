@@ -4,10 +4,9 @@
     <projectFile>TodoApp.WebApp/TodoApp.WebApp.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9935e9b2-bdff-482b-a47b-68fdbed19947" name="Default Changelist" comment="fix items selection; add: delete multiple todo-items">
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Hubs/TodoHub.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Hubs/TodoHub.cs" afterDir="false" />
+    <list default="true" id="9935e9b2-bdff-482b-a47b-68fdbed19947" name="Default Changelist" comment="before updating to Angular 12">
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +37,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/E56E2CFE-C052-4B4F-8814-4FD3F6D8C4A4/a2/6709044f/HttpStatusCode.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///home/neon/RiderProjects/TodoApp/TodoApp.WebApp/Hubs/TodoHub.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2A6F8060-A4CC-40F2-A1AE-721A78A03806/d6/be1b9350/HttpRequestException.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/E65CF972-2277-41F4-BEE2-1CF45757F629/92/IntPtr.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6B81BEAD-7CDF-4AE2-8065-FFC7F22F1E19/fd/5df1ee17/AsyncEnumerable.cs" root0="SKIP_HIGHLIGHTING" />
@@ -87,9 +87,11 @@
       <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/TodoDeleteModel.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Controllers/TodoController.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/TodoItemsRepository.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.html" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.ts" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Hubs/TodoHub.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.html" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/tsconfig.json" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/tslint.json" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1vOIFd6Oyf4hMO9Tkg2k5cjNcJo" />
@@ -169,7 +171,7 @@
       <workItem from="1626541291367" duration="3238000" />
       <workItem from="1626614551495" duration="591000" />
       <workItem from="1626624992705" duration="5382000" />
-      <workItem from="1626953810975" duration="25498000" />
+      <workItem from="1626953810975" duration="28633000" />
     </task>
     <task id="LOCAL-00001" summary="Add repository and controller for TODO-items.">
       <created>1626512032586</created>
@@ -241,7 +243,21 @@
       <option name="project" value="LOCAL" />
       <updated>1626980996871</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="add: todo items deletion">
+      <created>1626983006320</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1626983006320</updated>
+    </task>
+    <task id="LOCAL-00012" summary="before updating to Angular 12">
+      <created>1627017679742</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1627017679742</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -274,7 +290,9 @@
     <MESSAGE value="add: now you can add new todo items" />
     <MESSAGE value="add SignalR" />
     <MESSAGE value="fix items selection; add: delete multiple todo-items" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix items selection; add: delete multiple todo-items" />
+    <MESSAGE value="add: todo items deletion" />
+    <MESSAGE value="before updating to Angular 12" />
+    <option name="LAST_COMMIT_MESSAGE" value="before updating to Angular 12" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
