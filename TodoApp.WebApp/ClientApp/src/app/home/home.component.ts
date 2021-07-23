@@ -6,6 +6,7 @@ import { TodoHubService } from "../todo-hub.service";
 import Checkable from "../../models/Checkable";
 import { HubConnectionState } from "@microsoft/signalr";
 import ResizeObserver from 'resize-observer-polyfill';
+import { delay } from "../../extensions/AsyncExtensions";
 
 @Component({
     selector: 'app-home',
@@ -98,7 +99,7 @@ export class HomeComponent {
             this.todoItems.unshift(new Checkable<TodoItem>(newTodoItem));
         });
 
-        this.todoHubService.hubConnection.on("Delete", (deletedTodoItemsId: number[]) => {
+        this.todoHubService.hubConnection.on("Delete", async (deletedTodoItemsId: number[]) => {
             deletedTodoItemsId.forEach(id => {
                 const itemToDelete = this.todoItems.find(x => x.item.id === id);
                 if (itemToDelete) {
@@ -106,6 +107,11 @@ export class HomeComponent {
                     this.todoItems.splice(index, 1);
                 }
             });
+
+            await delay(200);
+            if (HomeComponent.isScrolledToBottom()) {
+                await this.fetchTodoItems();
+            }
         });
 
         this.todoHubService.hubConnection.on("ToggleDone", (editedTodoItems: TodoItem[]) => {
@@ -142,14 +148,14 @@ export class HomeComponent {
             }
             console.log("FETCHED AFTER ID", previousLastLoadedItemId, ` ${todoItems.length} ITEMS:`, todoItems.map(i => i.id));
             this.isTodosLoading = false;
-            setTimeout(async () => {
-                if (HomeComponent.isScrolledToBottom()) {
-                    console.log("scrolled to bottom, fetching more items");
-                    await this.fetchTodoItems();
-                } else {
-                    console.log("FETCHING COMPLETED");
-                }
-            }, 200);
+
+            await delay(200);
+            if (HomeComponent.isScrolledToBottom()) {
+                console.log("scrolled to bottom, fetching more items");
+                await this.fetchTodoItems();
+            } else {
+                console.log("FETCHING COMPLETED");
+            }
         });
     }
 
@@ -231,10 +237,6 @@ export class HomeComponent {
         }).subscribe(async deletedTodos => {
             await this.todoHubService.hubConnection.invoke("Delete", requestBody.id);
             this.isTodosDeleting = false;
-
-            if (HomeComponent.isScrolledToBottom()) {
-                await this.fetchTodoItems();
-            }
         });
     }
 
