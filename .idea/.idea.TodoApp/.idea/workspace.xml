@@ -4,10 +4,9 @@
     <projectFile>TodoApp.WebApp/TodoApp.WebApp.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9935e9b2-bdff-482b-a47b-68fdbed19947" name="Default Changelist" comment="fix loading older todo items; add HTTP requests logging">
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Hubs/TodoHub.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Hubs/TodoHub.cs" afterDir="false" />
+    <list default="true" id="9935e9b2-bdff-482b-a47b-68fdbed19947" name="Default Changelist" comment="add focus on new-todo-textarea when editing">
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,8 +94,8 @@
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Middleware/HttpLogger.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/TodoItemsRepository.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.html" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Hubs/TodoHub.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.html" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.ts" />
     </changedPaths>
   </component>
@@ -180,7 +179,7 @@
       <workItem from="1626541291367" duration="3238000" />
       <workItem from="1626614551495" duration="591000" />
       <workItem from="1626624992705" duration="5382000" />
-      <workItem from="1626953810975" duration="56943000" />
+      <workItem from="1626953810975" duration="58543000" />
     </task>
     <task id="LOCAL-00001" summary="Add repository and controller for TODO-items.">
       <created>1626512032586</created>
@@ -294,7 +293,21 @@
       <option name="project" value="LOCAL" />
       <updated>1627051027983</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="add todo items editing">
+      <created>1627055105682</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1627055105682</updated>
+    </task>
+    <task id="LOCAL-00018" summary="add focus on new-todo-textarea when editing">
+      <created>1627055612676</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1627055612676</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -333,7 +346,9 @@
     <MESSAGE value="updated to Angular 9.1" />
     <MESSAGE value="fix loading more items when scrolling down" />
     <MESSAGE value="fix loading older todo items; add HTTP requests logging" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix loading older todo items; add HTTP requests logging" />
+    <MESSAGE value="add todo items editing" />
+    <MESSAGE value="add focus on new-todo-textarea when editing" />
+    <option name="LAST_COMMIT_MESSAGE" value="add focus on new-todo-textarea when editing" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
