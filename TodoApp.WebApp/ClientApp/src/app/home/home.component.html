@@ -1,5 +1,6 @@
 <form class="mb-1">
     <textarea class="form-control" [placeholder]="isEditMode() ? 'Edit...' : 'New task...'"
+              id="new-todo-textarea"
               [(ngModel)]="newTodoText" [disabled]="isTodoItemSubmitting"
               name="newTodo"></textarea>
     <div class="d-flex align-items-center justify-content-start flex-wrap">

@@ -254,6 +254,7 @@ export class HomeComponent {
         }
 
         this.editingTodoItem = this.selectedTodoItems[0];
+        document.getElementById("new-todo-textarea").focus();
     }
 
     public stopEditMode() {
