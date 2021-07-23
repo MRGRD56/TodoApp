@@ -14,14 +14,37 @@ import ResizeObserver from 'resize-observer-polyfill';
 })
 export class HomeComponent {
     public isTodosLoading = false;
-    public isNewTodoSending = false;
+    public isTodoItemSubmitting = false;
     public isAllTodosLoaded = false;
     public isDoneToggling = false;
     public isTodosDeleting = false;
 
+    private reservedNewTodoText = "";
     public newTodoText = "";
 
     public todoItems: Checkable<TodoItem>[] = [];
+
+
+    private _editingTodoItem: TodoItem = null;
+    public get editingTodoItem(): TodoItem {
+        return this._editingTodoItem;
+    }
+
+    public set editingTodoItem(value) {
+        this._editingTodoItem = value;
+
+        if (value) {
+            this.reservedNewTodoText = this.newTodoText;
+            this.newTodoText = this._editingTodoItem.text;
+        } else {
+            this.newTodoText = this.reservedNewTodoText;
+            this.reservedNewTodoText = "";
+        }
+    }
+
+    public isEditMode(): boolean {
+        return this.editingTodoItem != null;
+    }
 
     public get selectedTodoItems(): TodoItem[] {
         return this.todoItems
@@ -49,6 +72,23 @@ export class HomeComponent {
     }
 
     private async initialize() {
+        await this.initializeTodoHub();
+
+        const scroll$ = fromEvent(window, "scroll");
+        scroll$.subscribe(async _ => {
+            const isScrolledToBottom = HomeComponent.isScrolledToBottom();
+            console.log("scroll$: next", isScrolledToBottom, this.isAllTodosLoaded, this.isTodosLoading);
+            if (isScrolledToBottom && !this.isAllTodosLoaded && !this.isTodosLoading) {
+                console.log("scroll$: fetching");
+                await this.fetchTodoItems();
+            }
+        });
+        await this.fetchTodoItems();
+
+        //this.bodyResizeObserver.observe(document.body);
+    }
+
+    private async initializeTodoHub() {
         if (this.todoHubService.hubConnection.state === HubConnectionState.Disconnected) {
             this.isTodosLoading = true;
             await this.todoHubService.hubConnection.start();
@@ -74,21 +114,15 @@ export class HomeComponent {
                 if (itemToEdit) {
                     itemToEdit.item.isDone = editedItem.isDone;
                 }
-            })
+            });
         });
 
-        const scroll$ = fromEvent(window, "scroll");
-        scroll$.subscribe(async _ => {
-            const isScrolledToBottom = HomeComponent.isScrolledToBottom();
-            console.log("scroll$: next", isScrolledToBottom, this.isAllTodosLoaded, this.isTodosLoading);
-            if (isScrolledToBottom && !this.isAllTodosLoaded && !this.isTodosLoading) {
-                console.log("scroll$: fetching");
-                await this.fetchTodoItems();
+        this.todoHubService.hubConnection.on("Edit", (editedTodoItem: TodoItem) => {
+            const itemToEdit = this.todoItems.find(x => x.item.id == editedTodoItem.id);
+            if (itemToEdit) {
+                itemToEdit.item.text = editedTodoItem.text;
             }
         });
-        await this.fetchTodoItems();
-
-        //this.bodyResizeObserver.observe(document.body);
     }
 
     public async fetchTodoItems(): Promise<void> {
@@ -127,6 +161,14 @@ export class HomeComponent {
         return (window.innerHeight + window.scrollY + 15) >= document.body.offsetHeight;
     }
 
+    public submitTodoItem() {
+        if (this.isEditMode()) {
+            this.editTodoItem();
+        } else {
+            this.addTodoItem();
+        }
+    }
+
     public addTodoItem() {
         const postBody = {
             text: this.newTodoText
@@ -136,16 +178,35 @@ export class HomeComponent {
             return;
         }
 
-        this.isNewTodoSending = true;
+        this.isTodoItemSubmitting = true;
         this.http.post<TodoItem>(this.baseUrl + "api/todo", postBody).subscribe(async addedTodo => {
-            this.newTodoText = "";
             await this.todoHubService.hubConnection.invoke("Add", addedTodo);
-            this.isNewTodoSending = false;
+            this.newTodoText = "";
+            this.isTodoItemSubmitting = false;
         });
     }
 
+    public editTodoItem() {
+        const putBody = {
+            text: this.newTodoText
+        };
+
+        if (!putBody.text || !putBody.text.trim()) {
+            return;
+        }
+
+        this.isTodoItemSubmitting = true;
+        this.http.put<TodoItem>(this.baseUrl + `api/todo/${this.editingTodoItem.id}`, putBody)
+            .subscribe(async editedTodoItem => {
+                await this.todoHubService.hubConnection.invoke("Edit", editedTodoItem);
+                this.editingTodoItem = null;
+                this.isTodoItemSubmitting = false;
+            });
+    }
+
     public onTodoItemClick(todoItem: Checkable<TodoItem>, e: MouseEvent) {
-        if (window.getSelection().toString()
+        if (this.isEditMode()
+            || window.getSelection().toString()
             && window.getSelection().anchorNode.parentNode.parentNode.parentNode === e.currentTarget) {
             return;
         }
@@ -185,5 +246,19 @@ export class HomeComponent {
             await this.todoHubService.hubConnection.invoke("ToggleDone", editedTodos);
             this.isDoneToggling = false;
         });
+    }
+
+    public startEditMode() {
+        if (this.selectedTodoItems.length !== 1) {
+            return;
+        }
+
+        this.editingTodoItem = this.selectedTodoItems[0];
+    }
+
+    public stopEditMode() {
+        if (!this.isEditMode()) return;
+
+        this.editingTodoItem = null;
     }
 }

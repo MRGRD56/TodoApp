@@ -4,16 +4,10 @@
     <projectFile>TodoApp.WebApp/TodoApp.WebApp.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9935e9b2-bdff-482b-a47b-68fdbed19947" name="Default Changelist" comment="fix loading more items when scrolling down">
-      <change afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/Extensions/EnumerableExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/Middleware/HttpLogger.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/Abstractions/IDeletable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/Abstractions/IDeletable.cs" afterDir="false" />
+    <list default="true" id="9935e9b2-bdff-482b-a47b-68fdbed19947" name="Default Changelist" comment="fix loading older todo items; add HTTP requests logging">
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Controllers/TodoController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Controllers/TodoController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/TodoItemsRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/TodoItemsRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Hubs/TodoHub.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Hubs/TodoHub.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,19 +85,19 @@
       <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/ManyTodosPutModel.cs" />
       <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/TodosDeleteModel.cs" />
       <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/TodosPutModel.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/Hubs/TodoHub.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/icon-loading/icon-loading.component.html" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/styles.scss" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/tsconfig.json" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.html" />
       <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Extensions/EnumerableExtensions.cs" />
       <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/Abstractions/IDeletable.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Program.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.ts" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Controllers/TodoController.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Middleware/HttpLogger.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/TodoItemsRepository.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.html" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/Hubs/TodoHub.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.ts" />
     </changedPaths>
   </component>
   <component name="PackageJsonUpdateNotifier">
@@ -186,7 +180,7 @@
       <workItem from="1626541291367" duration="3238000" />
       <workItem from="1626614551495" duration="591000" />
       <workItem from="1626624992705" duration="5382000" />
-      <workItem from="1626953810975" duration="54177000" />
+      <workItem from="1626953810975" duration="56943000" />
     </task>
     <task id="LOCAL-00001" summary="Add repository and controller for TODO-items.">
       <created>1626512032586</created>
@@ -293,7 +287,14 @@
       <option name="project" value="LOCAL" />
       <updated>1627036110285</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="fix loading older todo items; add HTTP requests logging">
+      <created>1627051027983</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1627051027983</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -331,7 +332,8 @@
     <MESSAGE value="updated to Angular 8.2.14" />
     <MESSAGE value="updated to Angular 9.1" />
     <MESSAGE value="fix loading more items when scrolling down" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix loading more items when scrolling down" />
+    <MESSAGE value="fix loading older todo items; add HTTP requests logging" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix loading older todo items; add HTTP requests logging" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

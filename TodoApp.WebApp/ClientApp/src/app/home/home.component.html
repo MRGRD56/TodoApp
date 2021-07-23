@@ -1,14 +1,17 @@
 <form class="mb-1">
-    <textarea class="form-control" placeholder="New task..."
-              [(ngModel)]="newTodoText" [disabled]="isNewTodoSending"
+    <textarea class="form-control" [placeholder]="isEditMode() ? 'Edit...' : 'New task...'"
+              [(ngModel)]="newTodoText" [disabled]="isTodoItemSubmitting"
               name="newTodo"></textarea>
     <div class="d-flex align-items-center justify-content-start flex-wrap">
-        <button class="btn btn-primary me-2 my-2" [disabled]="isNewTodoSending" (click)="addTodoItem()">
-            <span *ngIf="isNewTodoSending" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <button class="btn btn-primary me-2 my-2" [disabled]="isTodoItemSubmitting" (click)="submitTodoItem()">
+            <span *ngIf="isTodoItemSubmitting" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             Submit
         </button>
+        <button *ngIf="isEditMode()" class="btn btn-danger" (click)="stopEditMode()">
+            Cancel
+        </button>
         <div class="btn-group d-flex align-items-center my-1" role="group" id="options-buttons-wrapper"
-             *ngIf="selectedTodoItems.length > 0">
+             *ngIf="selectedTodoItems.length > 0 && !isEditMode()">
             <button (click)="toggleSelectedItemsIsDone()"
                     [disabled]="isDoneToggling || isTodosDeleting">
                 <app-icon-loading *ngIf="isDoneToggling"></app-icon-loading>
@@ -20,7 +23,8 @@
                        height: '24px'
                    }">check</i>
             </button>
-            <button [disabled]="selectedTodoItems.length > 1 || isDoneToggling || isTodosDeleting">
+            <button [disabled]="selectedTodoItems.length > 1 || isDoneToggling || isTodosDeleting"
+                    (click)="startEditMode()">
                 <i class="material-icons">edit</i>
             </button>
             <button (click)="deleteSelectedItems()"
@@ -46,7 +50,7 @@
 
 <div>
     <div class="card mb-2"
-         style="cursor: pointer;"
+         [style.cursor]="isEditMode() ? 'default' : 'pointer'"
          [class.border-primary]="todoItem.isChecked"
          [style.backgroundColor]="todoItem.isChecked ? '#fafafa' : 'transparent'"
          *ngFor="let todoItem of todoItems" (click)="onTodoItemClick(todoItem, $event)">

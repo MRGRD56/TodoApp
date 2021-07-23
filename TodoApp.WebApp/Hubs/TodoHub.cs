@@ -21,5 +21,10 @@ namespace TodoApp.WebApp.Hubs
         {
             await Clients.All.SendAsync(nameof(ToggleDone), todoItems);
         }
+
+        public async Task Edit(TodoItem todoItem)
+        {
+            await Clients.All.SendAsync(nameof(Edit), todoItem);
+        }
     }
 }
