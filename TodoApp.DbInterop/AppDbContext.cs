@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Protocols;
 using TodoApp.Infrastructure.Models;
 
-namespace TodoApp.Infrastructure
+namespace TodoApp.DbInterop
 {
     public class AppDbContext : DbContext
     {
         public DbSet<TodoItem> TodoItems { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
         
         public AppDbContext()
         {
