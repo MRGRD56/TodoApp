@@ -26,9 +26,9 @@ namespace TodoApp.WebApp.Services.Repositories
 
         public async Task<User> GetByLoginAsync(string login, CancellationToken cancellationToken = default)
         {
-            var user = await EntityFrameworkQueryableExtensions.SingleOrDefaultAsync(_db.Users, u =>
-                    string.Equals(u.Login.Trim(), login.Trim(), StringComparison.InvariantCultureIgnoreCase),
-                cancellationToken);
+            var users = await EntityFrameworkQueryableExtensions.ToListAsync(_db.Users, cancellationToken);
+            var user = users.SingleOrDefault(u =>
+                    string.Equals(u.Login.Trim(), login.Trim(), StringComparison.InvariantCultureIgnoreCase));
 
             return user;
         }
@@ -36,9 +36,7 @@ namespace TodoApp.WebApp.Services.Repositories
         public async Task<User> AuthenticateAsync(string login, string password,
             CancellationToken cancellationToken = default)
         {
-            var users = await EntityFrameworkQueryableExtensions.ToListAsync(_db.Users, cancellationToken);
-            var user = users.SingleOrDefault(u =>
-                string.Equals(u.Login.Trim(), login.Trim(), StringComparison.InvariantCultureIgnoreCase));
+            var user = await GetByLoginAsync(login, cancellationToken);
 
             if (user == null)
             {

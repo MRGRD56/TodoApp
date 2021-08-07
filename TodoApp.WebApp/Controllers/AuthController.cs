@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
+using TodoApp.DbInterop;
 using TodoApp.Infrastructure.Models;
 using TodoApp.Infrastructure.Models.Auth;
 using TodoApp.Infrastructure.Models.RequestModels.Auth;
@@ -22,13 +23,16 @@ namespace TodoApp.WebApp.Controllers
     {
         private readonly IOptions<AuthOptions> _authOptions;
         private readonly UsersRepository _usersRepository;
+        private readonly AppDbContext _db;
 
         public AuthController(
             IOptions<AuthOptions> authOptions, 
-            UsersRepository usersRepository)
+            UsersRepository usersRepository,
+            AppDbContext db)
         {
             _authOptions = authOptions;
             _usersRepository = usersRepository;
+            _db = db;
         }
         
         [HttpPost("login")]
@@ -58,6 +62,8 @@ namespace TodoApp.WebApp.Controllers
             }
 
             var user = new User(login.Trim(), password, Role.User);
+            await _db.AddAsync(user, cancellationToken);
+            await _db.SaveChangesAsync(cancellationToken);
             
             var accessToken = GenerateJwt(user);
             return Ok(new
