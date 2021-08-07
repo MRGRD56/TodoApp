@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using TodoApp.DbInterop;
 using TodoApp.Infrastructure;
+using TodoApp.Infrastructure.Models.Auth;
 using TodoApp.WebApp.Hubs;
 using TodoApp.WebApp.Middleware;
 using TodoApp.WebApp.Services;
@@ -32,13 +33,15 @@ namespace TodoApp.WebApp
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<AuthOptions>(_configuration.GetSection("Auth"));
+
             services.AddControllersWithViews().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
             });
             services.AddSignalR();
-            // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
+
+            services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/dist");
 
             services.AddDbContext<AppDbContext>(options =>
             {
@@ -48,8 +51,17 @@ namespace TodoApp.WebApp
                         optionsBuilder => optionsBuilder.MigrationsAssembly("TodoApp.WebApp"));
                 }
             });
-            //services.AddDatabaseMigrator();
             services.AddTodoItemsRepository();
+            services.AddUsersRepository();
+            services.AddRolesRepository();
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder => builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -62,7 +74,7 @@ namespace TodoApp.WebApp
             ConfigureExceptionHandlers(app, env);
 
             ApplyDatabaseMigrations(app, env);
-            
+
             if (!env.IsDevelopment())
             {
                 // The default HSTS value is 30 days.
@@ -78,6 +90,8 @@ namespace TodoApp.WebApp
             }
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseWebSockets();
 
@@ -123,7 +137,7 @@ namespace TodoApp.WebApp
                     switch (exception)
                     {
                         case HttpRequestException httpRequestException:
-                            context.Response.StatusCode = 
+                            context.Response.StatusCode =
                                 (int) (httpRequestException.StatusCode ?? HttpStatusCode.InternalServerError);
                             await context.Response.WriteAsync(httpRequestException.Message);
                             break;
@@ -142,7 +156,7 @@ namespace TodoApp.WebApp
         private static void ApplyDatabaseMigrations(IApplicationBuilder app, IWebHostEnvironment env)
         {
             using var scope = app.ApplicationServices.CreateScope();
-            using var appDbContext = scope.ServiceProvider.GetService<AppDbContext>(); 
+            using var appDbContext = scope.ServiceProvider.GetService<AppDbContext>();
             appDbContext?.Database.Migrate();
         }
     }

@@ -8,6 +8,12 @@ namespace TodoApp.WebApp.Services
     {
         public static IServiceCollection AddTodoItemsRepository(this IServiceCollection serviceCollection) =>
             serviceCollection.AddScoped<TodoItemsRepository>();
+        
+        public static IServiceCollection AddUsersRepository(this IServiceCollection serviceCollection) =>
+            serviceCollection.AddScoped<UsersRepository>();
+        
+        public static IServiceCollection AddRolesRepository(this IServiceCollection serviceCollection) =>
+            serviceCollection.AddScoped<RolesRepository>();
 
         public static IServiceCollection AddDatabaseMigrator(this IServiceCollection serviceCollection) =>
             serviceCollection.AddScoped<DatabaseMigrator>();

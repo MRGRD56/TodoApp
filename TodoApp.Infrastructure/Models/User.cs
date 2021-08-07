@@ -14,7 +14,9 @@ namespace TodoApp.Infrastructure.Models
         [JsonIgnore]
         public byte[] Password { get; set; }
         
-        public IList<Role> Roles { get; set; }
+        public List<Role> Roles { get; set; }
+        
+        public List<TodoItem> TodoItems { get; set; }
 
         public void SetPassword(string newPassword)
         {
@@ -27,5 +29,17 @@ namespace TodoApp.Infrastructure.Models
         }
 
         public bool IsDeleted { get; set; }
+
+        public User()
+        {
+            
+        }
+        
+        public User(string login, string password, params Role[] roles)
+        {
+            Login = login;
+            SetPassword(password);
+            Roles.AddRange(roles);
+        }
     }
 }

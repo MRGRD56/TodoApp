@@ -19,13 +19,16 @@ namespace TodoApp.WebApp.Services.Repositories
             _db = db;
         }
 
-        public async Task<User> GetAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<User> GetByIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            var user = await _db.Users.FindAsync(new object[] {id}, cancellationToken);
-            if (user == null)
-            {
-                throw new BadHttpRequestException("User not found");
-            }
+            return await _db.Users.FindAsync(new object[] {id}, cancellationToken);
+        }
+
+        public async Task<User> GetByLoginAsync(string login, CancellationToken cancellationToken = default)
+        {
+            var user = await _db.Users.SingleOrDefaultAsync(u =>
+                    string.Equals(u.Login.Trim(), login.Trim(), StringComparison.InvariantCultureIgnoreCase),
+                cancellationToken);
 
             return user;
         }
@@ -34,18 +37,18 @@ namespace TodoApp.WebApp.Services.Repositories
             CancellationToken cancellationToken = default)
         {
             var user = await _db.Users.SingleOrDefaultAsync(u =>
-                string.Equals(u.Login.Trim(), login.Trim(), StringComparison.InvariantCultureIgnoreCase),
+                    string.Equals(u.Login.Trim(), login.Trim(), StringComparison.InvariantCultureIgnoreCase),
                 cancellationToken);
-            
+
             if (user == null)
             {
-                throw new HttpRequestException("The user with the specified login does not exist", 
+                throw new HttpRequestException("The user with the specified login does not exist",
                     null, HttpStatusCode.Unauthorized);
             }
 
             if (!user.VerifyPassword(password))
             {
-                throw new HttpRequestException("Invalid password", 
+                throw new HttpRequestException("Invalid password",
                     null, HttpStatusCode.Unauthorized);
             }
 

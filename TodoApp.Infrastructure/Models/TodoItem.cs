@@ -6,6 +6,8 @@ namespace TodoApp.Infrastructure.Models
     public class TodoItem : IDeletable
     {
         public int Id { get; set; }
+        
+        public User User { get; set; }
 
         public DateTime CreationTime { get; set; } = DateTime.UtcNow;
         
