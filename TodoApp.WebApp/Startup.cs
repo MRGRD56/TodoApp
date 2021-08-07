@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.Net.Http;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using TodoApp.DbInterop;
 using TodoApp.Infrastructure;
@@ -53,8 +55,28 @@ namespace TodoApp.WebApp
             });
             services.AddTodoItemsRepository();
             services.AddUsersRepository();
-            services.AddRolesRepository();
 
+            var authOptions = _configuration.GetSection("Auth").Get<AuthOptions>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = authOptions.Issuer,
+                        
+                        ValidateAudience = true,
+                        ValidAudience = authOptions.Audience,
+                        
+                        ValidateLifetime = true,
+                        
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = authOptions.GetSymmetricSecurityKey()
+                    };
+                });
+            
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder => builder
@@ -92,6 +114,9 @@ namespace TodoApp.WebApp
             app.UseRouting();
 
             app.UseCors();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseWebSockets();
 

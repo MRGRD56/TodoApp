@@ -4,25 +4,26 @@
     <projectFile>TodoApp.WebApp/TodoApp.WebApp.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9935e9b2-bdff-482b-a47b-68fdbed19947" name="Default Changelist" comment="add focus on new-todo-textarea when editing">
-      <change afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/Auth/AuthOptions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Auth/RegistrationModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/Migrations/20210807111711_TodoItemUserMigration.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/Migrations/20210807111711_TodoItemUserMigration.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/RolesRepository.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.sln.DotSettings.user" afterDir="false" />
+    <list default="true" id="9935e9b2-bdff-482b-a47b-68fdbed19947" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/Controllers/ProfileController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/Extensions/ClaimsPrincipalExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/Migrations/20210807131850_UserRoleTableMigration.Designer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/Migrations/20210807131850_UserRoleTableMigration.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/Migrations/20210807133901_RoleEnumMigration.Designer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/Migrations/20210807133901_RoleEnumMigration.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TodoApp.DbInterop/AppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.DbInterop/AppDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/TodoItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/TodoItem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.Infrastructure/Extensions/Security.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/Extensions/Security.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Auth/RegistrationModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Auth/RegistrationModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/Role.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/Role.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.Infrastructure/TodoApp.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/TodoApp.Infrastructure.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Controllers/AuthController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Migrations/AppDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Migrations/AppDbContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/RolesRepository.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/UsersRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/UsersRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Services/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Services/ServiceCollectionExtensions.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/TodoApp.WebApp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/TodoApp.WebApp.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/appsettings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,10 +66,6 @@
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/AppDbContext.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/TodoPutModel.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/nav-menu/nav-menu.component.ts" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/nav-menu/nav-menu.component.scss" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/nav-menu/nav-menu.component.html" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/fetch-data/fetch-data.component.html" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/app.module.ts" />
@@ -103,19 +100,23 @@
       <option value="$PROJECT_DIR$/TodoApp.DbInterop/Class1.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Controllers/ResultCodeController.cs" />
       <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Auth/LoginModel.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Extensions/Security.cs" />
       <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/Auth/AuthOptions.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/RolesRepository.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/Services/ServiceCollectionExtensions.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/UsersRepository.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Auth/RegistrationModel.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/Controllers/AuthController.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/Role.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.DbInterop/AppDbContext.cs" />
       <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/TodoItem.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/User.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/appsettings.json" />
+      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Auth/RegistrationModel.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/Controllers/RolesController.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/UserRole.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/Role.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/User.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/Controllers/AuthController.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/Services/ServiceCollectionExtensions.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.DbInterop/AppDbContext.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Extensions/Security.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/UsersRepository.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/Extensions/ClaimsPrincipalExtensions.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/Controllers/ProfileController.cs" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" />
     </changedPaths>
   </component>
   <component name="PackageJsonUpdateNotifier">
@@ -140,7 +141,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="16.6.0" />
-    <property name="javascript.nodejs.core.library.typings.version" value="" />
+    <property name="javascript.nodejs.core.library.typings.version" value="16.4.13" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -200,7 +201,9 @@
       <workItem from="1626624992705" duration="5382000" />
       <workItem from="1626953810975" duration="58543000" />
       <workItem from="1628174113779" duration="7374000" />
-      <workItem from="1628329619745" duration="5671000" />
+      <workItem from="1628329619745" duration="5993000" />
+      <workItem from="1628338558391" duration="237000" />
+      <workItem from="1628339430750" duration="6035000" />
     </task>
     <task id="LOCAL-00001" summary="Add repository and controller for TODO-items.">
       <created>1626512032586</created>
@@ -328,7 +331,14 @@
       <option name="project" value="LOCAL" />
       <updated>1627055612676</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="some changes">
+      <created>1628335786602</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1628335786603</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -369,7 +379,8 @@
     <MESSAGE value="fix loading older todo items; add HTTP requests logging" />
     <MESSAGE value="add todo items editing" />
     <MESSAGE value="add focus on new-todo-textarea when editing" />
-    <option name="LAST_COMMIT_MESSAGE" value="add focus on new-todo-textarea when editing" />
+    <MESSAGE value="some changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="some changes" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

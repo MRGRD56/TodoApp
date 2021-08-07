@@ -22,16 +22,13 @@ namespace TodoApp.WebApp.Controllers
     {
         private readonly IOptions<AuthOptions> _authOptions;
         private readonly UsersRepository _usersRepository;
-        private readonly RolesRepository _rolesRepository;
 
         public AuthController(
             IOptions<AuthOptions> authOptions, 
-            UsersRepository usersRepository,
-            RolesRepository rolesRepository)
+            UsersRepository usersRepository)
         {
             _authOptions = authOptions;
             _usersRepository = usersRepository;
-            _rolesRepository = rolesRepository;
         }
         
         [HttpPost("login")]
@@ -48,24 +45,19 @@ namespace TodoApp.WebApp.Controllers
             });
         }
 
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegistrationModel registrationModel,
             CancellationToken cancellationToken)
         {
-            var (login, password, passwordRepeat) = registrationModel;
+            var (login, password) = registrationModel;
 
-            if (password != passwordRepeat)
-            {
-                return BadRequest("The passwords must match.");
-            }
-            
             var existingUser = await _usersRepository.GetByLoginAsync(login, cancellationToken);
             if (existingUser != null)
             {
                 return Conflict("The user with the specified login already exists.");
             }
 
-            var userRole = await _rolesRepository.GetByNameAsync("User", cancellationToken);
-            var user = new User(login.Trim(), password, userRole);
+            var user = new User(login.Trim(), password, Role.User);
             
             var accessToken = GenerateJwt(user);
             return Ok(new
@@ -91,7 +83,7 @@ namespace TodoApp.WebApp.Controllers
             
             user.Roles.ForEach(role =>
             {
-                claims.Add(new Claim("role", role.Name));
+                claims.Add(new Claim("role", role.ToString()));
             });
 
             var token = new JwtSecurityToken(

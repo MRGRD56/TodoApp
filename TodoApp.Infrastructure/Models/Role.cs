@@ -1,9 +1,8 @@
 namespace TodoApp.Infrastructure.Models
 {
-    public class Role
+    public enum Role
     {
-        public int Id { get; set; }
-        
-        public string Name { get; set; }
+        User,
+        Admin
     }
 }

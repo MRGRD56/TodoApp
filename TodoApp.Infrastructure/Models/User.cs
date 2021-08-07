@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
 using Newtonsoft.Json;
 using TodoApp.Infrastructure.Extensions;
 using TodoApp.Infrastructure.Models.Abstractions;
@@ -13,10 +15,10 @@ namespace TodoApp.Infrastructure.Models
         
         [JsonIgnore]
         public byte[] Password { get; set; }
-        
-        public List<Role> Roles { get; set; }
-        
-        public List<TodoItem> TodoItems { get; set; }
+
+        public List<Role> Roles { get; set; } = new();
+
+        public List<TodoItem> TodoItems { get; set; } = new();
 
         public void SetPassword(string newPassword)
         {

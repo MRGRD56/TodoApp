@@ -1,9 +1,9 @@
 using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using TodoApp.DbInterop;
 using TodoApp.Infrastructure.Models;
@@ -26,7 +26,7 @@ namespace TodoApp.WebApp.Services.Repositories
 
         public async Task<User> GetByLoginAsync(string login, CancellationToken cancellationToken = default)
         {
-            var user = await _db.Users.SingleOrDefaultAsync(u =>
+            var user = await EntityFrameworkQueryableExtensions.SingleOrDefaultAsync(_db.Users, u =>
                     string.Equals(u.Login.Trim(), login.Trim(), StringComparison.InvariantCultureIgnoreCase),
                 cancellationToken);
 
@@ -36,9 +36,9 @@ namespace TodoApp.WebApp.Services.Repositories
         public async Task<User> AuthenticateAsync(string login, string password,
             CancellationToken cancellationToken = default)
         {
-            var user = await _db.Users.SingleOrDefaultAsync(u =>
-                    string.Equals(u.Login.Trim(), login.Trim(), StringComparison.InvariantCultureIgnoreCase),
-                cancellationToken);
+            var users = await EntityFrameworkQueryableExtensions.ToListAsync(_db.Users, cancellationToken);
+            var user = users.SingleOrDefault(u =>
+                string.Equals(u.Login.Trim(), login.Trim(), StringComparison.InvariantCultureIgnoreCase));
 
             if (user == null)
             {

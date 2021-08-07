@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using TodoApp.Infrastructure.Models;
 
@@ -8,7 +10,6 @@ namespace TodoApp.DbInterop
     {
         public DbSet<TodoItem> TodoItems { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
         
         public AppDbContext() { }
 
@@ -17,19 +18,23 @@ namespace TodoApp.DbInterop
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Role>().HasData(new[]
-            {
-                new Role
-                {
-                    Id = 1,
-                    Name = "User"
-                },
-                new Role
-                {
-                    Id = 2,
-                    Name = "Admin"
-                }
-            });
+            modelBuilder.Entity<User>()
+                .Property(u => u.Roles)
+                .HasConversion(
+                    r => ConvertRolesToString(r),
+                    r => ConvertRolesFromString(r));
+            modelBuilder.Entity<User>().HasData(new User("admin", "admin", Role.Admin) { Id = 1 });
+        }
+
+        private static string ConvertRolesToString(IEnumerable<Role> roles) =>
+            string.Join(',', roles.Select(role => (int) role));
+
+        private static List<Role> ConvertRolesFromString(string rolesString)
+        {
+            return rolesString
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(roleString => (Role) int.Parse(roleString))
+                .ToList();
         }
     }
 }
