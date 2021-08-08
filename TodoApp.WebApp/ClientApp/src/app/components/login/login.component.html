@@ -11,6 +11,9 @@
                [(ngModel)]="loginData.password" name="sign-in-password"
                autocomplete="current-password">
     </div>
-    <button type="submit" class="btn btn-primary mb-3">Submit</button>
+    <button type="submit" class="btn btn-primary mb-3" [disabled]="isLoggingIn">
+        <span *ngIf="isLoggingIn" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Submit
+    </button>
     <a routerLink="/register" class="link-primary d-block">sign up</a>
 </form>

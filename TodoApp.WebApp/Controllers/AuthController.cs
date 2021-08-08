@@ -36,7 +36,9 @@ namespace TodoApp.WebApp.Controllers
         }
         
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginModel loginModel, CancellationToken cancellationToken)
+        public async Task<IActionResult> Login(
+            [FromBody] LoginModel loginModel, 
+            CancellationToken cancellationToken)
         {
             var (login, password) = loginModel;
             var user = await _usersRepository.AuthenticateAsync(login, password, cancellationToken);

@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {AuthService} from "../../services/auth/auth.service";
+import CurrentUser from "../../models/CurrentUser";
 
 @Component({
     selector: 'app-nav-menu',
@@ -7,7 +8,6 @@ import {AuthService} from "../../services/auth/auth.service";
     styleUrls: ['./nav-menu.component.scss']
 })
 export class NavMenuComponent {
-
     constructor(public readonly auth: AuthService) {
     }
 

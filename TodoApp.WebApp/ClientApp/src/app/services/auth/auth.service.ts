@@ -1,5 +1,4 @@
 import {Inject, Injectable} from '@angular/core';
-import {Observable} from "rxjs";
 import LoginResponse from "../../models/LoginResponse";
 import {HttpClient} from "@angular/common/http";
 import {JwtHelperService} from "@auth0/angular-jwt";
@@ -20,7 +19,20 @@ export class AuthService {
         @Inject("BASE_URL") private readonly baseUrl: string,
         private readonly jwtHelper: JwtHelperService,
         private readonly router: Router
-    ) { }
+    ) {
+        if (this.isAuthenticated()) {
+            const decodedToken = this.jwtHelper.decodeToken(AuthService.accessToken);
+            console.log(decodedToken);
+            this._currentUser = {
+                id: +decodedToken.sub,
+                login: decodedToken.name,
+                roles: decodedToken.role
+            };
+            this.getCurrentUser().then(currentUser => {
+                this._currentUser = currentUser;
+            });
+        }
+    }
 
     private static get accessToken() {
         return localStorage.getItem(ACCESS_TOKEN_KEY)
@@ -33,8 +45,9 @@ export class AuthService {
         return this.http
             .post<LoginResponse>(`${this.baseUrl}api/auth/login`, loginRequest)
             .pipe(
-                tap(res => {
+                tap(async res => {
                     AuthService.accessToken = res.accessToken;
+                    this._currentUser = await this.getCurrentUser();
                 })
             )
             .toPromise();
@@ -47,6 +60,7 @@ export class AuthService {
 
     public async logout(): Promise<void> {
         localStorage.removeItem(ACCESS_TOKEN_KEY);
+        this._currentUser = null;
         await this.router.navigate(["/login"]);
     }
 
@@ -54,5 +68,10 @@ export class AuthService {
         return this.http
             .get<CurrentUser>(`${this.baseUrl}api/profile`)
             .toPromise();
+    }
+
+    private _currentUser?: CurrentUser;
+    public get currentUser() {
+        return this._currentUser;
     }
 }

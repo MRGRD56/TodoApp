@@ -16,6 +16,8 @@ export class LoginComponent {
         password: ""
     };
 
+    public isLoggingIn: boolean = false;
+
     constructor(private readonly auth: AuthService,
                 private readonly router: Router) {
 
@@ -23,10 +25,13 @@ export class LoginComponent {
 
     public async login() {
         try {
+            this.isLoggingIn = true;
             await this.auth.login(this.loginData);
             await this.router.navigate([""]);
         } catch (error) {
             alert(error);
+        } finally {
+            this.isLoggingIn = false;
         }
     }
 }
