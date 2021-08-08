@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import LoginRequest from "../../models/LoginRequest";
 
 @Component({
     selector: 'app-register',
@@ -8,7 +9,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class RegisterComponent {
 
-    public registrationData = {
+    public registrationData: LoginRequest = {
         login: "",
         password: ""
     };

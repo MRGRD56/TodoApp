@@ -4,36 +4,57 @@
     <projectFile>TodoApp.WebApp/TodoApp.WebApp.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9935e9b2-bdff-482b-a47b-68fdbed19947" name="Default Changelist" comment="fix user registration">
-      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/login/login.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/login/login.component.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/login/login.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/login/login.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/register/register.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/register/register.component.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/register/register.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/register/register.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/Migrations/20210808065714_UserPasswordStringMigration.Designer.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/Migrations/20210808065714_UserPasswordStringMigration.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/9218e6bf-de0e-4f45-bc9f-dc715b50261e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/9218e6bf-de0e-4f45-bc9f-dc715b50261e.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/9218e6bf-de0e-4f45-bc9f-dc715b50261e/storage_v2/_src_/database/TodoApp.2wOqHg/schema/INFORMATION_SCHEMA.NBgcMw.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/9218e6bf-de0e-4f45-bc9f-dc715b50261e/storage_v2/_src_/database/TodoApp.2wOqHg/schema/INFORMATION_SCHEMA.NBgcMw.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/9218e6bf-de0e-4f45-bc9f-dc715b50261e/storage_v2/_src_/database/TodoApp.2wOqHg/schema/dbo.sYMBAA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/9218e6bf-de0e-4f45-bc9f-dc715b50261e/storage_v2/_src_/database/TodoApp.2wOqHg/schema/dbo.sYMBAA.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/9218e6bf-de0e-4f45-bc9f-dc715b50261e/storage_v2/_src_/database/TodoApp.2wOqHg/schema/sys.zb4BAA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/9218e6bf-de0e-4f45-bc9f-dc715b50261e/storage_v2/_src_/database/TodoApp.2wOqHg/schema/sys.zb4BAA.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/eb6c5a7d-799d-4d43-a7f9-992ce12ee52f.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/eb6c5a7d-799d-4d43-a7f9-992ce12ee52f.xml" afterDir="false" />
+    <list default="true" id="9935e9b2-bdff-482b-a47b-68fdbed19947" name="Default Changelist" comment="fix api; add login and register components, remove fetch-data and counter components">
+      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/guards/auth/auth.guard.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/guards/auth/authorized-guard.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/models/CurrentUser.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/models/LoginRequest.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/models/LoginResponse.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/services/auth/auth.service.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/services/auth/auth.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/services/todo/todo.service.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/services/todo/todo.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.DbInterop/AppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.DbInterop/AppDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.Infrastructure/Extensions/Security.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/Extensions/Security.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/TodoItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/TodoItem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/app.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/app.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/nav-menu/nav-menu.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/nav-menu/nav-menu.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Controllers/ProfileController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Controllers/ProfileController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Controllers/TodoController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Controllers/TodoController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Migrations/AppDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Migrations/AppDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/TodoItemsRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/TodoItemsRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/counter/counter.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/counter/counter.component.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/counter/counter.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/fetch-data/fetch-data.component.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/fetch-data/fetch-data.component.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/home/home.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/home/home.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/home/home.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/horizontal-loading/horizontal-loading.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/horizontal-loading/horizontal-loading.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/horizontal-loading/horizontal-loading.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/horizontal-loading/horizontal-loading.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/horizontal-loading/horizontal-loading.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/horizontal-loading/horizontal-loading.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/horizontal-loading/horizontal-loading.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/horizontal-loading/horizontal-loading.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/icon-loading/icon-loading.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/icon-loading/icon-loading.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/icon-loading/icon-loading.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/icon-loading/icon-loading.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/icon-loading/icon-loading.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/icon-loading/icon-loading.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/icon-loading/icon-loading.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/icon-loading/icon-loading.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/login/login.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/login/login.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/login/login.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/login/login.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/login/login.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/login/login.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/login/login.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/nav-menu/nav-menu.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/nav-menu/nav-menu.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/nav-menu/nav-menu.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/nav-menu/nav-menu.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/nav-menu/nav-menu.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/nav-menu/nav-menu.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/register/register.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/register/register.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/register/register.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/register/register.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/register/register.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/register/register.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/register/register.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/register/register.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/todo-hub.service.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/services/todo-hub/todo-hub.service.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/todo-hub.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/services/todo-hub/todo-hub.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/environments/environment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/environments/environment.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/extensions/AsyncExtensions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/extensions/AsyncExtensions.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/models/Checkable.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/models/Checkable.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/models/TodoItem.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/models/TodoItem.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/TodoApp.WebApp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/TodoApp.WebApp.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,28 +99,6 @@
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/Hubs.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/package.json" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/todo-hub.service.ts" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.scss" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/models/Checkable.ts" />
-      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/TodoDeleteModel.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/tslint.json" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/main.ts" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/angular.json" />
-      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/ManyTodosPutModel.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/TodosDeleteModel.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Todo/TodosPutModel.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/icon-loading/icon-loading.component.html" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/styles.scss" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/tsconfig.json" />
-      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Extensions/EnumerableExtensions.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/Abstractions/IDeletable.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/Program.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/Middleware/HttpLogger.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/Hubs/TodoHub.cs" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.html" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/home/home.component.ts" />
       <option value="$PROJECT_DIR$/TodoApp.DbInterop/Class1.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Controllers/ResultCodeController.cs" />
       <option value="$PROJECT_DIR$/TodoApp.Infrastructure/Models/RequestModels/Auth/LoginModel.cs" />
@@ -123,12 +122,34 @@
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Services/Repositories/TodoItemsRepository.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/Controllers/TodoController.cs" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/nav-menu/nav-menu.component.html" />
-      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/app.module.ts" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/login/login.component.ts" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/register/register.component.ts" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/login/login.component.html" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/register/register.component.html" />
       <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/index.html" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/models/TodoItem.ts" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/models/LoginResponse.ts" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/main.ts" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/horizontal-loading/horizontal-loading.component.ts" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/icon-loading/icon-loading.component.ts" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/services/todo-hub.service.ts" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/models/LoginRequest.ts" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/register/register.component.ts" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/services/app-injection-tokens.ts" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/environments/environment.ts" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/tsconfig.json" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/guards/auth/auth.guard.ts" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/guards/auth/authorized-guard.service.ts" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/app.module.ts" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/models/CurrentUser.ts" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/login/login.component.ts" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/nav-menu/nav-menu.component.ts" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/login/login.component.html" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/register/register.component.html" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/services/auth/auth.service.ts" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/nav-menu/nav-menu.component.html" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/home/home.component.ts" />
+      <option value="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/services/todo/todo.service.ts" />
     </changedPaths>
   </component>
   <component name="PackageJsonUpdateNotifier">
@@ -215,7 +236,7 @@
       <workItem from="1628174113779" duration="7374000" />
       <workItem from="1628329619745" duration="5993000" />
       <workItem from="1628338558391" duration="237000" />
-      <workItem from="1628339430750" duration="15377000" />
+      <workItem from="1628339430750" duration="23962000" />
     </task>
     <task id="LOCAL-00001" summary="Add repository and controller for TODO-items.">
       <created>1626512032586</created>
@@ -364,7 +385,14 @@
       <option name="project" value="LOCAL" />
       <updated>1628362252717</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="fix api; add login and register components, remove fetch-data and counter components">
+      <created>1628411058932</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1628411058932</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -408,7 +436,8 @@
     <MESSAGE value="some changes" />
     <MESSAGE value="add authentication and authorization (by JWT)" />
     <MESSAGE value="fix user registration" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix user registration" />
+    <MESSAGE value="fix api; add login and register components, remove fetch-data and counter components" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix api; add login and register components, remove fetch-data and counter components" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

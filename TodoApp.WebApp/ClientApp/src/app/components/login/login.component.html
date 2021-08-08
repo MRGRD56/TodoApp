@@ -1,4 +1,4 @@
-<form autocomplete="on">
+<form autocomplete="on" (submit)="login()">
     <div class="mb-3">
         <label for="sign-in-login-input" class="form-label">Login</label>
         <input type="email" class="form-control" id="sign-in-login-input"
@@ -11,5 +11,6 @@
                [(ngModel)]="loginData.password" name="sign-in-password"
                autocomplete="current-password">
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary mb-3">Submit</button>
+    <a routerLink="/register" class="link-primary d-block">sign up</a>
 </form>

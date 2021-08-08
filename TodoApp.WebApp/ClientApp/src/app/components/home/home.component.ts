@@ -1,12 +1,12 @@
-import { Component, Inject } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import {Component, Inject} from '@angular/core';
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import TodoItem from "../../models/TodoItem";
-import { fromEvent, Observable } from "rxjs";
-import { TodoHubService } from "../todo-hub.service";
+import {fromEvent, Observable} from "rxjs";
 import Checkable from "../../models/Checkable";
-import { HubConnectionState } from "@microsoft/signalr";
-import ResizeObserver from 'resize-observer-polyfill';
-import { delay } from "../../extensions/AsyncExtensions";
+import {HubConnectionState} from "@microsoft/signalr";
+import {delay} from "../../extensions/AsyncExtensions";
+import {TodoHubService} from "../../services/todo-hub/todo-hub.service";
+import {TodoService} from "../../services/todo/todo.service";
 
 @Component({
     selector: 'app-home',
@@ -57,7 +57,8 @@ export class HomeComponent {
 
     constructor(private readonly http: HttpClient,
                 private readonly todoHubService: TodoHubService,
-                @Inject("BASE_URL") private readonly baseUrl: string) {
+                @Inject("BASE_URL") private readonly baseUrl: string,
+                private readonly todoService: TodoService) {
         this.initialize();
     }
 
@@ -125,29 +126,23 @@ export class HomeComponent {
 
         this.isTodosLoading = true;
 
-        this.getTodoItems$(this.lastLoadedItemId).subscribe(async todoItems => {
-            const previousLastLoadedItemId = this.lastLoadedItemId;
-            if (todoItems.length > 0) {
-                todoItems.forEach(todoItem => this.todoItems.push(new Checkable<TodoItem>(todoItem)));
-                this.lastLoadedItemId = todoItems[todoItems.length - 1].id;
-            } else {
-                this.isAllTodosLoaded = true;
-            }
-            console.log("FETCHED AFTER ID", previousLastLoadedItemId, ` ${todoItems.length} ITEMS:`, todoItems.map(i => i.id));
-            this.isTodosLoading = false;
+        const todoItems = await this.getTodoItems(this.lastLoadedItemId);
+        if (todoItems.length > 0) {
+            todoItems.forEach(todoItem => this.todoItems.push(new Checkable<TodoItem>(todoItem)));
+            this.lastLoadedItemId = todoItems[todoItems.length - 1].id;
+        } else {
+            this.isAllTodosLoaded = true;
+        }
+        this.isTodosLoading = false;
 
-            await delay(200);
-            if (HomeComponent.isScrolledToBottom()) {
-                console.log("scrolled to bottom, fetching more items");
-                await this.fetchTodoItems();
-            } else {
-                console.log("FETCHING COMPLETED");
-            }
-        });
+        await delay(200);
+        if (HomeComponent.isScrolledToBottom()) {
+            await this.fetchTodoItems();
+        }
     }
 
-    private getTodoItems$(afterId: number | null): Observable<TodoItem[]> {
-        return this.http.get<TodoItem[]>(this.baseUrl + `api/todo/get_after?afterId=${afterId ?? 0}`);
+    private async getTodoItems(afterId: number | null) {
+        return await this.todoService.get(afterId);
     }
 
     private static isScrolledToBottom() {
@@ -172,7 +167,7 @@ export class HomeComponent {
         }
 
         this.isTodoItemSubmitting = true;
-        const addedTodo = await this.http.post<TodoItem>(this.baseUrl + "api/todo", postBody).toPromise()
+        const addedTodo = await this.todoService.add(postBody);
         await this.todoHubService.hubConnection.invoke("Add", addedTodo);
         this.newTodoText = "";
         this.isTodoItemSubmitting = false;
@@ -190,9 +185,7 @@ export class HomeComponent {
         this.isTodoItemSubmitting = true;
 
         try {
-            const editedTodoItem = await this.http
-                .put<TodoItem>(this.baseUrl + `api/todo/${this.editingTodoItem.id}`, putBody)
-                .toPromise();
+            const editedTodoItem = await this.todoService.edit(this.editingTodoItem.id, putBody);
 
             await this.todoHubService.hubConnection.invoke("Edit", editedTodoItem);
             this.editingTodoItem = null;
@@ -225,28 +218,20 @@ export class HomeComponent {
             .forEach(item => item.isChecked = false);
     }
 
-    public deleteSelectedItems() {
+    public async deleteSelectedItems() {
         this.isTodosDeleting = true;
 
-        const requestBody = {
-            id: this.selectedTodoItems.map(item => item.id)
-        };
-        this.http.request<TodoItem[]>("delete", this.baseUrl + "api/todo", {
-            body: requestBody
-        }).subscribe(async deletedTodos => {
-            await this.todoHubService.hubConnection.invoke("Delete", requestBody.id);
-            this.isTodosDeleting = false;
-        });
+        const idsToDelete = this.selectedTodoItems.map(item => item.id);
+        const deletedTodos = await this.todoService.deleteItems(idsToDelete);
+        await this.todoHubService.hubConnection.invoke("Delete", idsToDelete);
+        this.isTodosDeleting = false;
     }
 
-    public toggleSelectedItemsIsDone() {
+    public async toggleSelectedItemsIsDone() {
         this.isDoneToggling = true;
-        this.http.put<TodoItem[]>(this.baseUrl + "api/todo/toggle_done", {
-            id: this.selectedTodoItems.map(item => item.id)
-        }).subscribe(async editedTodos => {
-            await this.todoHubService.hubConnection.invoke("ToggleDone", editedTodos);
-            this.isDoneToggling = false;
-        });
+        const editedTodos = await this.todoService.toggleDone(this.selectedTodoItems.map(item => item.id));
+        await this.todoHubService.hubConnection.invoke("ToggleDone", editedTodos);
+        this.isDoneToggling = false;
     }
 
     public startEditMode() {
