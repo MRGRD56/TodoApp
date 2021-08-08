@@ -1,26 +1,3 @@
-<!--<form autocomplete="on">-->
-<!--    <div class="mb-3">-->
-<!--        <label for="sign-up-login-input" class="form-label">Login</label>-->
-<!--        <input type="email" class="form-control" id="sign-up-login-input"-->
-<!--               [(ngModel)]="registrationData.login" name="sign-up-login"-->
-<!--               autocomplete="username">-->
-<!--    </div>-->
-<!--    <div class="mb-3">-->
-<!--        <label for="sign-up-password-input" class="form-label">Password</label>-->
-<!--        <input type="password" class="form-control" id="sign-up-password-input"-->
-<!--               [(ngModel)]="registrationData.password" name="sign-up-password"-->
-<!--               autocomplete="new-password">-->
-<!--    </div>-->
-<!--    <div class="mb-3">-->
-<!--        <label for="sign-up-password-repeat-input" class="form-label">Repeat password</label>-->
-<!--        <input type="password" class="form-control" id="sign-up-password-repeat-input"-->
-<!--               [(ngModel)]="passwordRepeat" name="sign-up-password-repeat"-->
-<!--               autocomplete="new-password">-->
-<!--    </div>-->
-<!--    <button type="submit" class="btn btn-primary mb-3">Submit</button>-->
-<!--    <a routerLink="/login" class="link-primary d-block">sign in</a>-->
-<!--</form>-->
-
 <div class="login-form-container">
     <h1 class="login-form-header">SIGN UP</h1>
     <form class="login-form" autocomplete="on" (submit)="register()">
@@ -28,7 +5,7 @@
             <input type="email" class="form-control login-form-input"
                    [(ngModel)]="registrationData.login" name="sign-in-login" #loginModel="ngModel"
                    autocomplete="username" placeholder="Login" required
-                   [class.is-invalid]="showErrors && !loginModel.valid"
+                   [class.is-invalid]="showErrors && (!loginModel.valid || loginError)"
                    (input)="onInput($event, loginModel, passwordModel, passwordRepeatModel)">
             <div class="validation" *ngIf="showErrors && loginError">
                 {{loginError}}
@@ -38,7 +15,7 @@
             <input type="password" class="form-control login-form-input"
                    [(ngModel)]="registrationData.password" name="sign-in-password" #passwordModel="ngModel"
                    autocomplete="new-password" placeholder="Password" required
-                   [class.is-invalid]="showErrors && !passwordModel.valid"
+                   [class.is-invalid]="showErrors && (!passwordModel.valid || passwordError)"
                    (input)="onInput($event, loginModel, passwordModel, passwordRepeatModel)">
             <div class="validation" *ngIf="showErrors && passwordError">
                 {{passwordError}}
@@ -46,15 +23,15 @@
         </div>
         <div>
             <input type="password" class="form-control login-form-input"
-                   [(ngModel)]="passwordRepeat" name="sign-in-password" #passwordRepeatModel="ngModel"
-                   autocomplete="current-password" placeholder="Repeat password" required
-                   [class.is-invalid]="showErrors && !passwordRepeatModel.valid"
+                   [(ngModel)]="passwordRepeat" name="sign-in-password-repeat" #passwordRepeatModel="ngModel"
+                   autocomplete="new-password" placeholder="Repeat password" required
+                   [class.is-invalid]="showErrors && (!passwordRepeatModel.valid || passwordRepeatError)"
                    (input)="onInput($event, loginModel, passwordModel, passwordRepeatModel)">
-            <div class="validation" *ngIf="showErrors && passwordError">
+            <div class="validation" *ngIf="showErrors && passwordRepeatError">
                 {{passwordRepeatError}}
             </div>
         </div>
-        <div class="validation" *ngIf="showErrors && validationError">
+        <div class="validation text-center" *ngIf="showErrors && validationError">
             {{validationError}}
         </div>
         <button type="submit" class="btn btn-primary mb-3 login-button"

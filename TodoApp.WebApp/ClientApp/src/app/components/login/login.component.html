@@ -5,7 +5,7 @@
             <input type="email" class="form-control login-form-input"
                    [(ngModel)]="loginData.login" name="sign-in-login" #loginModel="ngModel"
                    autocomplete="username" placeholder="Login" required
-                   [class.is-invalid]="showErrors && !loginModel.valid"
+                   [class.is-invalid]="showErrors && (!loginModel.valid || loginError)"
                    (input)="onInput($event, loginModel, passwordModel)">
             <div class="validation" *ngIf="showErrors && loginError">
                 {{loginError}}
@@ -15,13 +15,13 @@
             <input type="password" class="form-control login-form-input"
                    [(ngModel)]="loginData.password" name="sign-in-password" #passwordModel="ngModel"
                    autocomplete="current-password" placeholder="Password" required
-                   [class.is-invalid]="showErrors && !passwordModel.valid"
+                   [class.is-invalid]="showErrors && (!passwordModel.valid || passwordError)"
                    (input)="onInput($event, loginModel, passwordModel)">
             <div class="validation" *ngIf="showErrors && passwordError">
                 {{passwordError}}
             </div>
         </div>
-        <div class="validation" *ngIf="showErrors && validationError">
+        <div class="validation text-center" *ngIf="showErrors && validationError">
             {{validationError}}
         </div>
         <button type="submit" class="btn btn-primary mb-3 login-button"

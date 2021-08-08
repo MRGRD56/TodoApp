@@ -41,9 +41,9 @@ export class AuthService {
         localStorage.setItem(ACCESS_TOKEN_KEY, value)
     }
 
-    public async login(loginRequest: LoginRequest): Promise<LoginResponse> {
+    private async fetchLoginResponse(loginRequest: LoginRequest, url: string) {
         return this.http
-            .post<LoginResponse>(`${this.baseUrl}api/auth/login`, loginRequest)
+            .post<LoginResponse>(url, loginRequest)
             .pipe(
                 tap(async res => {
                     AuthService.accessToken = res.accessToken;
@@ -51,6 +51,14 @@ export class AuthService {
                 })
             )
             .toPromise();
+    }
+
+    public async login(loginRequest: LoginRequest): Promise<LoginResponse> {
+        return await this.fetchLoginResponse(loginRequest, `${this.baseUrl}api/auth/login`);
+    }
+
+    public async register(loginRequest: LoginRequest): Promise<LoginResponse> {
+        return await this.fetchLoginResponse(loginRequest, `${this.baseUrl}api/auth/register`);
     }
 
     public isAuthenticated(): boolean {

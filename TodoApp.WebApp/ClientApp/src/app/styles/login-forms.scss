@@ -35,6 +35,10 @@
     background: white;
 }
 
+.login-form>div {
+    width: 100%;
+}
+
 .login-form-input:focus, .login-form-input:focus-visible {
     border-color: #4caf50 !important;
     outline: none;
@@ -73,8 +77,8 @@
 }
 
 .login-form {
-    min-width: 215px;
-    max-width: 300px;
+    min-width: 210px;
+    max-width: 210px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -84,14 +88,16 @@
 @media screen and (min-width: 300px) {
 
     .login-form {
-        min-width: 240px;
+        min-width: 220px;
+        max-width: 220px;
     }
 }
 
 @media screen and (min-width: 400px) {
 
     .login-form {
-        min-width: 270px;
+        min-width: 240px;
+        max-width: 240px;
     }
 }
 
