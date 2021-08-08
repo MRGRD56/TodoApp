@@ -14,7 +14,7 @@ namespace TodoApp.Infrastructure.Models
         public string Login { get; set; }
         
         [JsonIgnore]
-        public byte[] Password { get; set; }
+        public string Password { get; set; }
 
         public List<Role> Roles { get; set; } = new();
 

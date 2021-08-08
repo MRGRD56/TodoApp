@@ -1,20 +1,22 @@
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TodoApp.Infrastructure.Models.RequestModels;
 using TodoApp.Infrastructure.Models.RequestModels.Todo;
+using TodoApp.WebApp.Extensions;
 using TodoApp.WebApp.Services.Repositories;
 
 namespace TodoApp.WebApp.Controllers
 {
     [ApiController]
     [Route("api/todo")]
+    [Authorize]
     public class TodoController : ControllerBase
     {
+        private int CurrentUserId => User.GetUserId();
+        
         private readonly TodoItemsRepository _todoItemsRepository;
 
         public TodoController(TodoItemsRepository todoItemsRepository)
@@ -32,7 +34,7 @@ namespace TodoApp.WebApp.Controllers
                 return BadRequest("Page index cannot be less than zero");
             }
 
-            return Ok(await _todoItemsRepository.GetAsync(page, cancellationToken: cancellationToken));
+            return Ok(await _todoItemsRepository.GetAsync(CurrentUserId, page, cancellationToken: cancellationToken));
         }
 
         [HttpGet("get_after")]
@@ -47,7 +49,7 @@ namespace TodoApp.WebApp.Controllers
 
             int? nullableAfterId = afterId == default ? null : afterId;
 
-            return Ok(await _todoItemsRepository.GetAfterAsync(nullableAfterId, cancellationToken: cancellationToken));
+            return Ok(await _todoItemsRepository.GetAfterAsync(CurrentUserId, nullableAfterId, cancellationToken: cancellationToken));
         }
 
         [HttpPost]
@@ -55,12 +57,7 @@ namespace TodoApp.WebApp.Controllers
             [FromBody] TodoPostModel todoPostModel, 
             CancellationToken cancellationToken)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            
-            return Ok(await _todoItemsRepository.AddAsync(todoPostModel.Text, cancellationToken));
+            return Ok(await _todoItemsRepository.AddAsync(CurrentUserId, todoPostModel.Text, cancellationToken));
         }
 
         [HttpPut("{id:int}")]
@@ -71,14 +68,9 @@ namespace TodoApp.WebApp.Controllers
             [FromBody] TodoPutModel todoPutModel, 
             CancellationToken cancellationToken)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            
             var (text, isDone) = todoPutModel;
 
-            return Ok(await _todoItemsRepository.EditAsync(id, text, isDone, cancellationToken));
+            return Ok(await _todoItemsRepository.EditAsync(CurrentUserId, id, text, isDone, cancellationToken));
         }
 
         [HttpPut("toggle_done")]
@@ -86,12 +78,7 @@ namespace TodoApp.WebApp.Controllers
             [FromBody] TodosPutModel todosPutModel,
             CancellationToken cancellationToken)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var todoItemsStream = _todoItemsRepository.ToggleDoneAsync(todosPutModel.Id, cancellationToken);
+            var todoItemsStream = _todoItemsRepository.ToggleDoneAsync(CurrentUserId, todosPutModel.Id, cancellationToken);
             return Ok(await todoItemsStream.ToListAsync(cancellationToken));
         }
 
@@ -101,7 +88,7 @@ namespace TodoApp.WebApp.Controllers
             [FromQuery] bool restore, 
             CancellationToken cancellationToken)
         {
-            return Ok(await _todoItemsRepository.SetDeletedAsync(id, !restore, cancellationToken));
+            return Ok(await _todoItemsRepository.SetDeletedAsync(CurrentUserId, id, !restore, cancellationToken));
         }
         
         [HttpDelete]
@@ -119,7 +106,7 @@ namespace TodoApp.WebApp.Controllers
             }
             
             var todoItemsStream =
-                _todoItemsRepository.SetDeletedAsync(todoItemsIds, !restore, cancellationToken);
+                _todoItemsRepository.SetDeletedAsync(CurrentUserId, todoItemsIds, !restore, cancellationToken);
             return Ok(await todoItemsStream.ToListAsync(cancellationToken));
         }
     }

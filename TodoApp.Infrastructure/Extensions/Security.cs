@@ -6,16 +6,14 @@ namespace TodoApp.Infrastructure.Extensions
 {
     public static class Security
     {
-        public static byte[] HashPassword(string password)
+        public static string HashPassword(string password)
         {
-            var stringHash = BCrypt.Net.BCrypt.HashPassword(password);
-            return Encoding.UTF8.GetBytes(stringHash);
+            return BCrypt.Net.BCrypt.HashPassword(password);
         }
 
-        public static bool VerifyPassword(byte[] correctPasswordHash, string verifiablePassword)
+        public static bool VerifyPassword(string correctPasswordHash, string verifiablePassword)
         {
-            var correctPasswordHashString = Encoding.UTF8.GetString(correctPasswordHash);
-            var isValid = BCrypt.Net.BCrypt.Verify(verifiablePassword, correctPasswordHashString);
+            var isValid = BCrypt.Net.BCrypt.Verify(verifiablePassword, correctPasswordHash);
             return isValid;
         }
     }

@@ -11,16 +11,18 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { HorizontalLoadingComponent } from "./horizontal-loading/horizontal-loading.component";
 import { IconLoadingComponent } from "./icon-loading/icon-loading.component";
+import {LoginComponent} from "./login/login.component";
+import {RegisterComponent} from "./register/register.component";
 
 @NgModule({
     declarations: [
         AppComponent,
         NavMenuComponent,
         HomeComponent,
-        CounterComponent,
-        FetchDataComponent,
         HorizontalLoadingComponent,
-        IconLoadingComponent
+        IconLoadingComponent,
+        LoginComponent,
+        RegisterComponent
     ],
     imports: [
         BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -28,8 +30,8 @@ import { IconLoadingComponent } from "./icon-loading/icon-loading.component";
         FormsModule,
         RouterModule.forRoot([
             {path: '', component: HomeComponent, pathMatch: 'full'},
-            {path: 'counter', component: CounterComponent},
-            {path: 'fetch-data', component: FetchDataComponent},
+            {path: 'login', component: LoginComponent},
+            {path: 'register', component: RegisterComponent}
         ])
     ],
     providers: [],

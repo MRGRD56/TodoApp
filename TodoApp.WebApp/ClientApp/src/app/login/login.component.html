@@ -1,0 +1,15 @@
+<form autocomplete="on">
+    <div class="mb-3">
+        <label for="sign-in-login-input" class="form-label">Login</label>
+        <input type="email" class="form-control" id="sign-in-login-input"
+               [(ngModel)]="loginData.login" name="sign-in-login"
+               autocomplete="username">
+    </div>
+    <div class="mb-3">
+        <label for="sign-in-password-input" class="form-label">Password</label>
+        <input type="password" class="form-control" id="sign-in-password-input"
+               [(ngModel)]="loginData.password" name="sign-in-password"
+               autocomplete="current-password">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

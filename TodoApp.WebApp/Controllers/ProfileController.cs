@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -23,7 +24,12 @@ namespace TodoApp.WebApp.Controllers
         public async Task<IActionResult> Get(CancellationToken cancellationToken)
         {
             var currentUser = await User.GetUserAsync(_db, cancellationToken);
-            return Ok(currentUser);
+            return Ok(new
+            {
+                currentUser.Id,
+                currentUser.Login,
+                Roles = currentUser.Roles.Select(r => r.ToString())
+            });
         }
     }
 }

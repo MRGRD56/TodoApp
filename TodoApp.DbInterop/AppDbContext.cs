@@ -23,7 +23,7 @@ namespace TodoApp.DbInterop
                 .HasConversion(
                     r => ConvertRolesToString(r),
                     r => ConvertRolesFromString(r));
-            modelBuilder.Entity<User>().HasData(new User("admin", "admin", Role.Admin) { Id = 1 });
+            modelBuilder.Entity<User>().HasData(new User("admin", "admin", Role.User, Role.Admin) { Id = 1 });
         }
 
         private static string ConvertRolesToString(IEnumerable<Role> roles) =>
