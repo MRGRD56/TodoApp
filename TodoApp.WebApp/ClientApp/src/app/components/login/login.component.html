@@ -1,19 +1,34 @@
-<form autocomplete="on" (submit)="login()">
-    <div class="mb-3">
-        <label for="sign-in-login-input" class="form-label">Login</label>
-        <input type="email" class="form-control" id="sign-in-login-input"
-               [(ngModel)]="loginData.login" name="sign-in-login"
-               autocomplete="username">
-    </div>
-    <div class="mb-3">
-        <label for="sign-in-password-input" class="form-label">Password</label>
-        <input type="password" class="form-control" id="sign-in-password-input"
-               [(ngModel)]="loginData.password" name="sign-in-password"
-               autocomplete="current-password">
-    </div>
-    <button type="submit" class="btn btn-primary mb-3" [disabled]="isLoggingIn">
-        <span *ngIf="isLoggingIn" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Submit
-    </button>
-    <a routerLink="/register" class="link-primary d-block">sign up</a>
-</form>
+<div class="login-form-container">
+    <h1 class="login-form-header">SIGN IN</h1>
+    <form class="login-form" autocomplete="on" (submit)="login()">
+        <div>
+            <input type="email" class="form-control login-form-input"
+                   [(ngModel)]="loginData.login" name="sign-in-login" #loginModel="ngModel"
+                   autocomplete="username" placeholder="Login" required
+                   [class.is-invalid]="showErrors && !loginModel.valid"
+                   (input)="onInput($event, loginModel, passwordModel)">
+            <div class="validation" *ngIf="showErrors && loginError">
+                {{loginError}}
+            </div>
+        </div>
+        <div>
+            <input type="password" class="form-control login-form-input"
+                   [(ngModel)]="loginData.password" name="sign-in-password" #passwordModel="ngModel"
+                   autocomplete="current-password" placeholder="Password" required
+                   [class.is-invalid]="showErrors && !passwordModel.valid"
+                   (input)="onInput($event, loginModel, passwordModel)">
+            <div class="validation" *ngIf="showErrors && passwordError">
+                {{passwordError}}
+            </div>
+        </div>
+        <div class="validation" *ngIf="showErrors && validationError">
+            {{validationError}}
+        </div>
+        <button type="submit" class="btn btn-primary mb-3 login-button"
+                [disabled]="isLoggingIn">
+            <span *ngIf="isLoggingIn" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Sign in
+        </button>
+        <a routerLink="/register" class="link-primary d-block bottom-link">Sign up</a>
+    </form>
+</div>
