@@ -12,7 +12,7 @@ namespace TodoApp.DesktopClient.Services.ServerInterop
     {
         private const string AccessTokenKey = "API_ACCESS_TOKEN";
 
-        private static HttpClient ApiHttpClient
+        public static HttpClient ApiHttpClient
         {
             get
             {
@@ -26,8 +26,10 @@ namespace TodoApp.DesktopClient.Services.ServerInterop
             }
         }
 
-        public static AccountInfo CurrentUser = null;
+        public static AccountInfo CurrentUser { get; private set; } = null;
         public static string AccessToken { get; private set; }
+
+        public static bool IsAuthenticated => AccessToken != null;
 
         private static async Task<string> LoadAccessTokenAsync()
         {
@@ -64,5 +66,7 @@ namespace TodoApp.DesktopClient.Services.ServerInterop
 
         public static async Task<LoginResponse> RegisterAsync(LoginModel registrationModel) =>
             await FetchLoginResponseAsync(registrationModel, $"{ApiSettings.BaseUrl}api/auth/register");
+
+        public static async Task LogoutAsync()
     }
 }
