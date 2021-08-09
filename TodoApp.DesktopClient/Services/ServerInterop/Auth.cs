@@ -1,15 +1,18 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using TodoApp.DesktopClient.Data;
 using TodoApp.DesktopClient.Extensions;
 using TodoApp.DesktopClient.Models;
+using TodoApp.DesktopClient.Models.Events;
 using TodoApp.Infrastructure.Models.RequestModels.Auth;
 
 namespace TodoApp.DesktopClient.Services.ServerInterop
 {
     public static class Auth
     {
+        private static AccountInfo _currentUser;
         private const string AccessTokenKey = "API_ACCESS_TOKEN";
 
         public static HttpClient ApiHttpClient
@@ -26,19 +29,35 @@ namespace TodoApp.DesktopClient.Services.ServerInterop
             }
         }
 
-        public static AccountInfo CurrentUser { get; private set; } = null;
+        public static AccountInfo CurrentUser
+        {
+            get => _currentUser;
+            private set
+            {
+                _currentUser = value;
+                if (_currentUser != null)
+                {
+                    LoggedIn?.Invoke(null, new LoginEventArgs(_currentUser));
+                }
+                else
+                {
+                    LoggedOut?.Invoke(null, new LoginEventArgs(_currentUser));
+                }
+            }
+        }
+
         public static string AccessToken { get; private set; }
 
         public static bool IsAuthenticated => AccessToken != null;
 
-        private static async Task<string> LoadAccessTokenAsync()
+        private static async Task<string> GetAccessTokenAsync()
         {
             await using var db = new LocalDbContext();
             var entry = await db.LocalStorage.FindAsync(AccessTokenKey);
             return entry?.Value;
         }
 
-        private static async Task SaveAccessTokenAsync(string value)
+        private static async Task SetAccessTokenAsync(string value)
         {
             await using var db = new LocalDbContext();
             var entry = await db.LocalStorage.FindAsync(AccessTokenKey);
@@ -57,7 +76,8 @@ namespace TodoApp.DesktopClient.Services.ServerInterop
         private static async Task<LoginResponse> FetchLoginResponseAsync(LoginModel loginModel, string url)
         {
             var response = await ApiHttpClient.PostAsync<LoginResponse>(url, loginModel);
-            await SaveAccessTokenAsync(response.AccessToken);
+            await SetAccessTokenAsync(response.AccessToken);
+            CurrentUser = await Profile.GetAsync();
             return response;
         }
 
@@ -68,5 +88,13 @@ namespace TodoApp.DesktopClient.Services.ServerInterop
             await FetchLoginResponseAsync(registrationModel, $"{ApiSettings.BaseUrl}api/auth/register");
 
         public static async Task LogoutAsync()
+        {
+            await SetAccessTokenAsync(null);
+        }
+
+        public static event AuthEventHandler LoggedIn;
+        public static event AuthEventHandler LoggedOut;
     }
+
+    public delegate void AuthEventHandler(object sender, LoginEventArgs e);
 }
