@@ -13,6 +13,9 @@ namespace TodoApp.Infrastructure.Models
         public int UserId { get; set; }
 
         public DateTime CreationTime { get; set; } = DateTime.UtcNow;
+
+        [JsonIgnore]
+        public DateTime CreationLocalTime => CreationTime.ToLocalTime();
         
         public string Text { get; set; }
 

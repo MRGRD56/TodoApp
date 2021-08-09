@@ -3,7 +3,7 @@
         "TodoApp.WebApp": {
             "commandName": "Project",
             "launchBrowser": false,
-            "applicationUrl": "http://localhost:5000;http://192.168.43.50:5000",
+            "applicationUrl": "http://localhost:5000;http://192.168.102.69:5000",
             "environmentVariables": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             }
