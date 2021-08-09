@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using Microsoft.Extensions.DependencyInjection;
+﻿using System.Windows;
 using TodoApp.DesktopClient.Data;
-using TodoApp.DesktopClient.Services;
-using TodoApp.DesktopClient.ViewModels.WindowsViewModels;
-using TodoApp.DesktopClient.Views.Windows;
 
 namespace TodoApp.DesktopClient
 {

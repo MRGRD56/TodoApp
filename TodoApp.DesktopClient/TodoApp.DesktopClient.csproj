@@ -9,7 +9,6 @@
     <ItemGroup>
       <Folder Include="Styles\" />
       <Folder Include="ViewModels\PagesViewModels\" />
-      <Folder Include="Views\Pages\" />
     </ItemGroup>
 
     <ItemGroup>
