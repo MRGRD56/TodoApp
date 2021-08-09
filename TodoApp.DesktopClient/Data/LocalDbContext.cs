@@ -9,11 +9,6 @@ namespace TodoApp.DesktopClient.Data
 {
     public sealed class LocalDbContext : DbContext
     {
-        public LocalDbContext()
-        {
-            Database.EnsureCreated();
-        }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
