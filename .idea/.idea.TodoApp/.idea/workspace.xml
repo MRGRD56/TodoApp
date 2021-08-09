@@ -9,30 +9,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9935e9b2-bdff-482b-a47b-68fdbed19947" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.vs/TodoApp/DesignTimeBuild/.dtbcache.v2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vs/TodoApp/v16/.suo" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/App.xaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/App.xaml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/AssemblyInfo.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/Models/AccountInfo.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/Services/Auth.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/Services/MainWindowNavigation.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/Services/WindowsManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/TodoApp.DesktopClient.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/ViewModels/BaseViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/ViewModels/WindowsViewModels/MainWindowViewModel.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/Views/Windows/MainWindow.xaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/Views/Windows/MainWindow.xaml.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/~$do-app-api.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/9218e6bf-de0e-4f45-bc9f-dc715b50261e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/9218e6bf-de0e-4f45-bc9f-dc715b50261e.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/eb6c5a7d-799d-4d43-a7f9-992ce12ee52f.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/TodoItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/TodoItem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Properties/launchSettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/appsettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.sln" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.sln" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/Extensions/HttpClientExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/Extensions/HttpContentExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/Extensions/StringExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/Models/LoginResponse.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/TodoApp/v16/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/TodoApp/v16/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.DesktopClient/Services/ServerInterop/Auth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/Services/ServerInterop/Auth.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.DesktopClient/TodoApp.DesktopClient.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/TodoApp.DesktopClient.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
