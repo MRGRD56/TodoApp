@@ -14,6 +14,7 @@
 
                  <ResourceDictionary Source="/Styles/Common.xaml"/>
                  <ResourceDictionary Source="/Styles/Button.xaml"/>
+                 <ResourceDictionary Source="/Styles/Forms.xaml"/>
              </ResourceDictionary.MergedDictionaries>
          </ResourceDictionary>
     </Application.Resources>

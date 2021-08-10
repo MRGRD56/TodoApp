@@ -60,6 +60,7 @@ namespace TodoApp.DesktopClient.Services.ServerInterop
 
         private static async Task SetAccessTokenAsync(string value)
         {
+            AccessToken = value;
             await using var db = new LocalDbContext();
             var entry = await db.LocalStorage.FindAsync(AccessTokenKey);
             if (entry != null)
@@ -90,11 +91,24 @@ namespace TodoApp.DesktopClient.Services.ServerInterop
 
         public static async Task LogoutAsync()
         {
+            CurrentUser = null;
             await SetAccessTokenAsync(null);
         }
 
         public static event AuthEventHandler LoggedIn;
         public static event AuthEventHandler LoggedOut;
+
+        public static async Task<bool> TryLoginAsync()
+        {
+            AccessToken = await GetAccessTokenAsync();
+            if (AccessToken != null)
+            {
+                CurrentUser = await Profile.GetAsync();
+                return true;
+            }
+
+            return false;
+        }
     }
 
     public delegate void AuthEventHandler(object sender, LoginEventArgs e);

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace TodoApp.DesktopClient.Views.Pages
 {
     /// <summary>
-    /// Interaction logic for RegisterPage.xaml
+    /// Interaction logic for RegistrationPage.xaml
     /// </summary>
-    public partial class RegisterPage : Page
+    public partial class RegistrationPage : Page
     {
-        public RegisterPage()
+        public RegistrationPage()
         {
             InitializeComponent();
         }

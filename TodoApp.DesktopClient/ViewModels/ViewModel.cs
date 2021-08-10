@@ -12,12 +12,12 @@ using TodoApp.DesktopClient.Services.ServerInterop;
 
 namespace TodoApp.DesktopClient.ViewModels
 {
-    public abstract class BaseViewModel : NotifyPropertyChanged
+    public abstract class ViewModel : NotifyPropertyChanged
     {
         public AccountInfo CurrentUser => Auth.CurrentUser;
         public bool IsAuthenticated => CurrentUser != null;
 
-        public BaseViewModel()
+        public ViewModel()
         {
             Auth.LoggedIn += AuthOnUserChanged;
             Auth.LoggedOut += AuthOnUserChanged;

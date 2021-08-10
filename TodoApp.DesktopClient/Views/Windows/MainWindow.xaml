@@ -7,35 +7,44 @@
         xmlns:windowsViewModels="clr-namespace:TodoApp.DesktopClient.ViewModels.WindowsViewModels"
         xmlns:ap="clr-namespace:TodoApp.DesktopClient.AttachedProperties"
         xmlns:pages="clr-namespace:TodoApp.DesktopClient.Views.Pages"
+        xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        Style="{StaticResource JbWindow}">
+        Style="{StaticResource Root}">
     <Window.DataContext>
         <windowsViewModels:MainWindowViewModel/>
     </Window.DataContext>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="TODO" FontSize="20" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
-                    <TextBlock Text="{Binding CurrentUser.Login}"/>
-                    <Button Content="Log in" Command="{Binding NavigateCommand}"
-                            CommandParameter="{x:Type pages:LoginPage}"
-                            Visibility="{Binding IsAuthenticated, Converter={StaticResource VisibilityReConverter}}" 
-                            Margin="0 0 10 0"/>
-                    <Button Content="Log out" Command="{Binding LogoutCommand}" Style="{StaticResource ButtonPrimary}"
-                            Visibility="{Binding IsAuthenticated, Converter={StaticResource VisibilityConverter}}"/>
-                </StackPanel>
+        <Grid Visibility="{Binding IsLoading, Converter={StaticResource VisibilityReConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="TODO" FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <TextBlock Text="{Binding CurrentUser.Login}" Margin="0 0 10 0"
+                                   VerticalAlignment="Center"/>
+                        <Button Content="Log in" Command="{Binding NavigateCommand}"
+                                CommandParameter="{x:Type pages:LoginPage}"
+                                Visibility="{Binding IsAuthenticated, Converter={StaticResource VisibilityReConverter}}" 
+                                Margin="0 0 10 0"/>
+                        <Button Content="Log out" Command="{Binding LogoutCommand}"
+                                Visibility="{Binding IsAuthenticated, Converter={StaticResource VisibilityConverter}}"/>
+                    </StackPanel>
+                </Grid>
             </Grid>
+            <Frame Grid.Row="1" Name="NavigationFrame" NavigationUIVisibility="Hidden"/>
         </Grid>
-        <Frame Grid.Row="1" Name="NavigationFrame" NavigationUIVisibility="Hidden"/>
+        <Grid Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}">
+            <Image gif:ImageBehavior.AnimatedSource="/Assets/global-loading.gif" Width="200" Height="200"
+                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Grid>
     </Grid>
 </Window>

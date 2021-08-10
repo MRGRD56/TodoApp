@@ -7,7 +7,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="ViewModels\PagesViewModels\" />
+      <None Remove="Assets\global-loading.gif" />
+      <None Remove="Assets\global-loading.html" />
+      <None Remove="Assets\global-loading.svg" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Assets\reserved\global-loading.html">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -16,10 +24,17 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.8" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Design" Version="1.1.6" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+      <PackageReference Include="SharpVectors" Version="1.7.6" />
+      <PackageReference Include="WpfAnimatedGif" Version="2.0.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\TodoApp.Infrastructure\TodoApp.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Resource Include="Assets\global-loading.gif" />
+      <Resource Include="Assets\reserved\global-loading.svg" />
     </ItemGroup>
 
 </Project>

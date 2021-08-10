@@ -8,7 +8,7 @@
     <Compile Update="Views\Pages\LoginPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\RegisterPage.xaml.cs">
+    <Compile Update="Views\Pages\RegistrationPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -19,13 +19,16 @@
     <Page Update="Styles\Common.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Styles\Forms.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Pages\HomePage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\LoginPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\RegisterPage.xaml">
+    <Page Update="Views\Pages\RegistrationPage.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

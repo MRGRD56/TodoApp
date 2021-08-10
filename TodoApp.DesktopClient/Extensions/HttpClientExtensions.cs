@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
@@ -9,7 +10,8 @@ namespace TodoApp.DesktopClient.Extensions
     {
         private static HttpContent CreateHttpContent(object source)
         {
-            return new StringContent(JsonConvert.SerializeObject(source));
+            var json = JsonConvert.SerializeObject(source);
+            return new StringContent(json, Encoding.UTF8, "application/json");
         }
 
         public static async Task<TResponse> GetAsync<TResponse>(this HttpClient httpClient, string requestUri)
