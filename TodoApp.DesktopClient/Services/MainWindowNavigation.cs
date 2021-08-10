@@ -18,6 +18,12 @@ namespace TodoApp.DesktopClient.Services
             return Navigate(new T());
         }
 
+        public static bool NavigateNew(Type type)
+        {
+            var obj = Activator.CreateInstance(type);
+            return Navigate(obj);
+        }
+
         public static bool GoBack()
         {
             if (!CanGoBack) return false;

@@ -2,12 +2,30 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
+    <Compile Update="Views\Pages\HomePage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Pages\LoginPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\RegisterPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Styles\Button.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\Common.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\HomePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Pages\LoginPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\RegisterPage.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
