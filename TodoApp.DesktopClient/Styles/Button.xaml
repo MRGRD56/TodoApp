@@ -19,7 +19,7 @@
     <SolidColorBrush x:Key="Button.Disabled.Background" Color="#f2f2f2"/>
     <SolidColorBrush x:Key="Button.Disabled.Border" Color="#d0d0d0"/>
     <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#9a9a9a"/>
-    <Style TargetType="{x:Type Button}" x:Key="ButtonSecondary">
+    <Style TargetType="{x:Type Button}" x:Key="ButtonNormal">
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
         <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
@@ -57,7 +57,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style TargetType="{x:Type Button}" x:Key="ButtonPrimary" BasedOn="{StaticResource ButtonSecondary}">
+    <Style TargetType="{x:Type Button}" x:Key="ButtonPrimary" BasedOn="{StaticResource ButtonNormal}">
         <Setter Property="Background" Value="#048ccb"/>
         <Setter Property="BorderBrush" Value="#0075b6"/>
         <Setter Property="Foreground" Value="White"/>
@@ -88,5 +88,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style TargetType="Button" BasedOn="{StaticResource ButtonSecondary}"></Style>
+    <Style TargetType="Button" BasedOn="{StaticResource ButtonNormal}"></Style>
 </ResourceDictionary>

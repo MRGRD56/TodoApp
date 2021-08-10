@@ -29,9 +29,10 @@
                     <TextBlock Text="{Binding CurrentUser.Login}"/>
                     <Button Content="Log in" Command="{Binding NavigateCommand}"
                             CommandParameter="{x:Type pages:LoginPage}"
-                            ap:View.IsVisibleRe="{Binding IsAuthenticated}" Margin="0 0 10 0"/>
+                            Visibility="{Binding IsAuthenticated, Converter={StaticResource VisibilityReConverter}}" 
+                            Margin="0 0 10 0"/>
                     <Button Content="Log out" Command="{Binding LogoutCommand}" Style="{StaticResource ButtonPrimary}"
-                            ap:View.IsVisible="{Binding IsAuthenticated}"/>
+                            Visibility="{Binding IsAuthenticated, Converter={StaticResource VisibilityConverter}}"/>
                 </StackPanel>
             </Grid>
         </Grid>

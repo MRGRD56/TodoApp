@@ -7,6 +7,7 @@ using System.Windows;
 
 namespace TodoApp.DesktopClient.AttachedProperties
 {
+    [Obsolete("Not working")]
     public static class View
     {
         #region IsVisible
@@ -15,22 +16,16 @@ namespace TodoApp.DesktopClient.AttachedProperties
             "IsVisible",
             typeof(bool),
             typeof(View),
-            new FrameworkPropertyMetadata(null));
+            new FrameworkPropertyMetadata(false, CreatePropertyChangedCallback(Visibility.Visible, Visibility.Collapsed)));
 
         public static bool GetIsVisible(UIElement element)
         {
-            CheckIfElementNull(element);
-
             return (bool) element.GetValue(IsVisibleProperty);
         }
 
         public static void SetIsVisible(UIElement element, bool value)
         {
-            CheckIfElementNull(element);
-
             element.SetValue(IsVisibleProperty, value);
-
-            element.Visibility = value ? Visibility.Visible : Visibility.Collapsed;
         }
 
         #endregion
@@ -41,22 +36,16 @@ namespace TodoApp.DesktopClient.AttachedProperties
             "IsVisibleRe",
             typeof(bool),
             typeof(View),
-            new FrameworkPropertyMetadata(null));
+            new FrameworkPropertyMetadata(false, CreatePropertyChangedCallback(Visibility.Collapsed, Visibility.Visible)));
 
         public static bool GetIsVisibleRe(UIElement element)
         {
-            CheckIfElementNull(element);
-
             return (bool) element.GetValue(IsVisibleReProperty);
         }
 
         public static void SetIsVisibleRe(UIElement element, bool value)
         {
-            CheckIfElementNull(element);
-
             element.SetValue(IsVisibleReProperty, value);
-
-            element.Visibility = value ? Visibility.Collapsed : Visibility.Visible;
         }
 
         #endregion
@@ -67,22 +56,16 @@ namespace TodoApp.DesktopClient.AttachedProperties
             "IsHidden",
             typeof(bool),
             typeof(View),
-            new FrameworkPropertyMetadata(null));
+            new FrameworkPropertyMetadata(false, CreatePropertyChangedCallback(Visibility.Hidden, Visibility.Visible)));
 
         public static bool GetIsHidden(UIElement element)
         {
-            CheckIfElementNull(element);
-
             return (bool) element.GetValue(IsHiddenProperty);
         }
 
         public static void SetIsHidden(UIElement element, bool value)
         {
-            CheckIfElementNull(element);
-
             element.SetValue(IsHiddenProperty, value);
-
-            element.Visibility = value ? Visibility.Hidden : Visibility.Visible;
         }
 
         #endregion
@@ -93,33 +76,31 @@ namespace TodoApp.DesktopClient.AttachedProperties
             "IsHiddenRe",
             typeof(bool),
             typeof(View),
-            new FrameworkPropertyMetadata(null));
+            new FrameworkPropertyMetadata(false, CreatePropertyChangedCallback(Visibility.Visible, Visibility.Hidden)));
 
         public static bool GetIsHiddenRe(UIElement element)
         {
-            CheckIfElementNull(element);
-
             return (bool) element.GetValue(IsHiddenReProperty);
         }
 
         public static void SetIsHiddenRe(UIElement element, bool value)
         {
-            CheckIfElementNull(element);
-
             element.SetValue(IsHiddenReProperty, value);
-
-            element.Visibility = value ? Visibility.Visible : Visibility.Hidden;
         }
 
         #endregion
 
-
-        private static void CheckIfElementNull(UIElement element)
+        private static PropertyChangedCallback CreatePropertyChangedCallback(
+            Visibility trueValue, Visibility falseValue)
         {
-            if (element == null)
+            return (d, e) =>
             {
-                throw new ArgumentNullException(nameof(element));
-            }
+                var value = (bool) e.NewValue;
+                if (d is UIElement element)
+                {
+                    element.Visibility = value ? trueValue : falseValue;
+                }
+            };
         }
     }
 }
