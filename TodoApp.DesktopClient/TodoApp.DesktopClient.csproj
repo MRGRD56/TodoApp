@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Assets\Fonts\MaterialIcons-Regular.ttf" />
       <None Remove="Assets\global-loading.gif" />
       <None Remove="Assets\global-loading.html" />
       <None Remove="Assets\global-loading.svg" />
@@ -36,6 +37,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Resource Include="Assets\Fonts\MaterialIcons-Regular.ttf" />
       <Resource Include="Assets\global-loading.gif" />
       <Resource Include="Assets\loader15_btn_pri.gif" />
       <Resource Include="Assets\loader20_btn_dis.gif" />

@@ -5,17 +5,18 @@
              xmlns:converters="clr-namespace:TodoApp.DesktopClient.Converters"
              StartupUri="Views/Windows/MainWindow.xaml">
     <Application.Resources>
-         <ResourceDictionary>
-             <ResourceDictionary.MergedDictionaries>
-                 <ResourceDictionary>
-                     <BooleanToVisibilityConverter x:Key="VisibilityConverter"/>
-                     <converters:BooleanToVisibilityReConverter x:Key="VisibilityReConverter"/>
-                 </ResourceDictionary>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <BooleanToVisibilityConverter x:Key="VisibilityConverter"/>
+                    <converters:BooleanToVisibilityReConverter x:Key="VisibilityReConverter"/>
+                </ResourceDictionary>
 
-                 <ResourceDictionary Source="/Styles/Common.xaml"/>
-                 <ResourceDictionary Source="/Styles/Button.xaml"/>
-                 <ResourceDictionary Source="/Styles/Forms.xaml"/>
-             </ResourceDictionary.MergedDictionaries>
-         </ResourceDictionary>
+                <ResourceDictionary Source="/Styles/Common.xaml"/>
+                <ResourceDictionary Source="/Styles/Text.xaml"/>
+                <ResourceDictionary Source="/Styles/Button.xaml"/>
+                <ResourceDictionary Source="/Styles/Forms.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

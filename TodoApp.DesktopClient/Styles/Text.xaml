@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <FontFamily x:Key="MaterialIconsFont">pack://application:,,,/Assets/Fonts/#Material Icons</FontFamily>
+    <Style x:Key="MaterialIcons">
+        <Setter Property="TextElement.FontFamily" Value="{StaticResource MaterialIconsFont}"/>
+        <Setter Property="TextElement.FontSize" Value="20"/>
+    </Style>
+</ResourceDictionary>

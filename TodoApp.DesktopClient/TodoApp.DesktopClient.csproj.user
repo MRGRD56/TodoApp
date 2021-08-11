@@ -28,6 +28,9 @@
     <Page Update="Styles\Forms.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Styles\Text.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Pages\HomePage.xaml">
       <SubType>Designer</SubType>
     </Page>
