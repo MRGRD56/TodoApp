@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TodoApp.DesktopClient.Controls"
              xmlns:gif="http://wpfanimatedgif.codeplex.com"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             Name="Uc">
     <UserControl.Resources>
         <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonPrimary}">
             <Setter Property="Template">
@@ -37,11 +38,12 @@
         </Style>
     </UserControl.Resources>
     <Button HorizontalAlignment="Center" Style="{StaticResource ButtonPrimary}" 
-            Name="RootElement"
+            Name="ButtonElement"
             d:DataContext="{d:DesignInstance local:LoadingButtonPrimary}"
             Command="{Binding Command}"
             CommandParameter="{Binding CommandParameter}"
-            IsEnabled="{Binding IsNotLoading}">
+            IsEnabled="{Binding IsNotLoading}"
+            Click="OnClick">
         <StackPanel Orientation="Horizontal">
             <Image gif:ImageBehavior.AnimatedSource="/Assets/loader15_btn_pri.gif" Width="15"
                            Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}"

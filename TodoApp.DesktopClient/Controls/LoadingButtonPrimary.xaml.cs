@@ -26,7 +26,7 @@ namespace TodoApp.DesktopClient.Controls
         public LoadingButtonPrimary()
         {
             InitializeComponent();
-            RootElement.DataContext = this;
+            ButtonElement.DataContext = this;
         }
 
         public static readonly DependencyProperty IsLoadingProperty = DependencyProperty.Register(
@@ -45,13 +45,19 @@ namespace TodoApp.DesktopClient.Controls
             "Command",
             typeof(ICommand),
             typeof(LoadingButtonPrimary),
-            new UIPropertyMetadata(null));
+            new UIPropertyMetadata(defaultValue: null));
 
         public static readonly DependencyProperty CommandParameterProperty = DependencyProperty.Register(
             "CommandParameter",
             typeof(object),
             typeof(LoadingButtonPrimary),
-            new UIPropertyMetadata(null));
+            new UIPropertyMetadata(defaultValue: null));
+
+        public static readonly DependencyProperty ClickProperty = DependencyProperty.Register(
+            "Click",
+            typeof(RoutedEventHandler),
+            typeof(LoadingButtonPrimary),
+            new UIPropertyMetadata(defaultValue: null));
 
         public bool IsLoading
         {
@@ -83,12 +89,23 @@ namespace TodoApp.DesktopClient.Controls
             set => SetValue(CommandParameterProperty, value);
         }
 
+        public RoutedEventHandler Click
+        {
+            get => (RoutedEventHandler) GetValue(ClickProperty);
+            set => SetValue(ClickProperty, value);
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void OnClick(object sender, RoutedEventArgs e)
+        {
+            Click?.Invoke(sender, e);
         }
     }
 }

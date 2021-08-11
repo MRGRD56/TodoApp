@@ -75,16 +75,22 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
             var login = Login.Trim() ?? "";
             var password = Password.GetString() ?? "";
 
-            //if (string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(password))
-            //{
-            //    Error = "Specify your login and password";
-            //    return;
-            //}
+            var isLoginNull = string.IsNullOrWhiteSpace(login);
+            var isPasswordNull = string.IsNullOrWhiteSpace(password);
+            if (isLoginNull || isPasswordNull)
+            {
+                Error = "Provide your " +
+                        (isLoginNull && isPasswordNull
+                            ? "credentials"
+                            : isLoginNull
+                                ? "login"
+                                : "password");
+                return;
+            }
 
             try
             {
                 IsLoggingIn = true;
-                await Task.Delay(3000);
                 var response = await Auth.LoginAsync(new LoginModel(login, password));
                 MainWindowNavigation.NavigateNew<HomePage>();
             }
