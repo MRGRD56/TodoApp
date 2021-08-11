@@ -43,9 +43,9 @@
             CommandParameter="{Binding CommandParameter}"
             IsEnabled="{Binding IsNotLoading}">
         <StackPanel Orientation="Horizontal">
-            <Image gif:ImageBehavior.AnimatedSource="/Assets/loader20_btn_pri.gif" Width="15"
+            <Image gif:ImageBehavior.AnimatedSource="/Assets/loader15_btn_pri.gif" Width="15"
                            Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}"
-                           VerticalAlignment="Center" Margin="0 0 3 0"/>
+                           VerticalAlignment="Center" Margin="-3 0 3 0"/>
             <TextBlock Text="{Binding Text}" VerticalAlignment="Center"/>
         </StackPanel>
     </Button>
