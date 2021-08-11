@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TodoApp.DesktopClient.ViewModels.PagesViewModels;
 
 namespace TodoApp.DesktopClient.Views.Pages
 {
@@ -20,9 +21,17 @@ namespace TodoApp.DesktopClient.Views.Pages
     /// </summary>
     public partial class LoginPage : Page
     {
+        private LoginPageViewModel ViewModel => (LoginPageViewModel) DataContext;
+
         public LoginPage()
         {
             InitializeComponent();
+            LoginTextBox.Focus();
+        }
+
+        private void PasswordBoxOnPasswordChanged(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Password = ((PasswordBox)sender).SecurePassword;
         }
     }
 }

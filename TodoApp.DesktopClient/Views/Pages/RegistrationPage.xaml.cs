@@ -23,6 +23,7 @@ namespace TodoApp.DesktopClient.Views.Pages
         public RegistrationPage()
         {
             InitializeComponent();
+            LoginTextBox.Focus();
         }
     }
 }

@@ -10,6 +10,8 @@
       <None Remove="Assets\global-loading.gif" />
       <None Remove="Assets\global-loading.html" />
       <None Remove="Assets\global-loading.svg" />
+      <None Remove="Assets\loader20_btn_dis.gif" />
+      <None Remove="Assets\loader20_btn_pri.gif" />
     </ItemGroup>
 
     <ItemGroup>
@@ -34,6 +36,8 @@
 
     <ItemGroup>
       <Resource Include="Assets\global-loading.gif" />
+      <Resource Include="Assets\loader20_btn_dis.gif" />
+      <Resource Include="Assets\loader20_btn_pri.gif" />
       <Resource Include="Assets\reserved\global-loading.svg" />
     </ItemGroup>
 

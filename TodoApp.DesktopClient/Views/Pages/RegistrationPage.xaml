@@ -23,7 +23,7 @@
                 </Style>
             </StackPanel.Resources>
             <Label Content="Login"/>
-            <TextBox Text="user2035" Margin="0 0 0 10"/>
+            <TextBox Text="user2035" Margin="0 0 0 10" Name="LoginTextBox"/>
             <Label Content="Password"/>
             <PasswordBox Password="Password" Margin="0 0 0 10"/>
             <Label Content="Repeat password"/>

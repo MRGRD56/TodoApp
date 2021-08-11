@@ -58,4 +58,8 @@
     <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource TextBoxNormal}"/>
     <Style TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource TextBoxBase}" x:Key="PasswordBoxNormal"/>
     <Style TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource PasswordBoxNormal}"/>
+
+    <Style x:Key="Error">
+        <Setter Property="TextElement.Foreground" Value="#e81c29"/>
+    </Style>
 </ResourceDictionary>

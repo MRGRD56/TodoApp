@@ -5,6 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TodoApp.DesktopClient.Views.Pages"
       xmlns:pagesViewModels="clr-namespace:TodoApp.DesktopClient.ViewModels.PagesViewModels"
+      xmlns:gif="http://wpfanimatedgif.codeplex.com"
+      xmlns:controls="clr-namespace:TodoApp.DesktopClient.Controls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Login"
@@ -13,8 +15,8 @@
         <pagesViewModels:LoginPageViewModel/>
     </Page.DataContext>
     <Grid>
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <StackPanel.Resources>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="170">
+            <StackPanel.Resources>  
                 <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxNormal}">
                     <Setter Property="Width" Value="170"/>
                 </Style>
@@ -23,12 +25,32 @@
                 </Style>
             </StackPanel.Resources>
             <Label Content="Login"/>
-            <TextBox Text="{Binding Login}" Margin="0 0 0 10"/>
+            <TextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" Margin="0 0 0 10"
+                     Name="LoginTextBox"/>
             <Label Content="Password"/>
-            <PasswordBox Margin="0 0 0 20" Name="PasswordBox"/>
-            <Button Content="Sign in" HorizontalAlignment="Center" Style="{StaticResource ButtonPrimary}" Margin="0 0 0 5"
+            <PasswordBox Name="PasswordBox" PasswordChanged="PasswordBoxOnPasswordChanged" Margin="0 0 0 10">
+                <PasswordBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding LoginCommand}"/>
+                </PasswordBox.InputBindings>
+            </PasswordBox>
+            <TextBlock TextWrapping="Wrap" Style="{StaticResource Error}" Margin="2 0" 
+                       Text="{Binding Error}"
+                       Visibility="{Binding HasError, Converter={StaticResource VisibilityConverter}}"/>
+            <!--<Button HorizontalAlignment="Center" Style="{StaticResource ButtonPrimary}" Margin="0 10 0 5"
                     Command="{Binding LoginCommand}"
-                    CommandParameter="{Binding ElementName=PasswordBox}"/>
+                    CommandParameter="{Binding ElementName=PasswordBox}"
+                    IsEnabled="{Binding IsNotLoggingIn}">
+                <StackPanel Orientation="Horizontal">
+                    --><!--<Image gif:ImageBehavior.AnimatedSource="/Assets/loader20_btn_dis.gif" Width="14"
+                           Visibility="{Binding IsLoggingIn, Converter={StaticResource VisibilityConverter}}"
+                           VerticalAlignment="Center" Margin="0 0 3 0"/>--><!--
+                    <TextBlock Text="Sign in" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>-->
+            <controls:LoadingButtonPrimary Margin="0 10 0 5" 
+                                           Command="{Binding LoginCommand}" 
+                                           IsLoading="{Binding IsLoggingIn}"
+                                           Text="Sign in"/>
             <Button Content="Sign up" HorizontalAlignment="Center" Style="{StaticResource ButtonLink}"
                     Command="{Binding NavigateCommand}"
                     CommandParameter="{x:Type local:RegistrationPage}"/>
