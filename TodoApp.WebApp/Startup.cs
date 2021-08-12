@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -71,6 +72,23 @@ namespace TodoApp.WebApp
                         
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = authOptions.GetSymmetricSecurityKey()
+                    };
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            var path = context.HttpContext.Request.Path;
+                            if (path.StartsWithSegments("/hubs/todo"))
+                            {
+                                var accessToken = context.Request.Query["access_token"];
+                                if (!string.IsNullOrEmpty(accessToken))
+                                {
+                                    context.Token = accessToken;
+                                }
+                            }
+                            
+                            return Task.CompletedTask;
+                        }
                     };
                 });
             

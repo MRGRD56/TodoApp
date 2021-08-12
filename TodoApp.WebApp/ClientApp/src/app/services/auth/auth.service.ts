@@ -6,6 +6,8 @@ import {Router} from "@angular/router";
 import LoginRequest from "../../models/LoginRequest";
 import {tap} from "rxjs/operators";
 import CurrentUser from "../../models/CurrentUser";
+import { TodoHubService } from "../todo-hub/todo-hub.service";
+import { Observable, Observer, Subscriber } from "rxjs";
 
 export const ACCESS_TOKEN_KEY = "api_access_token";
 
@@ -34,31 +36,32 @@ export class AuthService {
         }
     }
 
-    private static get accessToken() {
+    public static get accessToken() {
         return localStorage.getItem(ACCESS_TOKEN_KEY)
     }
-    private static set accessToken(value: string) {
+    public static set accessToken(value: string) {
         localStorage.setItem(ACCESS_TOKEN_KEY, value)
     }
 
-    private async fetchLoginResponse(loginRequest: LoginRequest, url: string) {
+    private fetchLoginResponse(loginRequest: LoginRequest, url: string) {
         return this.http
             .post<LoginResponse>(url, loginRequest)
             .pipe(
                 tap(async res => {
                     AuthService.accessToken = res.accessToken;
                     this._currentUser = await this.getCurrentUser();
+                    this.loggedInSub.next();
                 })
             )
             .toPromise();
     }
 
-    public async login(loginRequest: LoginRequest): Promise<LoginResponse> {
-        return await this.fetchLoginResponse(loginRequest, `${this.baseUrl}api/auth/login`);
+    public login(loginRequest: LoginRequest): Promise<LoginResponse> {
+        return this.fetchLoginResponse(loginRequest, `${this.baseUrl}api/auth/login`);
     }
 
-    public async register(loginRequest: LoginRequest): Promise<LoginResponse> {
-        return await this.fetchLoginResponse(loginRequest, `${this.baseUrl}api/auth/register`);
+    public register(loginRequest: LoginRequest): Promise<LoginResponse> {
+        return this.fetchLoginResponse(loginRequest, `${this.baseUrl}api/auth/register`);
     }
 
     public isAuthenticated(): boolean {
@@ -69,6 +72,7 @@ export class AuthService {
     public async logout(): Promise<void> {
         localStorage.removeItem(ACCESS_TOKEN_KEY);
         this._currentUser = null;
+        this.loggedOutSub.next();
         await this.router.navigate(["/login"]);
     }
 
@@ -82,4 +86,14 @@ export class AuthService {
     public get currentUser() {
         return this._currentUser;
     }
+
+    private loggedInSub: Subscriber<void>;
+    public readonly loggedIn = new Observable<void>(subscriber => {
+        this.loggedInSub = subscriber;
+    });
+
+    private loggedOutSub: Subscriber<void>;
+    public readonly loggedOut = new Observable<void>(subscriber => {
+        this.loggedOutSub = subscriber;
+    });
 }

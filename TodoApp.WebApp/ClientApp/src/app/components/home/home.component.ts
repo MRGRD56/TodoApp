@@ -7,6 +7,7 @@ import {HubConnectionState} from "@microsoft/signalr";
 import {delay} from "../../extensions/AsyncExtensions";
 import {TodoHubService} from "../../services/todo-hub/todo-hub.service";
 import {TodoService} from "../../services/todo/todo.service";
+import { AuthService } from "../../services/auth/auth.service";
 
 @Component({
     selector: 'app-home',
@@ -58,12 +59,19 @@ export class HomeComponent {
     constructor(private readonly http: HttpClient,
                 private readonly todoHubService: TodoHubService,
                 @Inject("BASE_URL") private readonly baseUrl: string,
-                private readonly todoService: TodoService) {
+                private readonly todoService: TodoService,
+                private readonly auth: AuthService) {
         this.initialize();
     }
 
+    private get currentUserId() {
+        return this.auth.currentUser.id.toString();
+    }
+
     private async initialize() {
-        await this.initializeTodoHub();
+        TodoHubService.newConnectionStarted.subscribe(async () => {
+            await this.initializeTodoHub();
+        });
 
         const scroll$ = fromEvent(window, "scroll");
         scroll$.subscribe(async _ => {
@@ -168,7 +176,7 @@ export class HomeComponent {
 
         this.isTodoItemSubmitting = true;
         const addedTodo = await this.todoService.add(postBody);
-        await this.todoHubService.hubConnection.invoke("Add", addedTodo);
+        await this.todoHubService.hubConnection.invoke("Add", addedTodo, this.currentUserId);
         this.newTodoText = "";
         this.isTodoItemSubmitting = false;
     }
@@ -187,7 +195,7 @@ export class HomeComponent {
         try {
             const editedTodoItem = await this.todoService.edit(this.editingTodoItem.id, putBody);
 
-            await this.todoHubService.hubConnection.invoke("Edit", editedTodoItem);
+            await this.todoHubService.hubConnection.invoke("Edit", editedTodoItem, this.currentUserId);
             this.editingTodoItem = null;
             this.isTodoItemSubmitting = false;
         } catch (error) {
@@ -223,14 +231,14 @@ export class HomeComponent {
 
         const idsToDelete = this.selectedTodoItems.map(item => item.id);
         const deletedTodos = await this.todoService.deleteItems(idsToDelete);
-        await this.todoHubService.hubConnection.invoke("Delete", idsToDelete);
+        await this.todoHubService.hubConnection.invoke("Delete", idsToDelete, this.currentUserId);
         this.isTodosDeleting = false;
     }
 
     public async toggleSelectedItemsIsDone() {
         this.isDoneToggling = true;
         const editedTodos = await this.todoService.toggleDone(this.selectedTodoItems.map(item => item.id));
-        await this.todoHubService.hubConnection.invoke("ToggleDone", editedTodos);
+        await this.todoHubService.hubConnection.invoke("ToggleDone", editedTodos, this.currentUserId);
         this.isDoneToggling = false;
     }
 

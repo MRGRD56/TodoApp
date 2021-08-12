@@ -20,10 +20,12 @@ namespace TodoApp.DesktopClient.Services.ServerInterop
             }
         }
 
-        public static async Task Add(TodoItem todoItem) => await Connection.InvokeAsync("Add", todoItem);
-        public static async Task Delete(int[] todoItemsId) => await Connection.InvokeAsync("Delete", todoItemsId);
-        public static async Task ToggleDone(TodoItem[] todoItems) => await Connection.InvokeAsync("ToggleDone", todoItems);
-        public static async Task Edit(TodoItem todoItem) => await Connection.InvokeAsync("Edit", todoItem);
+        private static string CurrentUserId => Auth.CurrentUser.Id.ToString();
+
+        public static async Task Add(TodoItem todoItem) => await Connection.InvokeAsync("Add", todoItem, CurrentUserId);
+        public static async Task Delete(int[] todoItemsId) => await Connection.InvokeAsync("Delete", todoItemsId, CurrentUserId);
+        public static async Task ToggleDone(TodoItem[] todoItems) => await Connection.InvokeAsync("ToggleDone", todoItems, CurrentUserId);
+        public static async Task Edit(TodoItem todoItem) => await Connection.InvokeAsync("Edit", todoItem, CurrentUserId);
 
         public static event Action<TodoItem> Added;
         public static event Action<int[]> Deleted;

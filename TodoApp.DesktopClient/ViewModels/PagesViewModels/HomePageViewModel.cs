@@ -66,6 +66,37 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
             await FetchItemsAsync();
 
             TodoHub.Added += TodoHubOnAdded;
+            TodoHub.Deleted += TodoHubOnDeleted;
+            TodoHub.ToggledDone += TodoHubOnToggledDone;
+            TodoHub.Edited += TodoHubOnEdited;
+        }
+
+        private void TodoHubOnEdited(TodoItem todoItem)
+        {
+            var itemToEdit = TodoItems.FirstOrDefault(ti => ti.Item.Id == todoItem.Id);
+            if (itemToEdit != null)
+            {
+                itemToEdit.Item.Text = todoItem.Text;
+            }
+        }
+
+        private void TodoHubOnToggledDone(TodoItem[] todoItems)
+        {
+            foreach (var editedItem in todoItems)
+            {
+                var todoItem = TodoItems.FirstOrDefault(ti => ti.Item.Id == editedItem.Id);
+                if (todoItem == null) continue;
+                todoItem.Item.IsDone = editedItem.IsDone;
+            }
+        }
+
+        private void TodoHubOnDeleted(int[] ids)
+        {
+            var itemsToRemove = TodoItems.Where(ti => ids.Contains(ti.Item.Id)).ToArray();
+            foreach (var item in itemsToRemove)
+            {
+                TodoItems.Remove(item);
+            }
         }
 
         private void TodoHubOnAdded(TodoItem todoItem)
