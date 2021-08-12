@@ -10,6 +10,7 @@
                 <ResourceDictionary>
                     <BooleanToVisibilityConverter x:Key="VisibilityConverter"/>
                     <converters:BooleanToVisibilityReConverter x:Key="VisibilityReConverter"/>
+                    <converters:SelectedItemBorderBrushConverter x:Key="SelectedItemBorderBrushConverter"/>
                 </ResourceDictionary>
 
                 <ResourceDictionary Source="/Styles/Common.xaml"/>

@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CheckLib;
+using TodoApp.DesktopClient.ViewModels.PagesViewModels;
+using TodoApp.Infrastructure.Models;
 
 namespace TodoApp.DesktopClient.Views.Pages
 {
@@ -20,9 +23,27 @@ namespace TodoApp.DesktopClient.Views.Pages
     /// </summary>
     public partial class HomePage : Page
     {
+        private HomePageViewModel ViewModel => (HomePageViewModel) DataContext;
+
         public HomePage()
         {
             InitializeComponent();
+        }
+
+        private void OnTodoItemClick(object sender, MouseButtonEventArgs e)
+        {
+            var element = (FrameworkElement) sender;
+            element.Focus();
+            var todoItem = (Checkable<TodoItem>) element.DataContext;
+            ViewModel.OnTodoItemClick(todoItem);
+        }
+
+        private void OnTodoItemKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Space) return;
+
+            var todoItem = (Checkable<TodoItem>) ((FrameworkElement) sender).DataContext;
+            ViewModel.OnTodoItemClick(todoItem);
         }
     }
 }

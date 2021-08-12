@@ -21,7 +21,7 @@ namespace TodoApp.DesktopClient.ViewModels.WindowsViewModels
 
         public bool IsLoading => AppState.IsLoading;
 
-        private void AppStateOnIsLoadingChanged(object? sender, EventArgs e)
+        private void AppStateOnIsLoadingChanged(object sender, EventArgs e)
         {
             OnPropertyChanged(nameof(IsLoading));
         }

@@ -24,22 +24,77 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <TextBox Grid.Row="0" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="52" Margin="0 0 0 5"
-                     VerticalContentAlignment="Top"/>
+                     VerticalContentAlignment="Top" Text="{Binding NewTodoItemText, Mode=TwoWay}"/>
             <StackPanel Grid.Row="1" Orientation="Horizontal">
-                <controls:LoadingButtonPrimary Text="Submit" Margin="0 0 8 0"/>
-                <StackPanel Orientation="Horizontal">
+                <controls:LoadingButtonPrimary Text="Submit" Margin="0 0 8 0"
+                                               IsLoading="{Binding IsSubmitting}"
+                                               Command="{Binding AddCommand}"/>
+                <StackPanel Orientation="Horizontal"
+                            Visibility="{Binding HasSelectedItems, Converter={StaticResource VisibilityConverter}}">
                     <StackPanel.Resources>
                         <Style TargetType="Button" BasedOn="{StaticResource ButtonIcon}">
                             <Setter Property="Margin" Value="2 0"/>
                         </Style>
                     </StackPanel.Resources>
                     <Button Content="check" ToolTip="Complete selected"/>
-                    <Button Content="edit" ToolTip="Edit selected"/>
+                    <Button Content="edit" ToolTip="Edit selected" 
+                            IsEnabled="{Binding HasSingleSelectedItem}"/>
                     <Button Content="delete" ToolTip="Delete selected"/>
                     <Button Content="close" ToolTip="Unselect"/>
-                    <TextBlock Text="2 items" Margin="5 0" VerticalAlignment="Center" Foreground="#424242"/>
+                    <TextBlock Text="{Binding SelectedItemsCountString}" Margin="5 0" VerticalAlignment="Center" Foreground="#424242"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
+        <ScrollViewer Grid.Row="1" Focusable="False">
+            <ItemsControl Margin="3" ItemsSource="{Binding TodoItems}"
+                          Focusable="False">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="0 0 0 3"
+                                BorderBrush="{Binding IsChecked, Converter={StaticResource SelectedItemBorderBrushConverter}}"
+                                Background="#f2f2f2"
+                                BorderThickness="1"
+                                Padding="6 12 6 3"
+                                Focusable="True" 
+                                MouseUp="OnTodoItemClick"
+                                KeyUp="OnTodoItemKeyUp">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Cursor" Value="Hand"/>
+                                    <Setter Property="FocusVisualStyle">
+                                        <Setter.Value>
+                                            <Style TargetType="Control">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate>
+                                                            <Border Margin="-2" BorderBrush="#81c4f5" CornerRadius="1" BorderThickness="2">
+                                                                <Border Margin="0" BorderBrush="#73b1dd" CornerRadius="0" BorderThickness="1"/>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Border.Style>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Text="{Binding Item.Text}"
+                                           HorizontalAlignment="Left" TextWrapping="Wrap"
+                                           Background="Transparent" />
+                                <TextBlock Grid.Row="1" HorizontalAlignment="Right"
+                                           Text="{Binding Item.CreationLocalTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"
+                                           FontSize="10"
+                                           Foreground="#787878"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </Page>

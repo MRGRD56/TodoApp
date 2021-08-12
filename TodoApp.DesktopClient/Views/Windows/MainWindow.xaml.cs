@@ -20,7 +20,7 @@ namespace TodoApp.DesktopClient.Views.Windows
             //LoadingBrowser.NavigateToStream(EmbeddedResources.GetStream("TodoApp.DesktopClient.Assets.global-loading.html"));
             MainWindowNavigation.NavigationFrame.Navigated += NavigationFrameOnNavigated;
 
-            _ = TryLoginAsync();
+            Initialize();
         }
 
         private void NavigationFrameOnNavigated(object sender, NavigationEventArgs e)
@@ -29,6 +29,14 @@ namespace TodoApp.DesktopClient.Views.Windows
             {
                 Title = page.Title;
             }
+        }
+
+        private async void Initialize()
+        {
+            await TodoHub.EnsureConnectedAsync();
+            await TryLoginAsync();
+
+            AppState.IsLoading = false;
         }
 
         private async Task TryLoginAsync()
@@ -42,8 +50,6 @@ namespace TodoApp.DesktopClient.Views.Windows
             {
                 MainWindowNavigation.NavigateNew<LoginPage>();
             }
-
-            AppState.IsLoading = false;
         }
     }
 }
