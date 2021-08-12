@@ -33,9 +33,9 @@ namespace TodoApp.DesktopClient.Services.ServerInterop
                 $"{ApiSettings.BaseUrl}api/todo/{todoItemId}", body);
         }
 
-        public static async Task<TodoItem> ToggleDone(TodosPutModel body)
+        public static async Task<TodoItem[]> ToggleDone(TodosPutModel body)
         {
-            return await Auth.ApiHttpClient.PutAsync<TodoItem>(
+            return await Auth.ApiHttpClient.PutAsync<TodoItem[]>(
                 $"{ApiSettings.BaseUrl}api/todo/toggle_done", body);
         }
 
@@ -45,9 +45,9 @@ namespace TodoApp.DesktopClient.Services.ServerInterop
                 $"{ApiSettings.BaseUrl}api/todo/{todoItemId}?restore={restore}");
         }
 
-        public static async Task<TodoItem> DeleteMany(TodosDeleteModel body)
+        public static async Task<TodoItem[]> DeleteMany(TodosDeleteModel body)
         {
-            return await Auth.ApiHttpClient.DeleteAsync<TodoItem>(
+            return await Auth.ApiHttpClient.DeleteAsync<TodoItem[]>(
                 $"{ApiSettings.BaseUrl}api/todo", body);
         }
     }

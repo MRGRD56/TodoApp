@@ -33,9 +33,8 @@ namespace TodoApp.DesktopClient.Views.Windows
 
         private async void Initialize()
         {
-            await TodoHub.EnsureConnectedAsync();
             await TryLoginAsync();
-
+            
             AppState.IsLoading = false;
         }
 

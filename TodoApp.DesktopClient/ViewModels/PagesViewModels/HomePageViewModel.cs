@@ -161,5 +161,31 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
                 IsSubmitting = false;
             }
         });
+
+        public ICommand ToggleDoneCommand => new Command(async () =>
+        {
+            if (!HasSelectedItems) return;
+
+            var body = new TodosPutModel(SelectedTodoItems.Select(x => x.Item.Id));
+            var editedTodoItems = await Todo.ToggleDone(body); //TODO add loading
+            await TodoHub.ToggleDone(editedTodoItems);
+        });
+
+        public ICommand DeleteCommand => new Command(async () =>
+        {
+            if (!HasSelectedItems) return;
+
+            var body = new TodosDeleteModel(SelectedTodoItems.Select(x => x.Item.Id), false);
+            var deletedTodoItems = await Todo.DeleteMany(body); //TODO add loading
+            await TodoHub.Delete(deletedTodoItems.Select(x => x.Id).ToArray());
+        });
+
+        public ICommand UnselectAllCommand => new Command(() =>
+        {
+            foreach (var item in SelectedTodoItems)
+            {
+                item.IsChecked = false;
+            }
+        });
     }
 }

@@ -36,11 +36,14 @@
                             <Setter Property="Margin" Value="2 0"/>
                         </Style>
                     </StackPanel.Resources>
-                    <Button Content="check" ToolTip="Complete selected"/>
+                    <Button Content="check" ToolTip="Complete selected"
+                            Command="{Binding ToggleDoneCommand}"/>
                     <Button Content="edit" ToolTip="Edit selected" 
                             IsEnabled="{Binding HasSingleSelectedItem}"/>
-                    <Button Content="delete" ToolTip="Delete selected"/>
-                    <Button Content="close" ToolTip="Unselect"/>
+                    <Button Content="delete" ToolTip="Delete selected"
+                            Command="{Binding DeleteCommand}"/>
+                    <Button Content="close" ToolTip="Unselect"
+                            />
                     <TextBlock Text="{Binding SelectedItemsCountString}" Margin="5 0" VerticalAlignment="Center" Foreground="#424242"/>
                 </StackPanel>
             </StackPanel>

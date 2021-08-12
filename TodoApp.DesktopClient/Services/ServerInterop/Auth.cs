@@ -80,6 +80,7 @@ namespace TodoApp.DesktopClient.Services.ServerInterop
             var response = await ApiHttpClient.PostAsync<LoginResponse>(url, loginModel);
             await SetAccessTokenAsync(response.AccessToken);
             CurrentUser = await Profile.GetAsync();
+            await TodoHub.StartNewConnectionAsync();
             return response;
         }
 
@@ -93,6 +94,7 @@ namespace TodoApp.DesktopClient.Services.ServerInterop
         {
             CurrentUser = null;
             await SetAccessTokenAsync(null);
+            await TodoHub.RemoveConnectionAsync();
         }
 
         public static event AuthEventHandler LoggedIn;
@@ -104,6 +106,7 @@ namespace TodoApp.DesktopClient.Services.ServerInterop
             if (AccessToken != null)
             {
                 CurrentUser = await Profile.GetAsync();
+                await TodoHub.StartNewConnectionAsync();
                 return true;
             }
 

@@ -10,15 +10,7 @@ namespace TodoApp.DesktopClient.Services.ServerInterop
 {
     public static class TodoHub
     {
-        public static HubConnection Connection { get; }
-
-        public static async Task EnsureConnectedAsync()
-        {
-            if (Connection.State == HubConnectionState.Disconnected)
-            {
-                await Connection.StartAsync();
-            }
-        }
+        public static HubConnection Connection { get; private set; }
 
         private static string CurrentUserId => Auth.CurrentUser.Id.ToString();
 
@@ -34,8 +26,45 @@ namespace TodoApp.DesktopClient.Services.ServerInterop
 
         static TodoHub()
         {
+            //Auth.LoggedIn += async (_, _) =>
+            //{
+            //    AppState.IsConnecting = true;
+            //    await StartNewConnectionAsync();
+            //    AppState.IsConnecting = false;
+            //};
+
+            //Auth.LoggedOut += async (_, _) =>
+            //{
+            //    await RemoveConnectionAsync();
+            //};
+        }
+
+        public static async Task RemoveConnectionAsync()
+        {
+            if (Connection == null) return;
+
+            Connection.Reconnecting -= ConnectionOnReconnecting;
+            Connection.Reconnected -= ConnectionOnReconnected;
+
+            await Connection.StopAsync();
+            Connection = null;
+        }
+
+        public static async Task StartNewConnectionAsync(bool recreate = false)
+        {
+            if (Connection != null && !recreate) return;
+
+            if (!Auth.IsAuthenticated)
+            {
+                throw new UnauthorizedAccessException("Failed to connect to the todo hub because the user is unauthorised");
+            }
+
             Connection = new HubConnectionBuilder()
-                .WithUrl($"{ApiSettings.BaseUrl}hubs/todo")
+                .WithUrl($"{ApiSettings.BaseUrl}hubs/todo", options =>
+                {
+                    options.UseDefaultCredentials = true;
+                    options.AccessTokenProvider = async () => Auth.AccessToken;
+                })
                 .WithAutomaticReconnect()
                 .Build();
 
@@ -46,6 +75,8 @@ namespace TodoApp.DesktopClient.Services.ServerInterop
             Connection.On<int[]>("Delete", ids => Deleted?.Invoke(ids));
             Connection.On<TodoItem[]>("ToggleDone", todoItems => ToggledDone?.Invoke(todoItems));
             Connection.On<TodoItem>("Edit", todoItem => Edited?.Invoke(todoItem));
+
+            await Connection.StartAsync();
         }
 
         private static Task ConnectionOnReconnected(string arg)
