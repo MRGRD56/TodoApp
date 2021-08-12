@@ -14,6 +14,14 @@ namespace TodoApp.DesktopClient.Controls
 {
     public class LoadingButtonBase : UserControl, INotifyPropertyChanged
     {
+        public LoadingButtonBase()
+        {
+            IsEnabledChanged += (sender, e) =>
+            {
+                OnPropertyChanged(nameof(IsButtonEnabled));
+            };
+        }
+
         public static readonly DependencyProperty IsLoadingProperty = DependencyProperty.Register(
             "IsLoading",
             typeof(bool),
@@ -51,6 +59,7 @@ namespace TodoApp.DesktopClient.Controls
             {
                 SetValue(IsLoadingProperty, value);
                 OnPropertyChanged(nameof(IsNotLoading));
+                OnPropertyChanged(nameof(IsButtonEnabled));
             }
         }
 
@@ -83,6 +92,16 @@ namespace TodoApp.DesktopClient.Controls
         protected void OnButtonClick(object sender, RoutedEventArgs e)
         {
             Click?.Invoke(sender, e);
+        }
+
+        public bool IsButtonEnabled
+        {
+            get
+            {
+                var isEnabled = (bool) GetValue(IsEnabledProperty);
+                var isLoading = IsLoading;
+                return !isLoading && isEnabled;
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

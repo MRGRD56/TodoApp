@@ -14,6 +14,10 @@
       <None Remove="Assets\loader15_btn_pri.gif" />
       <None Remove="Assets\loader20_btn_dis.gif" />
       <None Remove="Assets\loader20_btn_pri.gif" />
+      <None Remove="Assets\loader22p_btn_ico.gif" />
+      <None Remove="Assets\loader22q_btn_ico.gif" />
+      <None Remove="Assets\loader22_btn_ico.gif" />
+      <None Remove="Assets\loader22_btn_ico_w.gif" />
     </ItemGroup>
 
     <ItemGroup>
@@ -43,7 +47,11 @@
       <Resource Include="Assets\global-loading.gif" />
       <Resource Include="Assets\loader15_btn_pri.gif" />
       <Resource Include="Assets\loader20_btn_dis.gif" />
+      <Resource Include="Assets\loader22p_btn_ico.gif" />
+      <Resource Include="Assets\loader22q_btn_ico.gif" />
+      <Resource Include="Assets\loader22_btn_ico.gif" />
       <Resource Include="Assets\loader20_btn_pri.gif" />
+      <Resource Include="Assets\loader22_btn_ico_w.gif" />
       <Resource Include="Assets\reserved\global-loading.svg" />
     </ItemGroup>
 

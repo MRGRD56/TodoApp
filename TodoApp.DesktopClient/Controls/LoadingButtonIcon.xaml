@@ -1,19 +1,19 @@
-﻿<local:LoadingButtonBase x:Class="TodoApp.DesktopClient.Controls.LoadingButtonPrimary"
+﻿<local:LoadingButtonBase x:Class="TodoApp.DesktopClient.Controls.LoadingButtonIcon"
                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                    xmlns:local="clr-namespace:TodoApp.DesktopClient.Controls"
                    xmlns:gif="http://wpfanimatedgif.codeplex.com"
-                   mc:Ignorable="d"
-                   x:Name="Uc">
+                   xmlns:converters="clr-namespace:TodoApp.DesktopClient.Converters"
+                   mc:Ignorable="d">
     <local:LoadingButtonBase.Resources>
-        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonPrimary}">
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonIcon}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Grid>
-                            <Border x:Name="backBorder" CornerRadius="3" Margin="-2" Background="#81c4f5" Visibility="Collapsed"/>
+                            <Border x:Name="backBorder" CornerRadius="3" BorderThickness="2" Margin="-2" Background="#81c4f5" Visibility="Collapsed"/>
                             <Border x:Name="border" CornerRadius="2" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="true">
                                 <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                             </Border>
@@ -22,28 +22,37 @@
                             <Trigger Property="IsDefaulted" Value="true">
                                 <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                             </Trigger>
-                            <Trigger Property="IsFocused" Value="true">
-                                <Setter Property="Visibility" TargetName="backBorder" Value="Visible"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="#9bcaf7"/>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#e0e0e0"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" TargetName="border" Value="#d4d4d4"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="#bebebe"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
+        <converters:BoolToIconFontSizeConverter x:Key="BoolToIconFontSizeConverter"/>
     </local:LoadingButtonBase.Resources>
-    <Button HorizontalAlignment="Center" 
+    <Button HorizontalAlignment="Center" Style="{StaticResource ButtonIcon}"
             Name="ButtonElement"
             d:DataContext="{d:DesignInstance local:LoadingButtonPrimary}"
             Command="{Binding Command}"
             CommandParameter="{Binding CommandParameter}"
             IsEnabled="{Binding IsButtonEnabled}"
             Click="OnButtonClick">
-        <StackPanel Orientation="Horizontal">
-            <Image gif:ImageBehavior.AnimatedSource="/Assets/loader15_btn_pri.gif" Width="15"
+        <Grid>
+            <TextBlock Text="{Binding Text}" Grid.ZIndex="10"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                       FontSize="{Binding IsLoading, Converter={StaticResource BoolToIconFontSizeConverter}}"
+                       Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
+            <Image gif:ImageBehavior.AnimatedSource="/Assets/loader22q_btn_ico.gif" Width="22"
                    Visibility="{Binding IsLoading, Converter={StaticResource VisibilityConverter}}"
-                   VerticalAlignment="Center" Margin="-3 0 3 0"/>
-            <TextBlock Text="{Binding Text}" VerticalAlignment="Center"/>
-        </StackPanel>
+                   VerticalAlignment="Center" HorizontalAlignment="Center" Grid.ZIndex="5"/>
+        </Grid>
     </Button>
 </local:LoadingButtonBase>
