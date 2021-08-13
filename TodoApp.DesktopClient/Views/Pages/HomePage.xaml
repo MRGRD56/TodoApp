@@ -16,9 +16,12 @@
     </Page.DataContext>
     <Page.Resources>
         <ResourceDictionary>
+            <!--<DiscreteObjectKeyFrame x:Key="PageContext" Value="{Binding}"/>-->
+
             <converters:SelectedItemBorderBrushConverter x:Key="SelectedItemBorderBrushConverter"/>
             <converters:CompletedTodoTextDecorationsConverter x:Key="CompletedTodoTextDecorationsConverter"/>
             <converters:CompletedTodoForegroundConverter x:Key="CompletedTodoForegroundConverter"/>
+            <converters:IsHandCursorConverter x:Key="IsHandCursorConverter"/>
         </ResourceDictionary>
     </Page.Resources>
     <Grid>
@@ -51,7 +54,6 @@
                                                 Command="{Binding ToggleDoneCommand}"
                                                 IsLoading="{Binding IsTogglingDone}"/>
                     <controls:LoadingButtonIcon Text="edit" ToolTip="Edit selected" 
-                                                IsLoading="False"
                                                 IsEnabled="{Binding HasSingleSelectedItem}"
                                                 Command="{Binding EditCommand}"/>
                     <controls:LoadingButtonIcon Text="delete" ToolTip="Delete selected"
@@ -72,16 +74,16 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border Margin="0 0 0 3"
-                                BorderBrush="{Binding IsChecked, Converter={StaticResource SelectedItemBorderBrushConverter}}"
-                                Background="#f2f2f2"
-                                BorderThickness="1"
-                                Padding="6 12 6 3"
-                                Focusable="True" 
-                                MouseUp="OnTodoItemClick"
-                                KeyUp="OnTodoItemKeyUp">
+                                    BorderBrush="{Binding IsChecked, Converter={StaticResource SelectedItemBorderBrushConverter}}"
+                                    Background="#f2f2f2"
+                                    BorderThickness="1"
+                                    Padding="6 12 6 3"
+                                    Focusable="True" 
+                                    Cursor="{Binding DataContext.IsAddMode, RelativeSource={RelativeSource AncestorType=local:HomePage}, Converter={StaticResource IsHandCursorConverter}}"
+                                    MouseUp="OnTodoItemClick"
+                                    KeyUp="OnTodoItemKeyUp">
                                 <Border.Style>
                                     <Style TargetType="Border">
-                                        <Setter Property="Cursor" Value="Hand"/>
                                         <Setter Property="FocusVisualStyle">
                                             <Setter.Value>
                                                 <Style TargetType="Control">
