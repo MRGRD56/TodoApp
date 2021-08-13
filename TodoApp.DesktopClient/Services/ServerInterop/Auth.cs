@@ -7,6 +7,7 @@ using TodoApp.DesktopClient.Data;
 using TodoApp.DesktopClient.Extensions;
 using TodoApp.DesktopClient.Models;
 using TodoApp.DesktopClient.Models.Events;
+using TodoApp.Infrastructure.Models.Abstractions;
 using TodoApp.Infrastructure.Models.RequestModels.Auth;
 
 namespace TodoApp.DesktopClient.Services.ServerInterop
@@ -76,7 +77,7 @@ namespace TodoApp.DesktopClient.Services.ServerInterop
             await db.SaveChangesAsync();
         }
 
-        private static async Task<LoginResponse> FetchLoginResponseAsync(LoginModel loginModel, string url)
+        private static async Task<LoginResponse> FetchLoginResponseAsync(ILoginModel loginModel, string url)
         {
             var response = await ApiHttpClient.PostAsync<LoginResponse>(url, loginModel);
             await SetAccessTokenAsync(response.AccessToken);
@@ -88,7 +89,7 @@ namespace TodoApp.DesktopClient.Services.ServerInterop
         public static async Task<LoginResponse> LoginAsync(LoginModel loginModel) =>
             await FetchLoginResponseAsync(loginModel, $"{ApiSettings.BaseUrl}api/auth/login");
 
-        public static async Task<LoginResponse> RegisterAsync(LoginModel registrationModel) =>
+        public static async Task<LoginResponse> RegisterAsync(RegistrationModel registrationModel) =>
             await FetchLoginResponseAsync(registrationModel, $"{ApiSettings.BaseUrl}api/auth/register");
 
         public static async Task LogoutAsync()

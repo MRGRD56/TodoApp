@@ -36,17 +36,6 @@
             <TextBlock TextWrapping="Wrap" Style="{StaticResource Error}" Margin="2 0" 
                        Text="{Binding Error}"
                        Visibility="{Binding HasError, Converter={StaticResource VisibilityConverter}}"/>
-            <!--<Button HorizontalAlignment="Center" Style="{StaticResource ButtonPrimary}" Margin="0 10 0 5"
-                    Command="{Binding LoginCommand}"
-                    CommandParameter="{Binding ElementName=PasswordBox}"
-                    IsEnabled="{Binding IsNotLoggingIn}">
-                <StackPanel Orientation="Horizontal">
-                    --><!--<Image gif:ImageBehavior.AnimatedSource="/Assets/loader20_btn_dis.gif" Width="14"
-                           Visibility="{Binding IsLoggingIn, Converter={StaticResource VisibilityConverter}}"
-                           VerticalAlignment="Center" Margin="0 0 3 0"/>--><!--
-                    <TextBlock Text="Sign in" VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button>-->
             <controls:LoadingButtonPrimary Margin="0 10 0 5" 
                                            Command="{Binding LoginCommand}" 
                                            IsLoading="{Binding IsLoggingIn}"

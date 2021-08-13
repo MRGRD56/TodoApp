@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace TodoApp.DesktopClient.AttachedProperties
 {
-    [Obsolete("Not working")]
+    [Obsolete("Not working", true)]
     public static class View
     {
         #region IsVisible

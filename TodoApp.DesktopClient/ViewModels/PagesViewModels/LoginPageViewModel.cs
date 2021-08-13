@@ -63,11 +63,8 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
             {
                 _isLoggingIn = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(IsNotLoggingIn));
             }
         }
-
-        public bool IsNotLoggingIn => !IsLoggingIn;
 
         public ICommand LoginCommand => new Command(async () =>
         {

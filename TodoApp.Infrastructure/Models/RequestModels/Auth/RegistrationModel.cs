@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using TodoApp.Infrastructure.Models.Abstractions;
 
 namespace TodoApp.Infrastructure.Models.RequestModels.Auth
 {
@@ -11,5 +12,5 @@ namespace TodoApp.Infrastructure.Models.RequestModels.Auth
         [Required(AllowEmptyStrings = false, ErrorMessage = "Specify the password")]
         [RegularExpression(@"^(?=.*[A-Za-zА-Яа-яЁё])(?=.*\d).{6,}$", 
             ErrorMessage = "The password must be at least 6 characters long and contain at least one number and one letter")]
-        string Password);
+        string Password) : ILoginModel;
 }

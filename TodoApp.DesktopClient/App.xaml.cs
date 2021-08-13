@@ -1,8 +1,11 @@
 ﻿using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using TodoApp.DesktopClient.Data;
+using TodoApp.Infrastructure.Models.RequestModels.Auth;
 
 namespace TodoApp.DesktopClient
 {

@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TodoApp.DesktopClient.Views.Pages"
-      xmlns:pagesViewModels="clr-namespace:TodoApp.DesktopClient.ViewModels.PagesViewModels"
+      xmlns:pagesViewModels="clr-namespace:TodoApp.DesktopClient.ViewModels.PagesViewModels" xmlns:controls="clr-namespace:TodoApp.DesktopClient.Controls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Registration"
@@ -13,7 +13,7 @@
         <pagesViewModels:RegistrationPageViewModel/>
     </Page.DataContext>
     <Grid>
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="170">
             <StackPanel.Resources>
                 <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxNormal}">
                     <Setter Property="Width" Value="170"/>
@@ -23,12 +23,23 @@
                 </Style>
             </StackPanel.Resources>
             <Label Content="Login"/>
-            <TextBox Text="user2035" Margin="0 0 0 10" Name="LoginTextBox"/>
+            <TextBox Text="{Binding Login}" Margin="0 0 0 10" Name="LoginTextBox"/>
             <Label Content="Password"/>
-            <PasswordBox Password="Password" Margin="0 0 0 10"/>
+            <PasswordBox Margin="0 0 0 10" PasswordChanged="OnPasswordChanged"/>
             <Label Content="Repeat password"/>
-            <PasswordBox Password="Password" Margin="0 0 0 20"/>
-            <Button Content="Sign up" HorizontalAlignment="Center" Style="{StaticResource ButtonPrimary}" Margin="0 0 0 5"/>
+            <PasswordBox Margin="0 0 0 10" PasswordChanged="OnPasswordRepeatChanged">
+                <PasswordBox.InputBindings>
+                    <KeyBinding Key="Return" Command="{Binding RegisterCommand}"/>
+                </PasswordBox.InputBindings>
+            </PasswordBox>
+            <TextBlock TextWrapping="Wrap" Style="{StaticResource Error}" Margin="2 0" 
+                       Text="{Binding Error}"
+                       Visibility="{Binding HasError, Converter={StaticResource VisibilityConverter}}"/>
+            <controls:LoadingButtonPrimary 
+                Text="Sign up" HorizontalAlignment="Center" 
+                Margin="0 10 0 5" 
+                IsLoading="{Binding IsRegistering}"
+                Command="{Binding RegisterCommand}"/>
             <Button Content="Sign in" HorizontalAlignment="Center" Style="{StaticResource ButtonLink}"
                     Command="{Binding NavigateCommand}"
                     CommandParameter="{x:Type local:LoginPage}"/>
