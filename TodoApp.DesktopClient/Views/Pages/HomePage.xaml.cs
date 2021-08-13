@@ -33,6 +33,8 @@ namespace TodoApp.DesktopClient.Views.Pages
 
         private void OnTodoItemClick(object sender, MouseButtonEventArgs e)
         {
+            if (e.ChangedButton != MouseButton.Left) return;
+
             var element = (FrameworkElement) sender;
             element.Focus();
             var todoItem = (Checkable<TodoItem>) element.DataContext;

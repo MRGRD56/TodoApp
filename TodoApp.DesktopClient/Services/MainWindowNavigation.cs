@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.CSharp.RuntimeBinder;
+using System;
 using System.Windows.Controls;
+using System.Windows.Navigation;
+using System.Windows.Threading;
 using TodoApp.DesktopClient.Views.Windows;
 
 namespace TodoApp.DesktopClient.Services
@@ -8,20 +11,54 @@ namespace TodoApp.DesktopClient.Services
     {
         public static Frame NavigationFrame => WindowsManager.GetMainWindow().NavigationFrame;
 
-        public static bool Navigate(object content)
+        private static readonly Random Random = new();
+
+        public static bool Navigate(object content, bool clearHistory = false)
         {
-            return NavigationFrame.Navigate(content);
+            var extraData = clearHistory
+                ? new
+                {
+                    NavigationTime = DateTime.UtcNow.Ticks,
+                    RandomId = Random.Next(int.MinValue, int.MaxValue)
+                }
+                : null;
+
+            void NavigationFrameNavigated(object sender, NavigationEventArgs e)
+            {
+                try
+                {
+                    dynamic extra = e.ExtraData;
+                    if (extra != null
+                        && extra.NavigationTime == extraData.NavigationTime
+                        && extra.RandomId == extraData.RandomId)
+                    {
+                        ClearBackStack();
+                    }
+                }
+                catch (RuntimeBinderException) { }
+                finally
+                {
+                    NavigationFrame.Navigated -= NavigationFrameNavigated;
+                }
+            }
+
+            var navigationResult = NavigationFrame.Navigate(content, extraData);
+            if (clearHistory)
+            {
+                NavigationFrame.Navigated += NavigationFrameNavigated;
+            }
+            return navigationResult;
         }
 
-        public static bool NavigateNew<T>() where T : new()
+        public static bool NavigateNew<T>(bool clearHistory = false) where T : new()
         {
-            return Navigate(new T());
+            return Navigate(new T(), clearHistory);
         }
 
-        public static bool NavigateNew(Type type)
+        public static bool NavigateNew(Type type, bool clearHistory = false)
         {
             var obj = Activator.CreateInstance(type);
-            return Navigate(obj);
+            return Navigate(obj, clearHistory);
         }
 
         public static bool GoBack()
@@ -44,5 +81,21 @@ namespace TodoApp.DesktopClient.Services
 
         public static bool CanGoBack => NavigationFrame.CanGoBack;
         public static bool CanGoForward => NavigationFrame.CanGoForward;
+
+        public static void ClearBackStack()
+        {
+            if (!NavigationFrame.CanGoBack && !NavigationFrame.CanGoForward)
+            {
+                return;
+            }
+
+            var entry = NavigationFrame.RemoveBackEntry();
+            while (entry != null)
+            {
+                entry = NavigationFrame.RemoveBackEntry();
+            }
+
+            //NavigationFrame.Navigate(new PageFunction<string>() { RemoveFromJournal = true });
+        }
     }
 }

@@ -1,12 +1,8 @@
 ﻿using MgMvvmTools;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using TodoApp.DesktopClient.Extensions;
 using TodoApp.DesktopClient.Models.Exceptions;
@@ -143,7 +139,7 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
                 var registrationModel = new RegistrationModel(login, password);
                 IsRegistering = true;
                 var response = await Auth.RegisterAsync(registrationModel);
-                MainWindowNavigation.NavigateNew<HomePage>();
+                MainWindowNavigation.NavigateNew<HomePage>(clearHistory: true);
             }
             catch (HttpException exception)
             {

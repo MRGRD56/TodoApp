@@ -29,7 +29,7 @@ namespace TodoApp.DesktopClient.ViewModels.WindowsViewModels
         public ICommand LogoutCommand => new Command(async () =>
         {
             await Auth.LogoutAsync();
-            MainWindowNavigation.NavigateNew<LoginPage>();
+            MainWindowNavigation.NavigateNew<LoginPage>(clearHistory: true);
         });
     }
 }

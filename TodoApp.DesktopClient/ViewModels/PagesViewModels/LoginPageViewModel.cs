@@ -89,7 +89,7 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
             {
                 IsLoggingIn = true;
                 var response = await Auth.LoginAsync(new LoginModel(login, password));
-                MainWindowNavigation.NavigateNew<HomePage>();
+                MainWindowNavigation.NavigateNew<HomePage>(clearHistory: true);
             }
             catch (HttpException exception)
             {
