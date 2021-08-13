@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Newtonsoft.Json;
 using TodoApp.DesktopClient.Models.Exceptions;
 
@@ -15,9 +16,12 @@ namespace TodoApp.DesktopClient.Extensions
             return new StringContent(json, Encoding.UTF8, "application/json");
         }
 
-        public static async Task<TResponse> SendAsync<TResponse>(this HttpClient httpClient, string requestUri,
+        public static async Task<TResponse> SendAsync<TResponse>(
+            this HttpClient httpClient, string requestUri,
             HttpMethod method, object body = null)
         {
+            //try
+            //{
             var request = new HttpRequestMessage
             {
                 RequestUri = new Uri(requestUri),
@@ -31,6 +35,18 @@ namespace TodoApp.DesktopClient.Extensions
             }
 
             throw new HttpException(response);
+            //}
+            //catch (Exception exception)
+            //{
+            //    //if (exception is HttpRequestException or TaskCanceledException)
+            //    //{
+            //    //    MessageBox.Show("Failed to connect to the server. Check your internet connection.", 
+            //    //        "Connection error", 
+            //    //        MessageBoxButton.OK, MessageBoxImage.Error);
+            //    //}
+            //    //TODO
+            //    throw;
+            //}
         }
 
         public static async Task<TResponse> GetAsync<TResponse>(this HttpClient httpClient, string requestUri, object body = null)

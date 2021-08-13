@@ -21,6 +21,7 @@ namespace TodoApp.DesktopClient.Services.ServerInterop
             get
             {
                 var httpClient = new HttpClient();
+                httpClient.Timeout = TimeSpan.FromSeconds(15);
                 if (AccessToken != null)
                 {
                     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);

@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net5.0-windows</TargetFramework>
+        <TargetFramework>net5.0-windows7.0</TargetFramework>
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
@@ -18,12 +18,18 @@
       <None Remove="Assets\loader22q_btn_ico.gif" />
       <None Remove="Assets\loader22_btn_ico.gif" />
       <None Remove="Assets\loader22_btn_ico_w.gif" />
+      <None Remove="Assets\loader65_items.gif" />
+      <None Remove="Assets\loader90_items.gif" />
     </ItemGroup>
 
     <ItemGroup>
       <EmbeddedResource Include="Assets\reserved\global-loading.html">
         <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="..\.editorconfig" Link=".editorconfig" />
     </ItemGroup>
 
     <ItemGroup>
@@ -52,6 +58,8 @@
       <Resource Include="Assets\loader22_btn_ico.gif" />
       <Resource Include="Assets\loader20_btn_pri.gif" />
       <Resource Include="Assets\loader22_btn_ico_w.gif" />
+      <Resource Include="Assets\loader65_items.gif" />
+      <Resource Include="Assets\loader90_items.gif" />
       <Resource Include="Assets\reserved\global-loading.svg" />
     </ItemGroup>
 

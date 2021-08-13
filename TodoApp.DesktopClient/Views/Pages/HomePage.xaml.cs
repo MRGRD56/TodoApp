@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,6 +45,14 @@ namespace TodoApp.DesktopClient.Views.Pages
 
             var todoItem = (Checkable<TodoItem>) ((FrameworkElement) sender).DataContext;
             ViewModel.OnTodoItemClick(todoItem);
+        }
+
+        private void OnScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            var scrollViewer = (ScrollViewer)sender;
+            var offset = e.VerticalOffset;
+            var height = scrollViewer.ScrollableHeight;
+            ViewModel.OnTodoItemsScroll(offset, height);
         }
     }
 }

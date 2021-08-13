@@ -9,6 +9,7 @@ using TodoApp.DesktopClient.Models;
 using TodoApp.DesktopClient.Models.Events;
 using TodoApp.DesktopClient.Services;
 using TodoApp.DesktopClient.Services.ServerInterop;
+using NotifyPropertyChanged = TodoApp.DesktopClient.Models.NotifyPropertyChanged;
 
 namespace TodoApp.DesktopClient.ViewModels
 {

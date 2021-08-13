@@ -30,7 +30,34 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
 
         public string SelectedItemsCountString => $"{SelectedItemsCount} {(SelectedItemsCount == 1 ? "item" : "items")}";
 
-        public bool IsItemsLoading { get; private set; }
+        public bool IsItemsLoading
+        {
+            get => _isItemsLoading;
+            private set
+            {
+                _isItemsLoading = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Checkable<TodoItem> EditingTodoItem
+        {
+            get => _editingTodoItem;
+            set
+            {
+                _editingTodoItem = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsEditMode));
+                OnPropertyChanged(nameof(IsAddMode));
+                OnPropertyChanged(nameof(IsActionButtonsShown));
+            }
+        }
+
+        public bool IsEditMode => EditingTodoItem != null;
+
+        public bool IsAddMode => !IsEditMode;
+
+        private string _reservedNewTodoItemText = "";
 
         public string NewTodoItemText
         {
@@ -52,6 +79,28 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
             }
         }
 
+        public bool IsTogglingDone
+        {
+            get => _isTogglingDone;
+            set
+            {
+                if (value == _isTogglingDone) return;
+                _isTogglingDone = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool IsDeleting
+        {
+            get => _isDeleting;
+            set
+            {
+                if (value == _isDeleting) return;
+                _isDeleting = value;
+                OnPropertyChanged();
+            }
+        }
+
         public HomePageViewModel()
         {
             if (!Auth.IsAuthenticated)
@@ -60,6 +109,8 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
             }
             Initialize();
         }
+
+        public bool IsActionButtonsShown => IsAddMode && HasSelectedItems;
 
         private async void Initialize()
         {
@@ -104,33 +155,53 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
             TodoItems.Insert(0, new Checkable<TodoItem>(todoItem, onChecked: OnTodoItemChecked));
         }
 
+        public bool IsAllItemsLoaded
+        {
+            get => _isAllItemsLoaded;
+            set
+            {
+                _isAllItemsLoaded = value;
+                OnPropertyChanged();
+            }
+        }
+
         private int _lastItemId = 0;
-        private bool _isAllItemsLoaded = false;
         private string _newTodoItemText;
         private bool _isSubmitting;
+        private bool _isTogglingDone;
+        private bool _isDeleting;
+        private Checkable<TodoItem> _editingTodoItem;
+        private bool _isAllItemsLoaded;
+        private bool _isItemsLoading;
 
         private async Task FetchItemsAsync()
         {
-            if (_isAllItemsLoaded) return;
-            IsItemsLoading = true;
+            if (IsAllItemsLoaded || IsItemsLoading) return;
 
-            var todoItems = await Todo.GetAfter(_lastItemId);
-
-            if (!todoItems.Any())
+            try
             {
-                _isAllItemsLoaded = true;
+                IsItemsLoading = true;
+
+                var todoItems = await Todo.GetAfter(_lastItemId);
+
+                if (!todoItems.Any())
+                {
+                    IsAllItemsLoaded = true;
+                    IsItemsLoading = false;
+                    return;
+                }
+
+                foreach (var todoItem in todoItems)
+                {
+                    TodoItems.Add(new Checkable<TodoItem>(todoItem, onChecked: OnTodoItemChecked));
+                }
+
+                _lastItemId = todoItems.Last().Id;
+            }
+            finally
+            {
                 IsItemsLoading = false;
-                return;
             }
-
-            foreach (var todoItem in todoItems)
-            {
-                TodoItems.Add(new Checkable<TodoItem>(todoItem, onChecked: OnTodoItemChecked));
-            }
-
-            _lastItemId = todoItems.Last().Id;
-
-            IsItemsLoading = false;
         }
 
         private void OnTodoItemChecked(object sender, CheckedEventArgs e)
@@ -139,16 +210,43 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
             OnPropertyChanged(nameof(SelectedItemsCount));
             OnPropertyChanged(nameof(HasSingleSelectedItem));
             OnPropertyChanged(nameof(SelectedItemsCountString));
+            OnPropertyChanged(nameof(IsActionButtonsShown));
         }
 
-        public void OnTodoItemClick(Checkable<TodoItem> todoItem)
-        {
-            todoItem.Check();
-        }
-
-        public ICommand AddCommand => new Command(async () =>
+        public ICommand SubmitCommand => new Command(async () =>
         {
             if (string.IsNullOrWhiteSpace(NewTodoItemText)) return;
+
+            if (IsEditMode)
+            {
+                await EditAsync();
+            }
+            else
+            {
+                await AddAsync();
+            }
+        });
+
+        private async Task EditAsync()
+        {
+            try
+            {
+                IsSubmitting = true;
+                if (EditingTodoItem.Item.Text != NewTodoItemText)
+                {
+                    var editedTodo = await Todo.Edit(EditingTodoItem.Item.Id, new TodoPutModel(NewTodoItemText, null));
+                    await TodoHub.Edit(editedTodo);
+                }
+                EndEditing();
+            }
+            finally
+            {
+                IsSubmitting = false;
+            }
+        }
+
+        private async Task AddAsync()
+        {
             try
             {
                 IsSubmitting = true;
@@ -160,24 +258,28 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
             {
                 IsSubmitting = false;
             }
-        });
+        }
 
         public ICommand ToggleDoneCommand => new Command(async () =>
         {
             if (!HasSelectedItems) return;
 
+            IsTogglingDone = true;
             var body = new TodosPutModel(SelectedTodoItems.Select(x => x.Item.Id));
             var editedTodoItems = await Todo.ToggleDone(body); //TODO add loading
             await TodoHub.ToggleDone(editedTodoItems);
+            IsTogglingDone = false;
         });
 
         public ICommand DeleteCommand => new Command(async () =>
         {
             if (!HasSelectedItems) return;
 
+            IsDeleting = true;
             var body = new TodosDeleteModel(SelectedTodoItems.Select(x => x.Item.Id), false);
             var deletedTodoItems = await Todo.DeleteMany(body); //TODO add loading
             await TodoHub.Delete(deletedTodoItems.Select(x => x.Id).ToArray());
+            IsDeleting = false;
         });
 
         public ICommand UnselectAllCommand => new Command(() =>
@@ -186,6 +288,45 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
             {
                 item.IsChecked = false;
             }
+        });
+
+        public ICommand CancelEditCommand => new Command(() =>
+        {
+            EndEditing();
+        });
+
+        private void EndEditing()
+        {
+            EditingTodoItem = null;
+            NewTodoItemText = _reservedNewTodoItemText;
+        }
+
+        public ICommand EditCommand => new Command(() =>
+        {
+            EditingTodoItem = SelectedTodoItems.First();
+            _reservedNewTodoItemText = NewTodoItemText;
+            NewTodoItemText = EditingTodoItem.Item.Text;
+        }, () => HasSingleSelectedItem);
+
+        internal void OnTodoItemClick(Checkable<TodoItem> todoItem)
+        {
+            if (IsAddMode)
+            {
+                todoItem.Check();
+            }
+        }
+
+        internal async void OnTodoItemsScroll(double offset, double height)
+        {
+            if (!IsItemsLoading && height - offset < 5)
+            {
+                await FetchItemsAsync();
+            }
+        }
+
+        public ICommand LoadMoreItemsCommand => new Command(async () =>
+        {
+            await FetchItemsAsync();
         });
     }
 }

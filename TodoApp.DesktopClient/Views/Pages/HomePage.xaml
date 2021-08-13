@@ -5,7 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TodoApp.DesktopClient.Views.Pages"
       xmlns:controls="clr-namespace:TodoApp.DesktopClient.Controls"
-      xmlns:pagesViewModels="clr-namespace:TodoApp.DesktopClient.ViewModels.PagesViewModels"
+      xmlns:pagesViewModels="clr-namespace:TodoApp.DesktopClient.ViewModels.PagesViewModels" xmlns:converters="clr-namespace:TodoApp.DesktopClient.Converters"
+      xmlns:gif="http://wpfanimatedgif.codeplex.com"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Todo List"
@@ -13,6 +14,13 @@
     <Page.DataContext>
         <pagesViewModels:HomePageViewModel/>
     </Page.DataContext>
+    <Page.Resources>
+        <ResourceDictionary>
+            <converters:SelectedItemBorderBrushConverter x:Key="SelectedItemBorderBrushConverter"/>
+            <converters:CompletedTodoTextDecorationsConverter x:Key="CompletedTodoTextDecorationsConverter"/>
+            <converters:CompletedTodoForegroundConverter x:Key="CompletedTodoForegroundConverter"/>
+        </ResourceDictionary>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -28,9 +36,12 @@
             <StackPanel Grid.Row="1" Orientation="Horizontal">
                 <controls:LoadingButtonPrimary Text="Submit" Margin="0 0 8 0"
                                                IsLoading="{Binding IsSubmitting}"
-                                               Command="{Binding AddCommand}"/>
+                                               Command="{Binding SubmitCommand}"/>
+                <Button Content="Cancel"
+                        Visibility="{Binding IsEditMode, Converter={StaticResource VisibilityConverter}}"
+                        Command="{Binding CancelEditCommand}"/>
                 <StackPanel Orientation="Horizontal"
-                            Visibility="{Binding HasSelectedItems, Converter={StaticResource VisibilityConverter}}">
+                            Visibility="{Binding IsActionButtonsShown, Converter={StaticResource VisibilityConverter}}">
                     <StackPanel.Resources>
                         <Style TargetType="Button" BasedOn="{StaticResource ButtonIcon}">
                             <Setter Property="Margin" Value="2 0"/>
@@ -38,24 +49,29 @@
                     </StackPanel.Resources>
                     <controls:LoadingButtonIcon Text="check" ToolTip="Complete selected"
                                                 Command="{Binding ToggleDoneCommand}"
-                                                IsLoading="{Binding IsAdding}"/>
+                                                IsLoading="{Binding IsTogglingDone}"/>
                     <controls:LoadingButtonIcon Text="edit" ToolTip="Edit selected" 
                                                 IsLoading="False"
-                                                IsEnabled="{Binding HasSingleSelectedItem}"/>
-                    <controls:LoadingButtonIcon Content="delete" ToolTip="Delete selected"
+                                                IsEnabled="{Binding HasSingleSelectedItem}"
+                                                Command="{Binding EditCommand}"/>
+                    <controls:LoadingButtonIcon Text="delete" ToolTip="Delete selected"
                                                 Command="{Binding DeleteCommand}"
                                                 IsLoading="{Binding IsDeleting}"/>
-                    <controls:LoadingButtonIcon Content="close" ToolTip="Unselect"/>
+                    <controls:LoadingButtonIcon Text="close" ToolTip="Unselect"
+                                                Command="{Binding UnselectAllCommand}"/>
                     <TextBlock Text="{Binding SelectedItemsCountString}" Margin="5 0" VerticalAlignment="Center" Foreground="#424242"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
-        <ScrollViewer Grid.Row="1" Focusable="False">
-            <ItemsControl Margin="3" ItemsSource="{Binding TodoItems}"
+        <ScrollViewer Grid.Row="1" Focusable="False"
+                      ScrollChanged="OnScrollChanged"
+                      VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <ItemsControl Margin="3" ItemsSource="{Binding TodoItems}"
                           Focusable="False">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border Margin="0 0 0 3"
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="0 0 0 3"
                                 BorderBrush="{Binding IsChecked, Converter={StaticResource SelectedItemBorderBrushConverter}}"
                                 Background="#f2f2f2"
                                 BorderThickness="1"
@@ -63,43 +79,58 @@
                                 Focusable="True" 
                                 MouseUp="OnTodoItemClick"
                                 KeyUp="OnTodoItemKeyUp">
-                            <Border.Style>
-                                <Style TargetType="Border">
-                                    <Setter Property="Cursor" Value="Hand"/>
-                                    <Setter Property="FocusVisualStyle">
-                                        <Setter.Value>
-                                            <Style TargetType="Control">
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate>
-                                                            <Border Margin="-2" BorderBrush="#81c4f5" CornerRadius="1" BorderThickness="2">
-                                                                <Border Margin="0" BorderBrush="#73b1dd" CornerRadius="0" BorderThickness="1"/>
-                                                            </Border>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Style>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </Border.Style>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0" Text="{Binding Item.Text}"
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                        <Setter Property="FocusVisualStyle">
+                                            <Setter.Value>
+                                                <Style TargetType="Control">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate>
+                                                                <Border Margin="-2" BorderBrush="#81c4f5" CornerRadius="1" BorderThickness="2">
+                                                                    <Border Margin="0" BorderBrush="#73b1dd" CornerRadius="0" BorderThickness="1"/>
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Border.Style>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Text="{Binding Item.Text}"
                                            HorizontalAlignment="Left" TextWrapping="Wrap"
-                                           Background="Transparent" />
-                                <TextBlock Grid.Row="1" HorizontalAlignment="Right"
+                                           Background="Transparent" 
+                                           Foreground="{Binding Item.IsDone, Converter={StaticResource CompletedTodoForegroundConverter}}"
+                                           TextDecorations="{Binding Item.IsDone, Converter={StaticResource CompletedTodoTextDecorationsConverter}}"/>
+                                    <TextBlock Grid.Row="1" HorizontalAlignment="Right"
                                            Text="{Binding Item.CreationLocalTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}}"
                                            FontSize="10"
                                            Foreground="#787878"/>
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <Grid Visibility="{Binding IsAllItemsLoaded, Converter={StaticResource VisibilityReConverter}}"
+                      VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5 0 5 5"
+                      Height="25">
+                    <Image gif:ImageBehavior.AnimatedSource="/Assets/loader65_items.gif" Width="65" Height="65"
+                           Stretch="Uniform"
+                           VerticalAlignment="Center" HorizontalAlignment="Center"
+                           Visibility="{Binding IsItemsLoading, Converter={StaticResource VisibilityConverter}}"/>
+                    <Button Style="{StaticResource ButtonLink}" Content="Load more" 
+                            Visibility="{Binding IsItemsLoading, Converter={StaticResource VisibilityReConverter}}"
+                            Command="{Binding LoadMoreItemsCommand}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+            </StackPanel>
         </ScrollViewer>
     </Grid>
 </Page>

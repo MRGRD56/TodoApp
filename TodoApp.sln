@@ -1,12 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.WebApp", "TodoApp.WebApp\TodoApp.WebApp.csproj", "{1A5784DC-FF1A-4ACD-B71E-55E78E4AEEE9}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31606.5
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.WebApp", "TodoApp.WebApp\TodoApp.WebApp.csproj", "{1A5784DC-FF1A-4ACD-B71E-55E78E4AEEE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.Infrastructure", "TodoApp.Infrastructure\TodoApp.Infrastructure.csproj", "{C9B2009F-9FBE-4542-B291-D46615F02344}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.Infrastructure", "TodoApp.Infrastructure\TodoApp.Infrastructure.csproj", "{C9B2009F-9FBE-4542-B291-D46615F02344}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.DbInterop", "TodoApp.DbInterop\TodoApp.DbInterop.csproj", "{E78C57EA-253A-4718-B91E-031B9CF1FB19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.DbInterop", "TodoApp.DbInterop\TodoApp.DbInterop.csproj", "{E78C57EA-253A-4718-B91E-031B9CF1FB19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.DesktopClient", "TodoApp.DesktopClient\TodoApp.DesktopClient.csproj", "{7858A157-A2A4-4ADB-A0F8-E3BDF1C7B384}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.DesktopClient", "TodoApp.DesktopClient\TodoApp.DesktopClient.csproj", "{7858A157-A2A4-4ADB-A0F8-E3BDF1C7B384}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F7C63936-3252-4396-A6A0-67BCB221548E}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,5 +38,11 @@ Global
 		{7858A157-A2A4-4ADB-A0F8-E3BDF1C7B384}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7858A157-A2A4-4ADB-A0F8-E3BDF1C7B384}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7858A157-A2A4-4ADB-A0F8-E3BDF1C7B384}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {033800C4-FCFC-4E2C-A724-B6D11B06B51C}
 	EndGlobalSection
 EndGlobal

@@ -9,22 +9,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9935e9b2-bdff-482b-a47b-68fdbed19947" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/9218e6bf-de0e-4f45-bc9f-dc715b50261e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/9218e6bf-de0e-4f45-bc9f-dc715b50261e.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/9218e6bf-de0e-4f45-bc9f-dc715b50261e/entities/entities.dat" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/9218e6bf-de0e-4f45-bc9f-dc715b50261e/entities/entities.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/9218e6bf-de0e-4f45-bc9f-dc715b50261e/entities/entities.dat.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/9218e6bf-de0e-4f45-bc9f-dc715b50261e/entities/entities.dat.values.at" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/9218e6bf-de0e-4f45-bc9f-dc715b50261e/entities/entities.dat_i" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/dataSources/9218e6bf-de0e-4f45-bc9f-dc715b50261e/entities/entities.dat_i" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/Models/NotifyPropertyChanged.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TodoApp/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.vs/TodoApp/DesignTimeBuild/.dtbcache.v2" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/TodoApp/DesignTimeBuild/.dtbcache.v2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.vs/TodoApp/v16/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/TodoApp/v16/.suo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.DesktopClient/Services/ServerInterop/TodoHub.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/Services/ServerInterop/TodoHub.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.DesktopClient/App.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/App.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.DesktopClient/Controls/LoadingButtonBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/Controls/LoadingButtonBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.DesktopClient/Extensions/HttpClientExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/Extensions/HttpClientExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.DesktopClient/Services/ServerInterop/Auth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/Services/ServerInterop/Auth.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.DesktopClient/TodoApp.DesktopClient.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/TodoApp.DesktopClient.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TodoApp.DesktopClient/ViewModels/PagesViewModels/HomePageViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/ViewModels/PagesViewModels/HomePageViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/TodoItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.Infrastructure/Models/TodoItem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/home/home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/components/home/home.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/services/auth/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/services/auth/auth.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/services/todo-hub/todo-hub.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/ClientApp/src/app/services/todo-hub/todo-hub.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Hubs/TodoHub.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Hubs/TodoHub.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/Startup.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/todo-app-api.docx" beforeDir="false" afterPath="$PROJECT_DIR$/docs/todo-app-api.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.DesktopClient/ViewModels/ViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/ViewModels/ViewModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.DesktopClient/Views/Pages/HomePage.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.DesktopClient/Views/Pages/HomePage.xaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.WebApp/TodoApp.WebApp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.WebApp/TodoApp.WebApp.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoApp.sln" beforeDir="false" afterPath="$PROJECT_DIR$/TodoApp.sln" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -232,7 +230,7 @@
       <workItem from="1628489003032" duration="719000" />
       <workItem from="1628491119391" duration="284000" />
       <workItem from="1628491773048" duration="4180000" />
-      <workItem from="1628749910535" duration="5478000" />
+      <workItem from="1628749910535" duration="6782000" />
     </task>
     <task id="LOCAL-00001" summary="Add repository and controller for TODO-items.">
       <created>1626512032586</created>

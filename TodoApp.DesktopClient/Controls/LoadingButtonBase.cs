@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -26,7 +23,11 @@ namespace TodoApp.DesktopClient.Controls
             "IsLoading",
             typeof(bool),
             typeof(LoadingButtonBase),
-            new UIPropertyMetadata(false));
+            new UIPropertyMetadata(false, (d, e) =>
+            {
+                var element = d as LoadingButtonBase;
+                element.OnPropertyChanged(nameof(IsButtonEnabled));
+            }));
 
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register(
             "Text",
@@ -54,7 +55,7 @@ namespace TodoApp.DesktopClient.Controls
 
         public bool IsLoading
         {
-            get => (bool) GetValue(IsLoadingProperty);
+            get => (bool)GetValue(IsLoadingProperty);
             set
             {
                 SetValue(IsLoadingProperty, value);
@@ -67,13 +68,13 @@ namespace TodoApp.DesktopClient.Controls
 
         public string Text
         {
-            get => (string) GetValue(TextProperty);
+            get => (string)GetValue(TextProperty);
             set => SetValue(TextProperty, value);
         }
 
         public ICommand Command
         {
-            get => (ICommand) GetValue(CommandProperty);
+            get => (ICommand)GetValue(CommandProperty);
             set => SetValue(CommandProperty, value);
         }
 
@@ -85,7 +86,7 @@ namespace TodoApp.DesktopClient.Controls
 
         public RoutedEventHandler Click
         {
-            get => (RoutedEventHandler) GetValue(ClickProperty);
+            get => (RoutedEventHandler)GetValue(ClickProperty);
             set => SetValue(ClickProperty, value);
         }
 
@@ -98,7 +99,7 @@ namespace TodoApp.DesktopClient.Controls
         {
             get
             {
-                var isEnabled = (bool) GetValue(IsEnabledProperty);
+                var isEnabled = (bool)GetValue(IsEnabledProperty);
                 var isLoading = IsLoading;
                 return !isLoading && isEnabled;
             }
