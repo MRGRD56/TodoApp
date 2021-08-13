@@ -146,6 +146,7 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
             var itemsToRemove = TodoItems.Where(ti => ids.Contains(ti.Item.Id)).ToArray();
             foreach (var item in itemsToRemove)
             {
+                item.IsChecked = false;
                 TodoItems.Remove(item);
             }
         }
@@ -318,7 +319,7 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
 
         internal async void OnTodoItemsScroll(double offset, double height)
         {
-            if (!IsItemsLoading && height - offset < 5)
+            if (!IsItemsLoading && height - offset < 10)
             {
                 await FetchItemsAsync();
             }

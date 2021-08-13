@@ -26,14 +26,14 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Margin="3">
+        <Grid Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBox Grid.Row="0" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="52" Margin="0 0 0 5"
+            <TextBox Grid.Row="0" TextWrapping="Wrap" AcceptsReturn="True" MinHeight="52" Margin="3 3 3 5"
                      VerticalContentAlignment="Top" Text="{Binding NewTodoItemText, Mode=TwoWay}"/>
-            <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="3 0 3 3">
                 <controls:LoadingButtonPrimary Text="Submit" Margin="0 0 8 0"
                                                IsLoading="{Binding IsSubmitting}"
                                                Command="{Binding SubmitCommand}"/>
