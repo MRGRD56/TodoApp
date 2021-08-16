@@ -46,6 +46,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\TodoApp.Infrastructure\TodoApp.Infrastructure.csproj" />
+      <ProjectReference Include="..\TodoApp.ServerInterop\TodoApp.ServerInterop.csproj" />
     </ItemGroup>
 
     <ItemGroup>

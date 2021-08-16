@@ -1,5 +1,6 @@
 ﻿using Microsoft.CSharp.RuntimeBinder;
 using System;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using System.Windows.Threading;
@@ -42,11 +43,11 @@ namespace TodoApp.DesktopClient.Services
                 }
             }
 
-            var navigationResult = NavigationFrame.Navigate(content, extraData);
             if (clearHistory)
             {
                 NavigationFrame.Navigated += NavigationFrameNavigated;
             }
+            var navigationResult = NavigationFrame.Navigate(content, extraData);
             return navigationResult;
         }
 

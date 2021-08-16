@@ -4,10 +4,10 @@ using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
-using TodoApp.DesktopClient.Extensions;
-using TodoApp.DesktopClient.Models.Exceptions;
+using TodoApp.ServerInterop.Extensions;
+using TodoApp.ServerInterop.Models.Exceptions;
 using TodoApp.DesktopClient.Services;
-using TodoApp.DesktopClient.Services.ServerInterop;
+using TodoApp.ServerInterop;
 using TodoApp.DesktopClient.Views.Pages;
 using TodoApp.Infrastructure.Models.RequestModels.Auth;
 
@@ -138,7 +138,7 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
             {
                 var registrationModel = new RegistrationModel(login, password);
                 IsRegistering = true;
-                var response = await Auth.RegisterAsync(registrationModel);
+                var response = await App.Auth.RegisterAsync(registrationModel);
                 MainWindowNavigation.NavigateNew<HomePage>(clearHistory: true);
             }
             catch (HttpException exception)

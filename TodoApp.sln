@@ -16,6 +16,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.MobileClient", "TodoApp.MobileClient\TodoApp.MobileClient\TodoApp.MobileClient.csproj", "{724A49B5-89EF-4500-BCD4-B24D2EE6BFC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.MobileClient.Android", "TodoApp.MobileClient\TodoApp.MobileClient.Android\TodoApp.MobileClient.Android.csproj", "{FFCA6A9B-828E-4BB8-A310-1BB7541D01CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.ServerInterop", "TodoApp.ServerInterop\TodoApp.ServerInterop.csproj", "{B699BF26-52C8-4CC2-8390-C73CBD23300C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +44,20 @@ Global
 		{7858A157-A2A4-4ADB-A0F8-E3BDF1C7B384}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7858A157-A2A4-4ADB-A0F8-E3BDF1C7B384}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7858A157-A2A4-4ADB-A0F8-E3BDF1C7B384}.Release|Any CPU.Build.0 = Release|Any CPU
+		{724A49B5-89EF-4500-BCD4-B24D2EE6BFC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{724A49B5-89EF-4500-BCD4-B24D2EE6BFC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{724A49B5-89EF-4500-BCD4-B24D2EE6BFC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{724A49B5-89EF-4500-BCD4-B24D2EE6BFC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFCA6A9B-828E-4BB8-A310-1BB7541D01CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFCA6A9B-828E-4BB8-A310-1BB7541D01CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFCA6A9B-828E-4BB8-A310-1BB7541D01CB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{FFCA6A9B-828E-4BB8-A310-1BB7541D01CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFCA6A9B-828E-4BB8-A310-1BB7541D01CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFCA6A9B-828E-4BB8-A310-1BB7541D01CB}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{B699BF26-52C8-4CC2-8390-C73CBD23300C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B699BF26-52C8-4CC2-8390-C73CBD23300C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B699BF26-52C8-4CC2-8390-C73CBD23300C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B699BF26-52C8-4CC2-8390-C73CBD23300C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

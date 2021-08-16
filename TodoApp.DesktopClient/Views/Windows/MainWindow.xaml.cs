@@ -1,10 +1,8 @@
-﻿using System.Globalization;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using TodoApp.DesktopClient.Services;
-using TodoApp.DesktopClient.Services.ServerInterop;
 using TodoApp.DesktopClient.Views.Pages;
 
 namespace TodoApp.DesktopClient.Views.Windows
@@ -40,7 +38,7 @@ namespace TodoApp.DesktopClient.Views.Windows
 
         private async Task TryLoginAsync()
         {
-            var isAuthenticated = await Auth.TryLoginAsync();
+            var isAuthenticated = await App.Auth.TryLoginAsync();
             if (isAuthenticated)
             {
                 MainWindowNavigation.NavigateNew<HomePage>();

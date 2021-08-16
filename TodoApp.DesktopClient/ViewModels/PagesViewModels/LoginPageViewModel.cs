@@ -1,16 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Security;
-using System.Threading.Tasks;
+﻿using System.Security;
 using System.Windows.Input;
 using MgMvvmTools;
-using Newtonsoft.Json.Linq;
-using TodoApp.DesktopClient.Extensions;
-using TodoApp.DesktopClient.Models.Exceptions;
 using TodoApp.DesktopClient.Services;
-using TodoApp.DesktopClient.Services.ServerInterop;
 using TodoApp.DesktopClient.Views.Pages;
 using TodoApp.Infrastructure.Models.RequestModels.Auth;
+using TodoApp.ServerInterop.Extensions;
+using TodoApp.ServerInterop.Models.Exceptions;
 
 namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
 {
@@ -88,7 +83,7 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
             try
             {
                 IsLoggingIn = true;
-                var response = await Auth.LoginAsync(new LoginModel(login, password));
+                var response = await App.Auth.LoginAsync(new LoginModel(login, password));
                 MainWindowNavigation.NavigateNew<HomePage>(clearHistory: true);
             }
             catch (HttpException exception)

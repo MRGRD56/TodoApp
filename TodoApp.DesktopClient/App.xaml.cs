@@ -4,8 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
-using TodoApp.DesktopClient.Data;
+using TodoApp.ServerInterop.Data;
 using TodoApp.Infrastructure.Models.RequestModels.Auth;
+using TodoApp.DesktopClient.Models;
+using TodoApp.ServerInterop;
+using TodoApp.DesktopClient.Services;
+using TodoApp.ServerInterop.Models.Events;
 
 namespace TodoApp.DesktopClient
 {
@@ -14,14 +18,50 @@ namespace TodoApp.DesktopClient
     /// </summary>
     public partial class App : Application
     {
+        private static readonly ILocalDbContextFactory _localDbContextFactory;
+        internal static Auth Auth { get; }
+        internal static Todo Todo { get; }
+        internal static TodoHub TodoHub { get; }
+
+        static App()
+        {
+            _localDbContextFactory = new WindowsLocalDbContextFactory();
+            Auth = new Auth(_localDbContextFactory);
+            Todo = new Todo(Auth);
+            TodoHub = new TodoHub(Auth);
+            TodoHub.ConnectionChanged += TodoHubOnConnectionChanged;
+        }
+
         public App()
         {
-            using var localDbContext = new LocalDbContext();
+            using var localDbContext = _localDbContextFactory.Create();
             localDbContext.Database.EnsureCreated();
 
             DispatcherUnhandledException += OnDispatcherUnhandledException;
         }
 
+        private static void TodoHubOnConnectionChanged(object sender, HubConnectionChangedEventArgs e)
+        {
+            if (!e.HasConnection) return;
+            e.Connection.Reconnecting += ConnectionOnReconnecting;
+            e.Connection.Reconnected += ConnectionOnReconnected;
+        }
+
+        private static Task ConnectionOnReconnecting(Exception arg)
+        {
+            return Task.Run(() =>
+            {
+                AppState.IsLoading = true;
+            });
+        }
+
+        private static Task ConnectionOnReconnected(string arg)
+        {
+            return Task.Run(() =>
+            {
+                AppState.IsLoading = false;
+            });
+        }
         private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
 #if !DEBUG

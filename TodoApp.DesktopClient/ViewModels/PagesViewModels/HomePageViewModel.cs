@@ -9,7 +9,6 @@ using System.Windows.Input;
 using CheckLib;
 using MgMvvmTools;
 using TodoApp.DesktopClient.Services;
-using TodoApp.DesktopClient.Services.ServerInterop;
 using TodoApp.DesktopClient.Views.Pages;
 using TodoApp.Infrastructure.Models;
 using TodoApp.Infrastructure.Models.RequestModels.Todo;
@@ -103,7 +102,7 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
 
         public HomePageViewModel()
         {
-            if (!Auth.IsAuthenticated)
+            if (!App.Auth.IsAuthenticated)
             {
                 MainWindowNavigation.NavigateNew<LoginPage>();
             }
@@ -116,10 +115,10 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
         {
             await FetchItemsAsync();
 
-            TodoHub.Added += TodoHubOnAdded;
-            TodoHub.Deleted += TodoHubOnDeleted;
-            TodoHub.ToggledDone += TodoHubOnToggledDone;
-            TodoHub.Edited += TodoHubOnEdited;
+            App.TodoHub.Added += TodoHubOnAdded;
+            App.TodoHub.Deleted += TodoHubOnDeleted;
+            App.TodoHub.ToggledDone += TodoHubOnToggledDone;
+            App.TodoHub.Edited += TodoHubOnEdited;
         }
 
         private void TodoHubOnEdited(TodoItem todoItem)
@@ -183,7 +182,7 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
             {
                 IsItemsLoading = true;
 
-                var todoItems = await Todo.GetAfter(_lastItemId);
+                var todoItems = await App.Todo.GetAfter(_lastItemId);
 
                 if (!todoItems.Any())
                 {
@@ -235,8 +234,8 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
                 IsSubmitting = true;
                 if (EditingTodoItem.Item.Text != NewTodoItemText)
                 {
-                    var editedTodo = await Todo.Edit(EditingTodoItem.Item.Id, new TodoPutModel(NewTodoItemText, null));
-                    await TodoHub.Edit(editedTodo);
+                    var editedTodo = await App.Todo.Edit(EditingTodoItem.Item.Id, new TodoPutModel(NewTodoItemText, null));
+                    await App.TodoHub.Edit(editedTodo);
                 }
                 EndEditing();
             }
@@ -251,8 +250,8 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
             try
             {
                 IsSubmitting = true;
-                var addedTodo = await Todo.Add(new TodoPostModel(NewTodoItemText));
-                await TodoHub.Add(addedTodo);
+                var addedTodo = await App.Todo.Add(new TodoPostModel(NewTodoItemText));
+                await App.TodoHub.Add(addedTodo);
                 NewTodoItemText = "";
             }
             finally
@@ -267,8 +266,8 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
 
             IsTogglingDone = true;
             var body = new TodosPutModel(SelectedTodoItems.Select(x => x.Item.Id));
-            var editedTodoItems = await Todo.ToggleDone(body); //TODO add loading
-            await TodoHub.ToggleDone(editedTodoItems);
+            var editedTodoItems = await App.Todo.ToggleDone(body); //TODO add loading
+            await App.TodoHub.ToggleDone(editedTodoItems);
             IsTogglingDone = false;
         });
 
@@ -278,8 +277,8 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
 
             IsDeleting = true;
             var body = new TodosDeleteModel(SelectedTodoItems.Select(x => x.Item.Id), false);
-            var deletedTodoItems = await Todo.DeleteMany(body); //TODO add loading
-            await TodoHub.Delete(deletedTodoItems.Select(x => x.Id).ToArray());
+            var deletedTodoItems = await App.Todo.DeleteMany(body); //TODO add loading
+            await App.TodoHub.Delete(deletedTodoItems.Select(x => x.Id).ToArray());
             IsDeleting = false;
         });
 

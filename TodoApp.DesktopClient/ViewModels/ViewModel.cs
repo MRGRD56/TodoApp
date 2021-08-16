@@ -1,27 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using MgMvvmTools;
-using TodoApp.DesktopClient.Models;
-using TodoApp.DesktopClient.Models.Events;
 using TodoApp.DesktopClient.Services;
-using TodoApp.DesktopClient.Services.ServerInterop;
-using NotifyPropertyChanged = TodoApp.DesktopClient.Models.NotifyPropertyChanged;
+using TodoApp.ServerInterop.Models;
+using TodoApp.ServerInterop.Models.Events;
 
 namespace TodoApp.DesktopClient.ViewModels
 {
     public abstract class ViewModel : NotifyPropertyChanged
     {
-        public AccountInfo CurrentUser => Auth.CurrentUser;
+        public AccountInfo CurrentUser => App.Auth.CurrentUser;
         public bool IsAuthenticated => CurrentUser != null;
 
         public ViewModel()
         {
-            Auth.LoggedIn += AuthOnUserChanged;
-            Auth.LoggedOut += AuthOnUserChanged;
+            App.Auth.LoggedIn += AuthOnUserChanged;
+            App.Auth.LoggedOut += AuthOnUserChanged;
         }
 
         private void AuthOnUserChanged(object sender, LoginEventArgs e)

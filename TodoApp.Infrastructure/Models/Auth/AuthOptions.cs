@@ -10,6 +10,6 @@ namespace TodoApp.Infrastructure.Models.Auth
         public string Secret { get; set; }
         public int TokenLifetime { get; set; }
 
-        public SymmetricSecurityKey GetSymmetricSecurityKey() => new(Encoding.UTF8.GetBytes(Secret));
+        public SymmetricSecurityKey GetSymmetricSecurityKey() => new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Secret));
     }
 }
