@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TodoApp.ServerInterop.Data
+namespace TodoApp.ClientLocalDb.Models
 {
     public class KeyValue
     {

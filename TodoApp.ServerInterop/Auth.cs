@@ -4,10 +4,11 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using TodoApp.Infrastructure.Models.Abstractions;
 using TodoApp.Infrastructure.Models.RequestModels.Auth;
-using TodoApp.ServerInterop.Data;
 using TodoApp.ServerInterop.Models;
 using TodoApp.ServerInterop.Models.Events;
 using TodoApp.ServerInterop.Extensions;
+using TodoApp.ClientLocalDb;
+using TodoApp.ClientLocalDb.Models;
 
 namespace TodoApp.ServerInterop
 {

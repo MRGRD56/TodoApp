@@ -1,4 +1,5 @@
 ﻿using System;
+using TodoApp.MobileClient.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,6 +10,9 @@ namespace TodoApp.MobileClient
         public App()
         {
             InitializeComponent();
+
+            var dbFilePath = DependencyService.Get<ILocalDbFileDirectoryProvider>().GetLocalDbFileDirectory();
+
 
             MainPage = new MainPage();
         }

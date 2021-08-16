@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using TodoApp.ServerInterop.Data;
+using TodoApp.ClientLocalDb;
 
 namespace TodoApp.DesktopClient.Models
 {

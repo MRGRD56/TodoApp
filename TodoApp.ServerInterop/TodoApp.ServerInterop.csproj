@@ -12,6 +12,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\TodoApp.ClientLocalDb\TodoApp.ClientLocalDb.csproj" />
 		<ProjectReference Include="..\TodoApp.Infrastructure\TodoApp.Infrastructure.csproj" />
 	</ItemGroup>
 

@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Design;
-
-namespace TodoApp.ServerInterop.Data
+﻿namespace TodoApp.ClientLocalDb
 {
     public interface ILocalDbContextFactory
     {

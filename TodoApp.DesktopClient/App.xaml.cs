@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
-using TodoApp.ServerInterop.Data;
 using TodoApp.Infrastructure.Models.RequestModels.Auth;
 using TodoApp.DesktopClient.Models;
 using TodoApp.ServerInterop;
 using TodoApp.DesktopClient.Services;
 using TodoApp.ServerInterop.Models.Events;
+using TodoApp.ClientLocalDb;
 
 namespace TodoApp.DesktopClient
 {

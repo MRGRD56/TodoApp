@@ -16,11 +16,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.MobileClient", "TodoApp.MobileClient\TodoApp.MobileClient\TodoApp.MobileClient.csproj", "{724A49B5-89EF-4500-BCD4-B24D2EE6BFC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.MobileClient", "TodoApp.MobileClient\TodoApp.MobileClient\TodoApp.MobileClient.csproj", "{724A49B5-89EF-4500-BCD4-B24D2EE6BFC0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.MobileClient.Android", "TodoApp.MobileClient\TodoApp.MobileClient.Android\TodoApp.MobileClient.Android.csproj", "{FFCA6A9B-828E-4BB8-A310-1BB7541D01CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.ServerInterop", "TodoApp.ServerInterop\TodoApp.ServerInterop.csproj", "{B699BF26-52C8-4CC2-8390-C73CBD23300C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.ServerInterop", "TodoApp.ServerInterop\TodoApp.ServerInterop.csproj", "{B699BF26-52C8-4CC2-8390-C73CBD23300C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.ClientLocalDb", "TodoApp.ClientLocalDb\TodoApp.ClientLocalDb.csproj", "{27A517A6-3057-42A3-9463-28D3A70A3931}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +60,10 @@ Global
 		{B699BF26-52C8-4CC2-8390-C73CBD23300C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B699BF26-52C8-4CC2-8390-C73CBD23300C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B699BF26-52C8-4CC2-8390-C73CBD23300C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27A517A6-3057-42A3-9463-28D3A70A3931}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27A517A6-3057-42A3-9463-28D3A70A3931}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27A517A6-3057-42A3-9463-28D3A70A3931}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27A517A6-3057-42A3-9463-28D3A70A3931}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

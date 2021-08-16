@@ -6,14 +6,15 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using TodoApp.ClientLocalDb.Models;
 
-namespace TodoApp.ServerInterop.Data
+namespace TodoApp.ClientLocalDb
 {
     public abstract class LocalDbContext : DbContext
     {
         private readonly string _dbFileDirectory;
         private const string DbFileName = "data.db";
-
+         
         protected LocalDbContext(string dbFileDirectory)
         {
             _dbFileDirectory = dbFileDirectory;

@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using TodoApp.ServerInterop.Extensions;
 using TodoApp.Infrastructure.Models;
 using TodoApp.Infrastructure.Models.RequestModels.Todo;
-using TodoApp.ServerInterop.Data;
 
 namespace TodoApp.ServerInterop
 {
