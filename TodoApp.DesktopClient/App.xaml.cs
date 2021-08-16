@@ -18,15 +18,15 @@ namespace TodoApp.DesktopClient
     /// </summary>
     public partial class App : Application
     {
-        private static readonly ILocalDbContextFactory _localDbContextFactory;
+        private static readonly ILocalDbContextFactory LocalDbContextFactory;
         internal static Auth Auth { get; }
         internal static Todo Todo { get; }
         internal static TodoHub TodoHub { get; }
 
         static App()
         {
-            _localDbContextFactory = new WindowsLocalDbContextFactory();
-            Auth = new Auth(_localDbContextFactory);
+            LocalDbContextFactory = new WindowsLocalDbContextFactory();
+            Auth = new Auth(LocalDbContextFactory);
             Todo = new Todo(Auth);
             TodoHub = new TodoHub(Auth);
             TodoHub.ConnectionChanged += TodoHubOnConnectionChanged;
@@ -34,7 +34,7 @@ namespace TodoApp.DesktopClient
 
         public App()
         {
-            using var localDbContext = _localDbContextFactory.Create();
+            using var localDbContext = LocalDbContextFactory.Create();
             localDbContext.Database.EnsureCreated();
 
             DispatcherUnhandledException += OnDispatcherUnhandledException;

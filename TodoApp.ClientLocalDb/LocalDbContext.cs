@@ -14,10 +14,14 @@ namespace TodoApp.ClientLocalDb
     {
         private readonly string _dbFileDirectory;
         private const string DbFileName = "data.db";
-         
+
         protected LocalDbContext(string dbFileDirectory)
         {
             _dbFileDirectory = dbFileDirectory;
+            if (!Directory.Exists(_dbFileDirectory))
+            {
+                Directory.CreateDirectory(_dbFileDirectory);
+            }
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
