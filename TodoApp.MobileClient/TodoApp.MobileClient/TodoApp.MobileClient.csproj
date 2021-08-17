@@ -25,5 +25,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\TodoApp.ClientLocalDb\TodoApp.ClientLocalDb.csproj" />
+	  <ProjectReference Include="..\..\TodoApp.ServerInterop\TodoApp.ServerInterop.csproj" />
 	</ItemGroup>
 </Project>
