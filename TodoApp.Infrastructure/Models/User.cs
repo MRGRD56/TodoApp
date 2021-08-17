@@ -16,9 +16,9 @@ namespace TodoApp.Infrastructure.Models
         [JsonIgnore]
         public string Password { get; set; }
 
-        public List<Role> Roles { get; set; } = new();
+        public List<Role> Roles { get; set; } = new List<Role>();
 
-        public List<TodoItem> TodoItems { get; set; } = new();
+        public List<TodoItem> TodoItems { get; set; } = new List<TodoItem>();
 
         public void SetPassword(string newPassword)
         {

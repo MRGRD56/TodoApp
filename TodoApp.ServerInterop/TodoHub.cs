@@ -16,12 +16,12 @@ namespace TodoApp.ServerInterop
         {
             _auth = auth;
 
-            _auth.LoggedIn += async (_, _) =>
+            _auth.LoggedIn += async (sender, e) =>
             {
                 await StartNewConnectionAsync();
             };
 
-            _auth.LoggedOut += async (_, _) =>
+            _auth.LoggedOut += async (sender, e) =>
             {
                 await RemoveConnectionAsync();
             };

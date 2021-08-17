@@ -8,7 +8,7 @@ namespace TodoApp.Infrastructure.Models.Abstractions
 {
     public interface ILoginModel
     {
-        string Login { get; init; }
-        string Password { get; init; }
+        string Login { get; }
+        string Password { get; }
     }
 }
