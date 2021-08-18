@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31606.5
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31507.150
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.WebApp", "TodoApp.WebApp\TodoApp.WebApp.csproj", "{1A5784DC-FF1A-4ACD-B71E-55E78E4AEEE9}"
 EndProject
@@ -16,13 +16,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.MobileClient", "TodoApp.MobileClient\TodoApp.MobileClient\TodoApp.MobileClient.csproj", "{724A49B5-89EF-4500-BCD4-B24D2EE6BFC0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.MobileClient.Android", "TodoApp.MobileClient\TodoApp.MobileClient.Android\TodoApp.MobileClient.Android.csproj", "{FFCA6A9B-828E-4BB8-A310-1BB7541D01CB}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.ServerInterop", "TodoApp.ServerInterop\TodoApp.ServerInterop.csproj", "{B699BF26-52C8-4CC2-8390-C73CBD23300C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.ClientLocalDb", "TodoApp.ClientLocalDb\TodoApp.ClientLocalDb.csproj", "{27A517A6-3057-42A3-9463-28D3A70A3931}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.ClientLocalDb", "TodoApp.ClientLocalDb\TodoApp.ClientLocalDb.csproj", "{27A517A6-3057-42A3-9463-28D3A70A3931}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.MobileClient.Android", "TodoApp.MobileClient\TodoApp.MobileClient.Android\TodoApp.MobileClient.Android.csproj", "{93B93232-2650-4F8D-8BFB-F0527C011038}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoApp.MobileClient", "TodoApp.MobileClient\TodoApp.MobileClient\TodoApp.MobileClient.csproj", "{4C58D1E9-9909-4312-928D-B7A5E4169C6C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,16 +46,6 @@ Global
 		{7858A157-A2A4-4ADB-A0F8-E3BDF1C7B384}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7858A157-A2A4-4ADB-A0F8-E3BDF1C7B384}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7858A157-A2A4-4ADB-A0F8-E3BDF1C7B384}.Release|Any CPU.Build.0 = Release|Any CPU
-		{724A49B5-89EF-4500-BCD4-B24D2EE6BFC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{724A49B5-89EF-4500-BCD4-B24D2EE6BFC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{724A49B5-89EF-4500-BCD4-B24D2EE6BFC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{724A49B5-89EF-4500-BCD4-B24D2EE6BFC0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FFCA6A9B-828E-4BB8-A310-1BB7541D01CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FFCA6A9B-828E-4BB8-A310-1BB7541D01CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FFCA6A9B-828E-4BB8-A310-1BB7541D01CB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{FFCA6A9B-828E-4BB8-A310-1BB7541D01CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FFCA6A9B-828E-4BB8-A310-1BB7541D01CB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FFCA6A9B-828E-4BB8-A310-1BB7541D01CB}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{B699BF26-52C8-4CC2-8390-C73CBD23300C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B699BF26-52C8-4CC2-8390-C73CBD23300C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B699BF26-52C8-4CC2-8390-C73CBD23300C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -64,6 +54,16 @@ Global
 		{27A517A6-3057-42A3-9463-28D3A70A3931}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27A517A6-3057-42A3-9463-28D3A70A3931}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27A517A6-3057-42A3-9463-28D3A70A3931}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93B93232-2650-4F8D-8BFB-F0527C011038}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93B93232-2650-4F8D-8BFB-F0527C011038}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93B93232-2650-4F8D-8BFB-F0527C011038}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{93B93232-2650-4F8D-8BFB-F0527C011038}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93B93232-2650-4F8D-8BFB-F0527C011038}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93B93232-2650-4F8D-8BFB-F0527C011038}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{4C58D1E9-9909-4312-928D-B7A5E4169C6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C58D1E9-9909-4312-928D-B7A5E4169C6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C58D1E9-9909-4312-928D-B7A5E4169C6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C58D1E9-9909-4312-928D-B7A5E4169C6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

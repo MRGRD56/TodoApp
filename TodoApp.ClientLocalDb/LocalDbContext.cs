@@ -31,6 +31,18 @@ namespace TodoApp.ClientLocalDb
             optionsBuilder.UseSqlite($"Filename={fullFilePath}");
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<KeyValue>()
+                .HasKey(kv => kv.Key);
+
+            modelBuilder.Entity<KeyValue>()
+                .Property(kv => kv.Value)
+                .IsRequired(false);
+        }
+
         public DbSet<KeyValue> LocalStorage { get; set; }
     }
 }
