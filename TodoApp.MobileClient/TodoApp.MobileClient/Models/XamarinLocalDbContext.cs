@@ -5,7 +5,7 @@ namespace TodoApp.MobileClient.Models
 {
     public class XamarinLocalDbContext : LocalDbContext
     {
-        private static readonly string FileDirectory = 
+        private static string FileDirectory => 
             DependencyService.Get<ILocalDbFileDirectoryProvider>().GetLocalDbFileDirectory();
 
         public XamarinLocalDbContext() : base(FileDirectory)

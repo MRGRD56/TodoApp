@@ -1,12 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:TodoApp.MobileClient.ViewModels;assembly=TodoApp.MobileClient"
              x:Class="TodoApp.MobileClient.Views.HomePage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+    <ContentPage.BindingContext>
+        <viewModels:HomePageViewModel/>
+    </ContentPage.BindingContext>
+    <StackLayout>
+        <StackLayout BindableLayout.ItemsSource="{Binding TodoItems}">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Text="{Binding Item.Text}"/>
+                        <Label Grid.Row="1" HorizontalOptions="End" Text="{Binding Item.CreationLocalTime, StringFormat='{0:yyyy-MM-dd HH:mm:ss}'}"
+                               FontSize="Micro" TextColor="#6c757d"/>
+                    </Grid>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
         </StackLayout>
-    </ContentPage.Content>
+        <Button Text="Load more" Command="{Binding LoadMoreItemsCommand}"/>
+    </StackLayout>
 </ContentPage>

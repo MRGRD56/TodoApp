@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using TodoApp.MobileClient.Services;
+using TodoApp.MobileClient.Extensions;
 using Xamarin.Forms;
 
 namespace TodoApp.MobileClient.ViewModels
@@ -11,7 +11,7 @@ namespace TodoApp.MobileClient.ViewModels
     {
         public ICommand PushModalCommand => new Command<Type>(async type => 
         {
-            await MainPageNavigation.PushNewModalAsync(type);
+            await App.GetMainPage().Navigation.PushNewModalAsync(type);
         });
 
         public event PropertyChangedEventHandler PropertyChanged;

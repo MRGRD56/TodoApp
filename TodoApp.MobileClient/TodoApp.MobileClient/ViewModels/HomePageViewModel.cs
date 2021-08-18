@@ -4,20 +4,19 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using CheckLib;
-using MgMvvmTools;
-using TodoApp.DesktopClient.Services;
-using TodoApp.DesktopClient.Views.Pages;
 using TodoApp.Infrastructure.Models;
 using TodoApp.Infrastructure.Models.RequestModels.Todo;
+using TodoApp.MobileClient.Extensions;
+using TodoApp.MobileClient.Views;
+using Xamarin.Forms;
 
-namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
+namespace TodoApp.MobileClient.ViewModels
 {
     public class HomePageViewModel : ViewModel
     {
-        public ObservableCollection<Checkable<TodoItem>> TodoItems { get; } = new();
+        public ObservableCollection<Checkable<TodoItem>> TodoItems { get; } = new ObservableCollection<Checkable<TodoItem>>();
 
         private IEnumerable<Checkable<TodoItem>> SelectedTodoItems => TodoItems.GetChecked().ToList();
 
@@ -104,7 +103,8 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
         {
             if (!App.Auth.IsAuthenticated)
             {
-                MainWindowNavigation.NavigateNew<LoginPage>();
+                App.GetMainPage().Navigation.PushNewModalAsync<LoginPage>();
+                return;
             }
             Initialize();
         }
@@ -290,7 +290,10 @@ namespace TodoApp.DesktopClient.ViewModels.PagesViewModels
             }
         });
 
-        public ICommand CancelEditCommand => new Command(EndEditing);
+        public ICommand CancelEditCommand => new Command(() =>
+        {
+            EndEditing();
+        });
 
         private void EndEditing()
         {

@@ -9,9 +9,9 @@
     </ContentPage.BindingContext>
     <Grid HorizontalOptions="Center" VerticalOptions="Center">
         <StackLayout>
-            <Entry Placeholder="Login"/>
-            <Entry Placeholder="Password"/>
-            <Button Text="Sign in"/>
+            <Entry Placeholder="Login" Text="{Binding Login}"/>
+            <Entry Placeholder="Password" Text="{Binding Password}" IsPassword="True"/>
+            <Button Text="Sign in" Command="{Binding LoginCommand}"/>
             <Label>
                 <Label.FormattedText>
                     <FormattedString>
