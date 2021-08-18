@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewmodels="clr-namespace:TodoApp.MobileClient.ViewModels"
+             xmlns:local="clr-namespace:TodoApp.MobileClient.Views"
+             x:Class="TodoApp.MobileClient.Views.LoginPage">
+    <ContentPage.BindingContext>
+        <viewmodels:LoginPageViewModel/>
+    </ContentPage.BindingContext>
+    <Grid HorizontalOptions="Center" VerticalOptions="Center">
+        <StackLayout>
+            <Entry Placeholder="Login"/>
+            <Entry Placeholder="Password"/>
+            <Button Text="Sign in"/>
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Sign up"
+                              TextColor="Blue"
+                              TextDecorations="Underline">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding PushModalCommand}"
+                                                      CommandParameter="{x:Type local:RegistrationPage}"/>
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </StackLayout>
+    </Grid>
+</ContentPage>
