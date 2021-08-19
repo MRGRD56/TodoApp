@@ -6,22 +6,26 @@
     <ContentPage.BindingContext>
         <viewModels:HomePageViewModel/>
     </ContentPage.BindingContext>
-    <StackLayout>
-        <StackLayout BindableLayout.ItemsSource="{Binding TodoItems}">
-            <BindableLayout.ItemTemplate>
-                <DataTemplate>
-                    <Grid Padding="3">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Text="{Binding Item.Text}"/>
-                        <Label Grid.Row="1" HorizontalOptions="End" Text="{Binding Item.CreationLocalTime, StringFormat='{0:yyyy-MM-dd HH:mm:ss}'}"
-                               FontSize="Micro" TextColor="#6c757d"/>
-                    </Grid>
-                </DataTemplate>
-            </BindableLayout.ItemTemplate>
+    <ScrollView Scrolled="ScrollViewOnScrolled">
+        <StackLayout>
+            <StackLayout BindableLayout.ItemsSource="{Binding TodoItems}" Margin="0,6,0,0">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Frame HasShadow="False" BorderColor="#cfd8dc" Margin="5,0,5,3" CornerRadius="5">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" Text="{Binding Item.Text}"/>
+                                <Label Grid.Row="1" HorizontalOptions="End" Text="{Binding Item.CreationLocalTime, StringFormat='{0:yyyy-MM-dd HH:mm:ss}'}"
+                                           FontSize="Micro" TextColor="#6c757d"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+            <Button Text="Load more" Command="{Binding LoadMoreItemsCommand}"/>
         </StackLayout>
-        <Button Text="Load more" Command="{Binding LoadMoreItemsCommand}"/>
-    </StackLayout>
+    </ScrollView>
 </ContentPage>
