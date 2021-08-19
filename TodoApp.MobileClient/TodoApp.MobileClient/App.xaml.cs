@@ -1,5 +1,8 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using TodoApp.MobileClient.Extensions;
 using TodoApp.MobileClient.Models;
+using TodoApp.MobileClient.Views;
 using TodoApp.ServerInterop;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -8,7 +11,7 @@ namespace TodoApp.MobileClient
 {
     public partial class App : Application
     {
-        internal static MainPage GetMainPage() => (MainPage)Current.MainPage;
+        internal static NavigationPage GetMainPage() => (NavigationPage)Current.MainPage;
 
         private static readonly XamarinLocalDbContextFactory LocalDbContextFactory;
         internal static Auth Auth { get; }
@@ -30,19 +33,20 @@ namespace TodoApp.MobileClient
 
             InitializeComponent();
 
-            MainPage = new NavigationPage(new MainPage());
+            MainPage = new NavigationPage();
+            Initialize();
         }
 
-        protected override void OnStart()
+        private async void Initialize()
         {
-        }
-
-        protected override void OnSleep()
-        {
-        }
-
-        protected override void OnResume()
-        {
+            if (await Auth.TryLoginAsync())
+            {
+                await GetMainPage().Navigation.PushNewAsync<HomePage>();
+            }
+            else
+            {
+                await GetMainPage().Navigation.PushNewModalAsync<LoginPage>();
+            }
         }
     }
 }

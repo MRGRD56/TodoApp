@@ -12,6 +12,8 @@ namespace TodoApp.MobileClient
 {
     public partial class MainPage : ContentPage
     {
+        //TODO remove MainPage
+        [Obsolete("Do not use MainPage", true)]
         public MainPage()
         {
             InitializeComponent();

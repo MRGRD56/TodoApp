@@ -2,30 +2,50 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:TodoApp.MobileClient.ViewModels;assembly=TodoApp.MobileClient"
-             x:Class="TodoApp.MobileClient.Views.HomePage">
+             xmlns:views="clr-namespace:TodoApp.MobileClient.Views;assembly=TodoApp.MobileClient"
+             xmlns:converters="clr-namespace:TodoApp.MobileClient.Converters;assembly=TodoApp.MobileClient"
+             x:Class="TodoApp.MobileClient.Views.HomePage"
+             Title="TodoApp">
     <ContentPage.BindingContext>
         <viewModels:HomePageViewModel/>
     </ContentPage.BindingContext>
-    <ScrollView Scrolled="ScrollViewOnScrolled">
-        <StackLayout>
-            <StackLayout BindableLayout.ItemsSource="{Binding TodoItems}" Margin="0,6,0,0">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <Frame HasShadow="False" BorderColor="#cfd8dc" Margin="5,0,5,3" CornerRadius="5">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Label Grid.Row="0" Text="{Binding Item.Text}"/>
-                                <Label Grid.Row="1" HorizontalOptions="End" Text="{Binding Item.CreationLocalTime, StringFormat='{0:yyyy-MM-dd HH:mm:ss}'}"
+    <ContentPage.Resources>
+        <converters:SelectedItemBorderBrushConverter x:Key="SelectedItemBorderBrushConverter"/>
+    </ContentPage.Resources>
+    <ContentView>
+        <ScrollView Scrolled="TodoItemsOnScrolled" VerticalOptions="Fill">
+            <StackLayout>
+                <StackLayout BindableLayout.ItemsSource="{Binding TodoItems}" 
+                             Padding="0,6,0,6">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate><!--FIXME: BorderColor binding is not working-->
+                            <Frame HasShadow="False" Margin="5,0,5,1" CornerRadius="5"
+                                   BorderColor="{Binding IsChecked, Converter={StaticResource SelectedItemBorderBrushConverter}}" >
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.ToggleCheckedCommand, 
+                                        Source={RelativeSource AncestorType={x:Type views:HomePage}}}"
+                                                          CommandParameter="{Binding}"/>
+                                </Frame.GestureRecognizers>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0" Text="{Binding Item.Text}"/>
+                                    <Label Grid.Row="1" HorizontalOptions="End" 
+                                           Text="{Binding Item.CreationLocalTime, StringFormat='{0:yyyy-MM-dd HH:mm:ss}'}"
                                            FontSize="Micro" TextColor="#6c757d"/>
-                            </Grid>
-                        </Frame>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+                <Grid IsVisible="{Binding IsNotAllItemsLoaded}" HorizontalOptions="CenterAndExpand">
+                    <Button Text="Load more" IsVisible="{Binding IsNotItemsLoading}" 
+                            Command="{Binding LoadMoreItemsCommand}"/>
+                    <ActivityIndicator IsVisible="{Binding IsItemsLoading}" HorizontalOptions="Center" IsRunning="True"/>
+                </Grid>
             </StackLayout>
-            <Button Text="Load more" Command="{Binding LoadMoreItemsCommand}"/>
-        </StackLayout>
-    </ScrollView>
+        </ScrollView>
+    </ContentView>
 </ContentPage>

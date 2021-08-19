@@ -28,7 +28,7 @@ namespace TodoApp.MobileClient.ViewModels
             }
 
             var loginResponse = await App.Auth.LoginAsync(new LoginModel(login, password));
-            await App.GetMainPage().DisplayAlert("Logged In", loginResponse.AccessToken, "OK");
+            await App.GetMainPage().Navigation.PopModalAsync(false);
             await App.GetMainPage().Navigation.PushNewAsync<HomePage>();
         });
     }

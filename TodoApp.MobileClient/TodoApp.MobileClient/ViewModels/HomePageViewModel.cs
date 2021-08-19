@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using CheckLib;
@@ -35,8 +36,11 @@ namespace TodoApp.MobileClient.ViewModels
             {
                 _isItemsLoading = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(IsNotItemsLoading));
             }
         }
+
+        public bool IsNotItemsLoading => !IsItemsLoading;
 
         public Checkable<TodoItem> EditingTodoItem
         {
@@ -161,9 +165,11 @@ namespace TodoApp.MobileClient.ViewModels
             set
             {
                 _isAllItemsLoaded = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsNotAllItemsLoaded));
             }
         }
+
+        public bool IsNotAllItemsLoaded => !IsAllItemsLoaded;
 
         private int _lastItemId = 0;
         private string _newTodoItemText;
@@ -191,16 +197,28 @@ namespace TodoApp.MobileClient.ViewModels
                     return;
                 }
 
-                foreach (var todoItem in todoItems)
+                var syncContext = SynchronizationContext.Current;
+
+                await Task.Run(() =>
                 {
-                    TodoItems.Add(new Checkable<TodoItem>(todoItem, onChecked: OnTodoItemChecked));
-                }
+                    syncContext.Send(_ =>
+                    {
+                        foreach (var todoItem in todoItems)
+                        {
+
+                            TodoItems.Add(new Checkable<TodoItem>(todoItem, onChecked: OnTodoItemChecked));
+                        }
+                    }, null);
+                });
 
                 _lastItemId = todoItems.Last().Id;
             }
             finally
             {
-                IsItemsLoading = false;
+                _ = Task.Delay(100).ContinueWith(_ =>
+                {
+                    IsItemsLoading = false;
+                });
             }
         }
 
@@ -259,6 +277,11 @@ namespace TodoApp.MobileClient.ViewModels
                 IsSubmitting = false;
             }
         }
+
+        public ICommand ToggleCheckedCommand => new Command<Checkable<TodoItem>>(todoItem =>
+        {
+            todoItem.Check();
+        });
 
         public ICommand ToggleDoneCommand => new Command(async () =>
         {

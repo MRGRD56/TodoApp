@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using CheckLib;
+using TodoApp.Infrastructure.Models;
 using TodoApp.MobileClient.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -19,7 +22,7 @@ namespace TodoApp.MobileClient.Views
             InitializeComponent();
         }
 
-        private void ScrollViewOnScrolled(object sender, ScrolledEventArgs e)
+        private void TodoItemsOnScrolled(object sender, ScrolledEventArgs e)
         {
             var scrollView = (ScrollView)sender;
             var offset = e.ScrollY;
