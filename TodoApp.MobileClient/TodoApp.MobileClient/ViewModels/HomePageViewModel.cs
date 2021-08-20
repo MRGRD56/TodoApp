@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -17,6 +18,22 @@ namespace TodoApp.MobileClient.ViewModels
 {
     public class HomePageViewModel : ViewModel
     {
+        private readonly HomePage _homePage;
+        private ObservableCollection<ToolbarItem> ToolbarItems { get; } = new ObservableCollection<ToolbarItem>();
+
+        private static IEnumerable<ToolbarItem> AllToolbarItems => new[]
+            {
+                "baseline_edit_24.xml",
+                "baseline_done_24.xml",
+                "baseline_delete_24.xml",
+                "baseline_clear_24.xml"
+            }
+            .Select(img => new ToolbarItem
+            {
+                IconImageSource = ImageSource.FromFile(img)
+            })
+            .ToArray();
+
         public ObservableCollection<Checkable<TodoItem>> TodoItems { get; } = new ObservableCollection<Checkable<TodoItem>>();
 
         private IEnumerable<Checkable<TodoItem>> SelectedTodoItems => TodoItems.GetChecked().ToList();
@@ -103,14 +120,40 @@ namespace TodoApp.MobileClient.ViewModels
             }
         }
 
-        public HomePageViewModel()
+        public HomePageViewModel(HomePage homePage)
         {
+            _homePage = homePage;
             if (!App.Auth.IsAuthenticated)
             {
                 App.GetMainPage().Navigation.PushNewModalAsync<LoginPage>();
                 return;
             }
             Initialize();
+            ToolbarItems.CollectionChanged += ToolbarItemsOnCollectionChanged;
+        }
+
+        private void ToolbarItemsOnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Reset:
+                    _homePage.ToolbarItems.Clear();
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    foreach (var oldItem in e.OldItems)
+                    {
+                        _homePage.ToolbarItems.Remove((ToolbarItem)oldItem);
+                    }
+
+                    break;
+                case NotifyCollectionChangedAction.Add:
+                    foreach (var oldItem in e.NewItems)
+                    {
+                        _homePage.ToolbarItems.Add((ToolbarItem)oldItem);
+                    }
+
+                    break;
+            }
         }
 
         public bool IsActionButtonsShown => IsAddMode && HasSelectedItems;
@@ -229,6 +272,16 @@ namespace TodoApp.MobileClient.ViewModels
             OnPropertyChanged(nameof(HasSingleSelectedItem));
             OnPropertyChanged(nameof(SelectedItemsCountString));
             OnPropertyChanged(nameof(IsActionButtonsShown));
+
+            ToolbarItems.Clear();
+            if (SelectedItemsCount > 0)
+            {
+                foreach (var toolbarItem in AllToolbarItems.Skip(SelectedItemsCount == 1 ? 0 : 1))
+                {
+                    ToolbarItems.Add(toolbarItem);
+                }
+            }
+
         }
 
         public ICommand SubmitCommand => new Command(async () =>

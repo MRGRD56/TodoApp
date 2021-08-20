@@ -20,6 +20,7 @@ namespace TodoApp.MobileClient.Views
         public HomePage()
         {
             InitializeComponent();
+            BindingContext = new HomePageViewModel(this);
         }
 
         private void TodoItemsOnScrolled(object sender, ScrolledEventArgs e)

@@ -6,46 +6,57 @@
              xmlns:converters="clr-namespace:TodoApp.MobileClient.Converters;assembly=TodoApp.MobileClient"
              x:Class="TodoApp.MobileClient.Views.HomePage"
              Title="TodoApp">
-    <ContentPage.BindingContext>
-        <viewModels:HomePageViewModel/>
-    </ContentPage.BindingContext>
     <ContentPage.Resources>
-        <converters:SelectedItemBorderBrushConverter x:Key="SelectedItemBorderBrushConverter"/>
+        <converters:SelectedItemBorderColorConverter x:Key="SelectedItemBorderBrushConverter"/>
     </ContentPage.Resources>
+    <!--<ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="baseline_edit_24.xml"/>
+        <ToolbarItem IconImageSource="baseline_done_24.xml"/>
+        <ToolbarItem IconImageSource="baseline_delete_24.xml"/>
+        <ToolbarItem IconImageSource="baseline_clear_24.xml"/>
+    </ContentPage.ToolbarItems>-->
     <ContentView>
-        <ScrollView Scrolled="TodoItemsOnScrolled" VerticalOptions="Fill">
-            <StackLayout>
-                <StackLayout BindableLayout.ItemsSource="{Binding TodoItems}" 
+        <AbsoluteLayout>
+            <ScrollView Scrolled="TodoItemsOnScrolled" VerticalOptions="Fill" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">
+                <StackLayout>
+                    <StackLayout BindableLayout.ItemsSource="{Binding TodoItems}" 
                              Padding="0,6,0,6">
-                    <BindableLayout.ItemTemplate>
-                        <DataTemplate><!--FIXME: BorderColor binding is not working-->
-                            <Frame HasShadow="False" Margin="5,0,5,1" CornerRadius="5"
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Frame HasShadow="False" Margin="5,0,5,1" CornerRadius="5"
                                    BorderColor="{Binding IsChecked, Converter={StaticResource SelectedItemBorderBrushConverter}}" >
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding BindingContext.ToggleCheckedCommand, 
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding BindingContext.ToggleCheckedCommand, 
                                         Source={RelativeSource AncestorType={x:Type views:HomePage}}}"
                                                           CommandParameter="{Binding}"/>
-                                </Frame.GestureRecognizers>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Label Grid.Row="0" Text="{Binding Item.Text}"/>
-                                    <Label Grid.Row="1" HorizontalOptions="End" 
+                                    </Frame.GestureRecognizers>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Row="0" Text="{Binding Item.Text}"/>
+                                        <Label Grid.Row="1" HorizontalOptions="End" 
                                            Text="{Binding Item.CreationLocalTime, StringFormat='{0:yyyy-MM-dd HH:mm:ss}'}"
-                                           FontSize="Micro" TextColor="#6c757d"/>
-                                </Grid>
-                            </Frame>
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
+                                           FontSize="Micro" TextColor="#90a4ae"/>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                    <Grid IsVisible="{Binding IsNotAllItemsLoaded}" HorizontalOptions="CenterAndExpand">
+                        <Button Text="Load more" IsVisible="{Binding IsNotItemsLoading}" 
+                            Command="{Binding LoadMoreItemsCommand}" VerticalOptions="Center"/>
+                        <ActivityIndicator IsVisible="{Binding IsItemsLoading}" 
+                                           HorizontalOptions="Center" VerticalOptions="Center" 
+                                           IsRunning="True" Margin="0,0,0,5"/>
+                    </Grid>
                 </StackLayout>
-                <Grid IsVisible="{Binding IsNotAllItemsLoaded}" HorizontalOptions="CenterAndExpand">
-                    <Button Text="Load more" IsVisible="{Binding IsNotItemsLoading}" 
-                            Command="{Binding LoadMoreItemsCommand}"/>
-                    <ActivityIndicator IsVisible="{Binding IsItemsLoading}" HorizontalOptions="Center" IsRunning="True"/>
-                </Grid>
-            </StackLayout>
-        </ScrollView>
+            </ScrollView>
+            <ImageButton Source="add_fab.png"
+                         BackgroundColor="Transparent"
+                         AbsoluteLayout.LayoutFlags="PositionProportional"
+                         AbsoluteLayout.LayoutBounds="1,1,AutoSize,AutoSize" Margin="15"/>
+        </AbsoluteLayout>
     </ContentView>
 </ContentPage>
