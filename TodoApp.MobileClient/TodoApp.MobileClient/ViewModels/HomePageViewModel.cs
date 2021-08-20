@@ -21,16 +21,17 @@ namespace TodoApp.MobileClient.ViewModels
         private readonly HomePage _homePage;
         private ObservableCollection<ToolbarItem> ToolbarItems { get; } = new ObservableCollection<ToolbarItem>();
 
-        private static IEnumerable<ToolbarItem> AllToolbarItems => new[]
+        private IEnumerable<ToolbarItem> AllToolbarItems => new[]
             {
-                "baseline_edit_24.xml",
-                "baseline_done_24.xml",
-                "baseline_delete_24.xml",
-                "baseline_clear_24.xml"
+                (ImageSource: "baseline_edit_24.xml", Command: EditCommand),
+                (ImageSource: "baseline_done_24.xml", Command: ToggleDoneCommand),
+                (ImageSource: "baseline_delete_24.xml", Command: DeleteCommand),
+                (ImageSource: "baseline_clear_24.xml", Command: UnselectAllCommand)
             }
-            .Select(img => new ToolbarItem
+            .Select(x => new ToolbarItem
             {
-                IconImageSource = ImageSource.FromFile(img)
+                IconImageSource = ImageSource.FromFile(x.ImageSource),
+                Command = x.Command
             })
             .ToArray();
 
@@ -281,7 +282,6 @@ namespace TodoApp.MobileClient.ViewModels
                     ToolbarItems.Add(toolbarItem);
                 }
             }
-
         }
 
         public ICommand SubmitCommand => new Command(async () =>
@@ -350,6 +350,12 @@ namespace TodoApp.MobileClient.ViewModels
         public ICommand DeleteCommand => new Command(async () =>
         {
             if (!HasSelectedItems) return;
+
+            var alertResult = await _homePage.DisplayAlert(
+                "Delete", 
+                $"Are you sure you want to delete {SelectedItemsCountString}?", 
+                "OK", "Cancel");
+            if (!alertResult) return;
 
             IsDeleting = true;
             var body = new TodosDeleteModel(SelectedTodoItems.Select(x => x.Item.Id), false);

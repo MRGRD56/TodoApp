@@ -8,6 +8,8 @@
              Title="TodoApp">
     <ContentPage.Resources>
         <converters:SelectedItemBorderColorConverter x:Key="SelectedItemBorderBrushConverter"/>
+        <converters:CompletedTodoTextColorConverter x:Key="CompletedTodoTextColorConverter"/>
+        <converters:CompletedTodoTextDecorationsConverter x:Key="CompletedTodoTextDecorationsConverter"/>
     </ContentPage.Resources>
     <!--<ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="baseline_edit_24.xml"/>
@@ -35,7 +37,9 @@
                                             <RowDefinition Height="*"/>
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
-                                        <Label Grid.Row="0" Text="{Binding Item.Text}"/>
+                                        <Label Grid.Row="0" Text="{Binding Item.Text}"
+                                               TextColor="{Binding Item.IsDone, Converter={StaticResource CompletedTodoTextColorConverter}}"
+                                               TextDecorations="{Binding Item.IsDone, Converter={StaticResource CompletedTodoTextDecorationsConverter}}"/>
                                         <Label Grid.Row="1" HorizontalOptions="End" 
                                            Text="{Binding Item.CreationLocalTime, StringFormat='{0:yyyy-MM-dd HH:mm:ss}'}"
                                            FontSize="Micro" TextColor="#90a4ae"/>
