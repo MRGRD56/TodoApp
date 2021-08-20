@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -37,6 +38,35 @@ namespace TodoApp.MobileClient.Extensions
         public static async Task PushNewModalAsync<TPage>(this INavigation navigation) where TPage : Page, new()
         {
             await navigation.PushModalAsync(new TPage());
+        }
+
+        private static void ClearStack(this INavigation navigation, Func<INavigation, IReadOnlyList<Page>> stackGetter)
+        {
+            var stackList = stackGetter.Invoke(navigation).ToList();
+            stackList.ForEach(navigation.RemovePage);
+        }
+
+        public static void ClearNavigationStack(this INavigation navigation)
+        {
+            navigation.NavigationStack
+                .ToList()
+                .ForEach(navigation.RemovePage);
+        }
+
+        public static async Task PopAllAsync(this INavigation navigation)
+        {
+            foreach (var _ in navigation.NavigationStack.ToList())
+            {
+                await navigation.PopAsync(false);
+            }
+        }
+
+        public static async Task PopAllModalsAsync(this INavigation navigation)
+        {
+            foreach (var _ in navigation.ModalStack.ToList())
+            {
+                await navigation.PopModalAsync(false);
+            }
         }
     }
 }

@@ -1,22 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:viewModels="clr-namespace:TodoApp.MobileClient.ViewModels;assembly=TodoApp.MobileClient"
-             xmlns:views="clr-namespace:TodoApp.MobileClient.Views;assembly=TodoApp.MobileClient"
-             xmlns:converters="clr-namespace:TodoApp.MobileClient.Converters;assembly=TodoApp.MobileClient"
-             x:Class="TodoApp.MobileClient.Views.HomePage"
-             Title="TodoApp">
+                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                     xmlns:viewModels="clr-namespace:TodoApp.MobileClient.ViewModels;assembly=TodoApp.MobileClient"
+                     xmlns:views="clr-namespace:TodoApp.MobileClient.Views;assembly=TodoApp.MobileClient"
+                     xmlns:converters="clr-namespace:TodoApp.MobileClient.Converters;assembly=TodoApp.MobileClient"
+                     x:Class="TodoApp.MobileClient.Views.HomePage"
+                     Title="TodoApp" Visual="Material">
     <ContentPage.Resources>
         <converters:SelectedItemBorderColorConverter x:Key="SelectedItemBorderBrushConverter"/>
         <converters:CompletedTodoTextColorConverter x:Key="CompletedTodoTextColorConverter"/>
         <converters:CompletedTodoTextDecorationsConverter x:Key="CompletedTodoTextDecorationsConverter"/>
     </ContentPage.Resources>
-    <!--<ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="baseline_edit_24.xml"/>
-        <ToolbarItem IconImageSource="baseline_done_24.xml"/>
-        <ToolbarItem IconImageSource="baseline_delete_24.xml"/>
-        <ToolbarItem IconImageSource="baseline_clear_24.xml"/>
-    </ContentPage.ToolbarItems>-->
     <ContentView>
         <AbsoluteLayout>
             <ScrollView Scrolled="TodoItemsOnScrolled" VerticalOptions="Fill" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1">

@@ -41,7 +41,7 @@ namespace TodoApp.MobileClient
         {
             if (await Auth.TryLoginAsync())
             {
-                await GetMainPage().Navigation.PushNewAsync<HomePage>();
+                await GetMainPage().Navigation.PushNewAsync<MainFlyoutPage>();
             }
             else
             {
